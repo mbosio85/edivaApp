@@ -11,26 +11,26 @@
 	<% else -%>
 	
 	<%end%>
-
-		<div class="Search">
-		   <%= form_tag(:controller => 'eapp',:action => 'search') do %>
-		   <table align="center">
-		   	<tr>
+	
+    <div class="Search">
+    <%= form_tag(:controller => 'gapp',:action => 'search_gene_show') do %>	
+	<table align="center">	
+		<tr>
 		   	<td>
 		   	Search variants in eDiVa database:
 	  		</td>
-           	</tr>
-           	<tr>
-           	<td>   
-	  		   <%= text_field_tag :searchTerm, nil, :class => 'sfield', :placeholder => "e.g. chr1:10000-1000000, ATM, ENSG00000187634" %> 
-           	</td>
-           	</tr>
-           	<tr>
-           		<th>
-           			<%= submit_tag 	"Search",  :class => 'btn btn-primary btn-medium' %>
-           		</th>
-           	</tr>		
-           	<tr>
+       </tr>
+   		<tr>
+       	   <td>
+		   		<b>Gene</b>: <%= text_field_tag :gene, nil, :class => 'sfieldOptionalgene', :placeholder =>"e.g. ATM, ENSG00000187634" %> 
+           </td>
+        </tr>
+        <tr>
+        	<th>		   
+           		<%= submit_tag "Search", :class => 'btn btn-primary btn-medium' %>
+        	</th>
+        </tr>
+           <tr>
            	<td>		
            		<b>Advanced Options</b>
            </td>
@@ -55,8 +55,8 @@
 	           Allele Frequency: <%= text_field_tag :af ,nil,  :placeholder => "e.g. >0.05" %>            
     	   </td>
            </tr>
-           </table>
-       	   <% end %>
-		</div>
-	</div>	
-</div>
+       </table>
+	   <% end %>
+	   </div>	
+	</div>
+</div>	
