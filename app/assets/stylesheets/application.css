@@ -1,0 +1,213 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ *= require bootstrap_and_overrides
+ */
+body{
+		padding-top:50px;
+}
+.Search {
+		margin:auto;
+        background-color:#FFFFFF;
+        border-radius: 5px 5px 5px 5px;
+        padding: 10px;
+}
+.Search p{
+		text-align: justify;
+}
+.Search h3{
+	    text-align: center;
+}
+.Search table td{
+		color: #000000;
+		padding: 5px;
+}
+.SearchPanel{
+		right:0;
+		left:0;
+        background-color:#E8E8E8;
+        border-radius: 5px 5px 5px 5px;
+}
+.Documentation {
+       	background-color:#F0F0F0;
+        margin:auto;
+        width:1200px;
+        /*border-bottom: 2px solid;*/
+        padding: 10px;
+}
+.Documentation h2{
+		text-decoration: none;
+}
+.Documentation p{
+		text-align: justify;
+}
+.Documentation table{
+        text-align: left;
+        margin: auto;
+}
+.search_res{
+		height: inherit;
+}
+.search_res table tr{
+        text-align: center;
+        margin: auto;
+        border: 2px solid #FF0000;
+        background-color: rgba(0, 0, 0, .2);
+        box-shadow: 5px 5px 5px #888888;
+}
+.search_res table{
+		font-size: smaller;
+        text-align: center;
+        margin:auto;
+        margin-top:1px;
+        box-shadow: 5px 5px 5px #888888;
+}
+.search_res table th td{
+        padding: 6px 16px 6px 6px;
+}
+.footer{
+		color: #FFFFFF;
+		height:60px;
+		padding:5px;
+		font-size: smaller;
+		position: fixed;
+		bottom: 0px;
+		right:0;
+		left:0;
+		position:fixed;
+        background-color:#000000;
+}
+.footer li{
+        display: inline;
+}
+/*.notice, .valid_notice, .invalid_notice{
+		height: auto; 
+		width: auto ;
+		margin-top:5px;
+}
+.notice, .invalid_notice p, .valid_notice p{
+		text-align:center;
+		margin-top:6px;
+}
+
+.notice{
+		background-color: transparent;
+}
+
+.invalid_notice{
+		background-color: #FFCCCC;
+		border:1px solid red;
+}
+.valid_notice{
+		background-color: #CCFFCC;
+		border:1px solid green;
+}*/
+.sfield{
+		width: 550px;
+		height: 25px;
+		border-radius: 5px 5px 5px 5px;
+}
+.sfieldOptional{
+		width: 130px;
+		border-radius: 5px 5px 5px 5px;
+}
+.sfieldOptionalaf{
+		width: 245px;
+		border-radius: 5px 5px 5px 5px;
+}
+.sfieldOptionalgene{
+		width: 510px;
+		border-radius: 5px 5px 5px 5px;	
+}
+.sfieldPanelSearchBox{
+		width: 200px;
+		border-radius: 5px 5px 5px 5px;	
+}
+.sfieldPanel{
+		width: 80px;
+		border-radius: 5px 5px 5px 5px;	
+}
+.logfieldPanel{
+		width: 150px;
+		border-radius: 3px 3px 3px 3px;	
+}
+.signupPanel{
+		width: 300px;
+		height: 25px;
+		border-radius: 5px 5px 5px 5px;
+}
+.submission{
+       	background-color:#F0F0F0;
+        margin:auto;
+        width:1200px;
+        padding: 5px;
+        text-align:justify;	
+}
+.submitdata{
+		margin:auto;
+        width:500px;
+        background-color:#E8E8E8;
+        text-align: left;
+        border-radius: 5px 5px 5px 5px;
+        padding: 20px;
+}
+.submitdata p{
+        text-align: center;
+}
+.submitdata table td{
+        padding: 5px;
+}
+.submitdataPanel{
+		width: 450px;
+		height: 30px;
+		border-radius: 5px 5px 5px 5px;	
+}
+.submissionTutorial{
+       	background-color:#F0F0F0;
+        margin:auto;
+        width:1200px;
+        padding: 10px;
+        text-align:justify;	
+}
+.submissionTutorial p{
+	    background-color:#99FF99;
+		border-radius: 3px 3px 3px 3px;	
+		padding: 10px;
+		font-size:smaller;
+        text-align: left;
+}
+.alertPanel{
+		color:#FF0000;
+		text-align:center;
+		text-decoration:none;
+}
+.ContactPage {
+       	background-color:#F0F0F0;
+        margin:auto;
+        width:1000px;
+        padding: 10px;
+}
+.ContactPage h2{
+		text-align:center;
+}
+.ContactPage table {
+		text-align: center;
+		width: 900px;
+        background-color:#E8E8E8;	
+        padding: 20px;
+		border-radius: 5px 5px 5px 5px;	
+}
+.ContactPage table th{
+		font-size: larger;
+        padding: 10px;
+		border-bottom: 1px solid;
+}
