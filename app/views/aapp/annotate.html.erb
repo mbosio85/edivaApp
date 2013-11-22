@@ -1,0 +1,37 @@
+<div class="row-fluid">
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+
+		<div class="Search">
+		   <%= form_tag({:controller => 'aapp',:action => 'actionAnnotate'}, :multipart => true) do %>
+		   <table align="center">
+		   	<tr>
+		   	<td>
+		   	Upload VCF file to annotate:
+	  		</td>
+           	</tr>
+           	<tr>
+           	<td>  
+				<%= file_field_tag 'vcf' %>
+           	</td>
+           	</tr>
+           	<tr>
+           		<th>
+           			<%= submit_tag 	"Annotate",  :class => 'btn btn-primary btn-medium' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>
+	</div>	
+</div>

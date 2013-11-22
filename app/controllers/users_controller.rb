@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       redirect_to :index
       flash[:notice] = "You should complete all the fields !"
       flash[:color]= "invalid"
-    elsif (! (params[:email] =~ /^[A-Z0-9._%+-]+\@[A-Z0-9.-]+\.[A-Z]{2,4}/)) ## initial check for valid email address format
+    elsif (! (params[:email] =~ /[A-Za-z0-9._%+-]+\@[A-Za-z0-9.-]+\.[A-Za-z]/)) ## initial check for valid email address format
       redirect_to :index
       flash[:notice] = "Not a valid email format !"
       flash[:color]= "invalid"
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     valmsg = User.validateUser(params[:login_username],params[:login_password])
     if (valmsg == 'validuser')
       session[:user] = params[:login_username]
-      redirect_to :controller => 'eapp', :action => 'home'
+      redirect_to :controller => 'aapp', :action => 'analysis'
       flash[:notice] = "Login correct !!"
       flash[:color]= "valid"
     else

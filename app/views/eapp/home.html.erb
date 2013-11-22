@@ -37,22 +37,22 @@
            </tr>
            <tr>
            <td>
-	           Gene Definition: <%= select_tag "chGeneDef", options_for_select(@genedefinition) %> 
-           </td>
+	           <%= select_tag "chGeneDef", options_for_select(@genedefinition), :class => 'sfieldOptional' %>
+           	</td>
            </tr>
            <tr>
            <td>
-	           Exonic Function: <%= select_tag "chFunction",options_for_select(@exonicFunction)  %> 
+	           <%= select_tag "chFunction",options_for_select(@exonicFunction), :class => 'sfieldOptional'  %> 
     	   </td>
            </tr>
            <tr>
            <td>
-           	   Variant Function: <%= select_tag "varfunction",options_for_select(@variantFunction) %> 
+           	   <%= select_tag "varfunction",options_for_select(@variantFunction), :class => 'sfieldOptional' %> 
            </td>
            </tr>
            <tr>
            <td>
-	           Allele Frequency: <%= text_field_tag :af ,nil,  :placeholder => "e.g. >0.05" %>            
+	           <%= text_field_tag :af ,nil,  :placeholder => "e.g. >0.05",  :class => 'sfieldOptionalaf' %>            
     	   </td>
            </tr>
            </table>

@@ -4,6 +4,8 @@ EdivaApp::Application.routes.draw do
   root :to => 'users#index'
   match "index", :to => 'users#index'
   match "home", :to => 'eapp#home'
+  match "analysis", :to => 'aapp#analysis'
+  match "annotate", :to => 'aapp#annotate'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,72 @@
+<% if @wspace == nil -%>
+	<p> Welcome, <%= session[:user] %>. You currently have no workspace. Set a main project please !! </p>	
+<% else -%>
+	<% @wspace.each do |r1| -%>
+	<p> Welcome,<b> <%= session[:user] %></b>. Your current project is <b> <%= r1 %> </b></p>
+	<% end -%>
+<% end -%>	
+	
+
+
+<div class="row-fluid">
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+
+		<div class="Search">
+		   <%= form_tag(:controller => 'aapp',:action => 'createProject') do %>
+		   <table align="center">
+		   	<tr>
+           	<td>   
+	  		   <%= text_field_tag :project, nil, :class => 'sfield',:placeholder => 'Project name' %> 
+      		</td>
+			<td>
+           	   <label class="checkbox">
+           	   	<%= check_box_tag(:mainProject) %>
+				<%= label_tag(:mainProject, "Set as main project") %>
+      		   </label>
+           	</td>
+           	</tr>
+           	<tr>
+           		<th>
+           			<%= submit_tag "Create Project",  :class => 'btn btn-primary btn-medium' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>
+		
+		<% if @wspace != nil -%>
+			<h4>
+				<% @wspace.each do |r1| -%>
+					<b><%= r1 %> : </b> 
+				<% end -%>
+			</h4>
+				<% @wspace.each do |r1| -%>
+					<% if (Dir.entries(session[:user] + "/" + r1).length == 2) %>
+						<p> Your current project has no file(s).</p>
+					<% else -%>
+						<ul>
+						<% Dir.foreach(session[:user] + "/" + r1) do |file|-%>
+						<% next if file == '.' or file == '..' -%>
+							<li> <%= file %> </li>
+						<% end -%>	
+						</ul>
+					<% end -%>
+				<% end -%>
+		<% else -%>
+			<p> You need to set a main project. If you dont have any project then you should start with creating one !! </p>	
+		<% end -%>
+		
+		
+	</div>	
+</div>

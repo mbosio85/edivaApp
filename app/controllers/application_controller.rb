@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   #This method is for preventing users to access Signup & Login Page without logout
   def save_login_state
     if session[:user]
-      redirect_to(:controller => 'eapp', :action => 'home')
+      redirect_to(:controller => 'aapp', :action => 'analysis')
       return false
     else
       return true
