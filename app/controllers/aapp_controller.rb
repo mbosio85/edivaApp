@@ -77,9 +77,9 @@ class AappController < ApplicationController
       #userVcf = params[:vcf].original_filename
       @msg = Corelib.handleUserFile(params[:vcf],session[:user],workspace)
       if @msg == "upload"
+        redirect_to :analysis
         flash[:notice] = "VCF file uplaoded and annotated"
-        flash[:color]= "valid"
-        redirect_to :analysis        
+        flash[:color]= "valid"        
       end
     end
   end
@@ -101,11 +101,15 @@ class AappController < ApplicationController
       flash[:notice] = "You need to select a main project before proceeding with the analysis !"
       flash[:color]= "invalid"
     else  
-      @msg = Corelib.rankUserAnnotatedFile(params[:vcf],session[:user],workspace)
+      @msg = Corelib.rankUserAnnotatedFile(params[:fileToRank],session[:user],workspace)
       if @msg == "rank"
+        redirect_to :analysis
         flash[:notice] = "Annotated file has been ranked !"
         flash[:color]= "valid"
-        redirect_to :analysis        
+      else
+        redirect_to :rank
+        flash[:notice] = "something went wrong !"
+        flash[:color]= "invalid"
       end
     end
   end

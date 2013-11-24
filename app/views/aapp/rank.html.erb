@@ -21,7 +21,7 @@
 	<% end -%>	
 
 		<div class="Search">
-		   <%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
+		   <%= form_tag(:controller => 'aapp',:action => 'actionRank') do %>
 		   <table align="center">
 		   	<tr>
 		   	<td>
@@ -31,7 +31,7 @@
            	<tr>
            	<td>  
 				<% if @files != nil -%>
-					<%= select_tag "mainProjecttoSet", options_for_select(@files) %> &nbsp;
+					<%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
 				<% else -%>
 					<p> You have no annotated files to rank !! </p>
 				<% end -%>	
@@ -39,7 +39,7 @@
            	</tr>
            	<tr>
            		<th>
-           			<%= submit_tag 	"Rank Variants",  :class => 'btn btn-primary btn-medium' %>
+           			<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
            		</th>
            	</tr>		
            </table>

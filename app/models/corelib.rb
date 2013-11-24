@@ -16,7 +16,7 @@ class Corelib
         file.write(userFile.read)
       end
       
-      annotateVCF(fl,user,project)
+      #annotateVCF(fl,user,project)
       #annotateVCFhack(fl,user,project)
       
       valMsg = "upload" ## for validation response 
@@ -25,7 +25,7 @@ class Corelib
   
   def self.annotateVCF(userFile,user,project)
     
-    annCommand = "perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tempDir  /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + ""
+    annCommand = "nohup perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tempDir  /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " &"
     system(annCommand) 
     
   end
@@ -40,13 +40,12 @@ class Corelib
       valMsg = nil
       
       ## call oliver's rank tool from ediva web server
-      rankCommand = "python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + ".ranked"
+      rankCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project + "/" + userFile + ".ranked  &"
       system(rankCommand)
       
       valMsg = "rank" ## for validation response 
       return valMsg
   end
-  
   
   
 end
