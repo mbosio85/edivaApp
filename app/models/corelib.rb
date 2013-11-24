@@ -6,7 +6,6 @@ class Corelib
   
   def self.handleUserFile(userFile,user,project)
    
-      data = Array.new
       valMsg = nil
       
       fl = userFile.original_filename ## file name to do rest of the things after saving
@@ -18,21 +17,35 @@ class Corelib
       end
       
       annotateVCF(fl,user,project)
+      #annotateVCFhack(fl,user,project)
       
-        
       valMsg = "upload" ## for validation response 
       return valMsg
   end
   
   def self.annotateVCF(userFile,user,project)
     
-    #annCommand = "perl /Users/rrahman/ExomeCourseTest/eDiVaAnnotation/annotateSNP.pl --input /Users/rrahman/ExomeCourseTest/sample.test.vcf --tempDir /Users/rrahman/ExomeCourseTest"
-    annCommand = "perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tmpDir  /home/rrahman/scratch"
-    #annCommand = "perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input "+ Rails.root.join(user,project,userFile).to_s + " --tmpDir " + Rails.root.join(user,project).to_s + "" 
+    annCommand = "perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tempDir  /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + ""
     system(annCommand) 
     
   end
   
+  def self.annotateVCFhack(userFile,user,project)
+    annCommand = "scp /home/rrahman/template/"+ userFile + " /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + ""
+    system(annCommand)   
+  end
+
+
+  def self.rankUserAnnotatedFile(userFile,user,project)
+      valMsg = nil
+      
+      ## call oliver's rank tool from ediva web server
+      rankCommand = "python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + ".ranked"
+      system(rankCommand)
+      
+      valMsg = "rank" ## for validation response 
+      return valMsg
+  end
   
   
   

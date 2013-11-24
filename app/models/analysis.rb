@@ -92,11 +92,23 @@ class Analysis
     ## update database for main project
     if (projectToChange != nil)
       ## check proejct in the database
-      qryProjectUpdate = "update Table_workspace set  project = '"+ projectToChange +"' where user = '"+ user +"';"
-      ccU = Analysis.new.self
-      res = ccU.query(qryProjectUpdate)
-      ccU.close
-      msgToReturn = "change"
+      qryProject = "select project from Table_workspace where user = '"+ user +"';"
+      ccP = Analysis.new.self
+      res = ccP.query(qryProject)
+      ccP.close
+      if res.num_rows == 0
+        qryC = "insert into Table_workspace(user, project) values('"+ user +"','"+ projectToChange +"')"
+        cc = Analysis.new.self
+        cc.query(qryC)
+        cc.close
+      else
+        ## check proejct in the database
+        qryProjectUpdate = "update Table_workspace set  project = '"+ projectToChange +"' where user = '"+ user +"';"
+        ccU = Analysis.new.self
+        res = ccU.query(qryProjectUpdate)
+        ccU.close
+        msgToReturn = "change"
+      end
     end
     
     return msgToReturn

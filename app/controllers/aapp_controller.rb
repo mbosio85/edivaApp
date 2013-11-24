@@ -37,6 +37,24 @@ class AappController < ApplicationController
      
   end
 
+  def rank
+    (@wspace,count) = Analysis.gWorkspace(session[:user])
+    @files = Array.new
+    
+    if (count == 0)
+      @wspace = nil
+    else
+      @wspace.each do |r1|
+      Dir.foreach(session[:user] + "/" + r1) do |file|
+        next if file == '.' or file == '..'
+          if file =~ /annotated$/
+            @files.push(file)
+          end
+        end
+      end      
+    end
+    
+  end
 
   def actionAnnotate
     workspace = nil
@@ -66,6 +84,31 @@ class AappController < ApplicationController
     end
   end
 
+  def actionRank
+    workspace = nil
+    @wspace,count = Analysis.gWorkspace(session[:user])
+    
+    if count == 0
+      workspace = nil
+    else
+      @wspace.each do |r1|
+        workspace = r1
+      end
+    end
+    
+    if workspace == nil
+      redirect_to :rank
+      flash[:notice] = "You need to select a main project before proceeding with the analysis !"
+      flash[:color]= "invalid"
+    else  
+      @msg = Corelib.rankUserAnnotatedFile(params[:vcf],session[:user],workspace)
+      if @msg == "rank"
+        flash[:notice] = "Annotated file has been ranked !"
+        flash[:color]= "valid"
+        redirect_to :analysis        
+      end
+    end
+  end
 
 
   def createProject

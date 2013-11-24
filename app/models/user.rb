@@ -30,12 +30,15 @@ class User
       
         qry = "insert into Table_users values('"+ username+"','"+ email +"','"+ pass+"','"+ salt+"')"
         #qry = "insert into Table_users values('"+ username+"','"+ email +"','"+ pass+"','puta');"
-    
+        
         cc = User.new.self
         cc.query(qry)
         cc.close
         ## clear password    
         pass = nil
+
+        ## create webserver physical workspace
+        Dir.mkdir(Rails.root.join(user)) unless File.exists?(user)
     
         ## return message
         return "success"      

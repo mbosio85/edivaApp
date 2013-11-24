@@ -1,0 +1,49 @@
+<div class="row-fluid">
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+
+	<% if @wspace == nil -%>
+		<p>You currently have no workspace. Set a main project to continue please !! </p>	
+	<% else -%>
+		<% @wspace.each do |r1| -%>
+			<p> Your current project is <b> <%= r1 %> </b></p>
+		<% end -%>
+	<% end -%>	
+
+		<div class="Search">
+		   <%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
+		   <table align="center">
+		   	<tr>
+		   	<td>
+				Select annotated file to rank:
+	  		</td>
+           	</tr>
+           	<tr>
+           	<td>  
+				<% if @files != nil -%>
+					<%= select_tag "mainProjecttoSet", options_for_select(@files) %> &nbsp;
+				<% else -%>
+					<p> You have no annotated files to rank !! </p>
+				<% end -%>	
+           	</td>
+           	</tr>
+           	<tr>
+           		<th>
+           			<%= submit_tag 	"Rank Variants",  :class => 'btn btn-primary btn-medium' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>
+	</div>	
+</div>
