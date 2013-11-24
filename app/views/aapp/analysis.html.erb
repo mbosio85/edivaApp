@@ -75,18 +75,31 @@
 	
 </div>	
 
+<div class="row-fluid">
+	<div class="span12">
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+	</div>
+</div>
+
+
 
 <div class="row-fluid">
 	<div class="span8">
 		<% if @wspace != nil -%>
 			<h4>
-				<% @wspace.each do |r1| -%>
-					<b><%= r1 %> : </b> 
-				<% end -%>
+				Workspace Contents:
 			</h4>
 				<table class="table table-hover">
 				<thead>
 					<th>
+						<% if @wspace != nil -%>
+							<% @wspace.each do |r1| -%>
+								<b><%= r1 %> </b> 
+							<% end -%>
+						<% end -%>
 						File(s)
 					</th>
 				</thead>	
@@ -121,7 +134,7 @@
 	<div class="span4">
 		<div class="Search">
 			<h4>
-				File actions on Main Project
+				File actions on Workspace
 			</h4>	
 			<table align="center">
 		   	<tr>

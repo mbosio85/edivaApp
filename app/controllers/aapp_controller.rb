@@ -3,21 +3,33 @@ class AappController < ApplicationController
   before_filter :authenticate_user, :only => [:analysis]
 
   def analysis
-    @wspace = Analysis.gWorkspace(session[:user])
+    (@wspace,count) = Analysis.gWorkspace(session[:user])
     (projects,pros_number) = Analysis.gProjects(session[:user])
     
-    @pros = Array.new(pros_number - 2)
-    projects.each do |p|
-      @pros.push(p)
+    if (pros_number == 0)
+     @pros = Array.new
+    else
+      @pros = Array.new(pros_number)
+      if projects != nil
+        projects.each do |p|
+          @pros.push(p)
+        end
+      end      
     end
     
     @files = Array.new
-    @wspace.each do |r1|
+    
+    if (count == 0)
+      @wspace = nil
+    else
+      @wspace.each do |r1|
       Dir.foreach(session[:user] + "/" + r1) do |file|
         next if file == '.' or file == '..'
           @files.push(file)
-      end
-    end     
+        end
+      end     
+      
+    end
     @actions = ['Choose action','Download','Delete']    
   end
 
@@ -28,9 +40,9 @@ class AappController < ApplicationController
 
   def actionAnnotate
     workspace = nil
-    @wspace = Analysis.gWorkspace(session[:user])
+    @wspace,count = Analysis.gWorkspace(session[:user])
     
-    if @wspace == nil
+    if count == 0
       workspace = nil
     else
       @wspace.each do |r1|
@@ -47,7 +59,7 @@ class AappController < ApplicationController
       #userVcf = params[:vcf].original_filename
       @msg = Corelib.handleUserFile(params[:vcf],session[:user],workspace)
       if @msg == "upload"
-        flash[:notice] = "VCF file uplaoded"
+        flash[:notice] = "VCF file uplaoded and annotated"
         flash[:color]= "valid"
         redirect_to :analysis        
       end

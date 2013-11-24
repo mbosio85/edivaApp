@@ -56,7 +56,7 @@ class Analysis
         workspacetoreturn = r1
       end
     end
-    return workspacetoreturn      
+    return workspacetoreturn,res.num_rows      
   end
 
 
@@ -71,8 +71,11 @@ class Analysis
     res = ccP.query(qryProject)
     ccP.close
   
-    projectstoreturn = res
-
+    if res.num_rows != 0
+      projectstoreturn = res
+    else
+      projectstoreturn = nil
+    end
     #if res.num_rows != 0
     #  res.each do |r1|
     #    projectstoreturn = r1
