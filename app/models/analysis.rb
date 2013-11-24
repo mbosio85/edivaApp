@@ -60,4 +60,45 @@ class Analysis
   end
 
 
+  ## get projects
+  def self.gProjects(user)
+    
+    projectstoreturn = nil
+    
+    ## check proejct in the database
+    qryProject = "select project from Table_project where user = '"+ user +"';"
+    ccP = Analysis.new.self
+    res = ccP.query(qryProject)
+    ccP.close
+  
+    projectstoreturn = res
+
+    #if res.num_rows != 0
+    #  res.each do |r1|
+    #    projectstoreturn = r1
+    #  end
+    #end
+    return projectstoreturn,res.num_rows      
+  end
+
+  ## change workspace
+  def self.swapWorkspace(projectToChange,user)
+    
+    msgToReturn = nil
+    
+    ## update database for main project
+    if (projectToChange != nil)
+      ## check proejct in the database
+      qryProjectUpdate = "update Table_workspace set  project = '"+ projectToChange +"' where user = '"+ user +"';"
+      ccU = Analysis.new.self
+      res = ccU.query(qryProjectUpdate)
+      ccU.close
+      msgToReturn = "change"
+    end
+    
+    return msgToReturn
+  end
+
+
+
 end

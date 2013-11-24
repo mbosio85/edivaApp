@@ -4,6 +4,21 @@ class AappController < ApplicationController
 
   def analysis
     @wspace = Analysis.gWorkspace(session[:user])
+    (projects,pros_number) = Analysis.gProjects(session[:user])
+    
+    @pros = Array.new(pros_number - 2)
+    projects.each do |p|
+      @pros.push(p)
+    end
+    
+    @files = Array.new
+    @wspace.each do |r1|
+      Dir.foreach(session[:user] + "/" + r1) do |file|
+        next if file == '.' or file == '..'
+          @files.push(file)
+      end
+    end     
+    @actions = ['Choose action','Download','Delete']    
   end
 
   def annotate
@@ -56,12 +71,29 @@ class AappController < ApplicationController
       flash[:notice] = "Project already exists ! Provide a different name please !!"
       flash[:color]= "invalid"
       return
-    end
+    else
       redirect_to :analysis
       flash[:notice] = "Project created !!"
       flash[:color]= "valid"  
+    end
   end    
 
+  def changeMainProject
+    @msg = Analysis.swapWorkspace(params[:mainProjecttoSet],session[:user])
 
+    if @msg == "change"
+      redirect_to :analysis
+      flash[:notice] = "Main project has been changed !!"
+      flash[:color]= "valid"
+      return
+    else
+      redirect_to :analysis
+      flash[:notice] = "Something went wrong !!"
+      flash[:color]= "invalid"  
+    end
+  end
+
+  def workspaceFileAction     
+  end
 
 end
