@@ -56,6 +56,32 @@ class AappController < ApplicationController
     
   end
 
+  def familyanalysis
+    @inhTypes = ['denovo','dominant','recessive']
+    (@wspace,count) = Analysis.gWorkspace(session[:user])
+    @files = Array.new
+    
+    if (count == 0)
+      @wspace = nil
+    else
+      @wspace.each do |r1|
+      Dir.foreach(session[:user] + "/" + r1) do |file|
+        next if file == '.' or file == '..'
+          if file =~ /ranked$/
+            @files.push(file)
+          end
+        end
+      end      
+    end
+  end
+
+  def actionFamily
+
+  end
+
+
+
+
   def actionAnnotate
     workspace = nil
     @wspace,count = Analysis.gWorkspace(session[:user])

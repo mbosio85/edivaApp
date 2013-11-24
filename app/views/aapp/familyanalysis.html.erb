@@ -1,0 +1,155 @@
+<div class="row-fluid">
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+
+	<% if @wspace == nil -%>
+		<p>You currently have no workspace. Set a main project to continue please !! </p>	
+	<% else -%>
+		<% @wspace.each do |r1| -%>
+			<p> Your current project is <b> <%= r1 %> </b></p>
+		<% end -%>
+	<% end -%>	
+
+		<div class="Search">
+			<h4>
+				Single Sample VCF Uploads for Trio/Family analysis
+			</h4>	
+			<h5>
+				VCF Annotation -> Variants Ranking -> Trio/Family Analysis
+			</h5>	
+			<%= form_tag({:controller => 'aapp',:action => 'actionFamily'},:multipart => true) do %>
+
+				<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>
+							Sample(s)
+						</th>
+						<th>
+							Upload File(s)
+						</th>
+						<th>
+							Select File(s)
+						</th>
+						<th>
+							Affected/Notaffected
+						</th>	
+					</tr>	
+				</thead>
+					
+				<tbody>
+					<tr class="success">
+						<td>
+							<%= text_field_tag :sample1, nil, :placeholder => 'sample 1' %>
+						</td>
+						<td>
+							<%= file_field_tag 'vcf1' %>
+						</td>
+						<td>
+							<%= select_tag "selectedFile1", options_for_select(@files) %>
+						</td>
+						<td>
+							<%= check_box_tag(:affected1) %><%= label_tag(:affected1, "Affected") %>
+						</td>	
+					</tr>	
+					<tr class="success">
+						<td>
+							<%= text_field_tag :sample2, nil, :placeholder => 'sample 2' %>
+						</td>
+						<td>
+							<%= file_field_tag 'vcf2' %>
+						</td>
+						<td>
+							<%= select_tag "selectedFile2", options_for_select(@files) %>
+						</td>
+						<td>
+							<%= check_box_tag(:affected2) %><%= label_tag(:affected2, "Affected") %>
+						</td>	
+					</tr>	
+					<tr class="success">
+						<td>
+							<%= text_field_tag :sample3, nil, :placeholder => 'sample 3' %>
+						</td>
+						<td>
+							<%= file_field_tag 'vcf3' %>
+						</td>
+						<td>
+							<%= select_tag "selectedFile3", options_for_select(@files) %>
+						</td>
+						<td>
+							<%= check_box_tag(:affected3) %><%= label_tag(:affected3, "Affected") %>
+						</td>	
+					</tr>	
+				</tbody>				
+				</table>
+						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
+					<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
+
+       	   <% end %>
+		</div>
+	</div>	
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		
+		<div class="Search">
+			<h4>
+				MultiSample/Merged VCF Upload for Trio/Family analysis
+			</h4>	
+			<h5>
+				VCF Annotation -> Variants Ranking -> Trio/Family Analysis
+			</h5>	
+			<%= form_tag({:controller => 'aapp',:action => 'actionFamily'},:multipart => true) do %>
+
+				<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>
+						</th>
+						<th>
+							Sample(s)
+						</th>
+						<th>
+						</th>	
+					</tr>	
+				</thead>
+					
+				<tbody>
+					<tr class="success">
+						<td>
+							<%= text_field_tag :sample1, nil, :placeholder => 'sample 1' %></br>
+							<%= check_box_tag(:affected1) %><%= label_tag(:affected1, "Affected") %>
+						</td>	
+						<td>
+							<%= text_field_tag :sample2, nil, :placeholder => 'sample 2' %></br>
+							<%= check_box_tag(:affected2) %><%= label_tag(:affected2, "Affected") %>
+						</td>
+						<td>
+							<%= text_field_tag :sample3, nil, :placeholder => 'sample 3' %></br>
+							<%= check_box_tag(:affected3) %><%= label_tag(:affected3, "Affected") %>							
+						</td>
+					</tr>	
+				</tbody>				
+				</table>
+						Select MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged' %></br>
+						Select Merged Ranked file from Project : <%= select_tag "selectedFileMerged", options_for_select(@files) %></br>
+						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
+					<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
+
+       	   <% end %>
+		</div>
+	</div>
+
+</div>
+

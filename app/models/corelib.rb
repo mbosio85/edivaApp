@@ -16,7 +16,7 @@ class Corelib
         file.write(userFile.read)
       end
       
-      #annotateVCF(fl,user,project)
+      annotateVCF(fl,user,project)
       #annotateVCFhack(fl,user,project)
       
       valMsg = "upload" ## for validation response 
