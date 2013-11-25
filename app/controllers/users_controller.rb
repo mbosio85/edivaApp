@@ -14,6 +14,11 @@ class UsersController < ApplicationController
       redirect_to :index
       flash[:notice] = "You should complete all the fields !"
       flash[:color]= "invalid"
+      return
+    elsif (params[:username] == "test" or params[:username] == "Test" or params[:username] == "TEST")
+      redirect_to :index
+      flash[:notice] = "You username can not be " + params[:username] + " !! Try another username please !!"
+      flash[:color]= "invalid"    
     elsif (! (params[:email] =~ /[A-Za-z0-9._%+-]+\@[A-Za-z0-9.-]+\.[A-Za-z]/)) ## initial check for valid email address format
       redirect_to :index
       flash[:notice] = "Not a valid email format !"
@@ -36,12 +41,14 @@ class UsersController < ApplicationController
     
    if (@msg == "email")
       redirect_to :index
-      flash[:notice] = "Email already exists in the database ! If you have forgotten your password contact GEEVS team !!"
+      flash[:notice] = "Email already exists in the database ! If you have forgotten your password contact eDiVa team !!"
       flash[:color]= "invalid"
-    elsif (@msg == "usr")
+      return
+    elsif (@msg == "user")
       redirect_to :index
-      flash[:notice] = "Username alreadt taken ! Try again !!"
+      flash[:notice] = "Username already taken ! Try a different one !!"
       flash[:color]= "invalid"
+      return
     elsif (@msg == "success")
       redirect_to :index
       flash[:notice] = "Successfully new user has been created ! Please login to get started with eDiVa !!"

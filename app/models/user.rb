@@ -15,8 +15,16 @@ class User
     ccU = User.new.self
     refEmail = ccU.query(qryEmail)
 
+    ## check username in the database
+    qryUser = "select * from Table_users where username = '"+ username +"';"
+    ccUs = User.new.self
+    refUser = ccUs.query(qryUser)
+
+
     if refEmail.num_rows != 0
       return "email"
+    elsif refUser.num_rows != 0
+      return "user"
     else
       ##check for username validity in the database
       qryUser = "select * from Table_users where username = '"+ username+"';"
@@ -38,7 +46,7 @@ class User
         pass = nil
 
         ## create webserver physical workspace
-        Dir.mkdir(Rails.root.join(user)) unless File.exists?(user)
+        Dir.mkdir(Rails.root.join(username)) unless File.exists?(username)
     
         ## return message
         return "success"      
