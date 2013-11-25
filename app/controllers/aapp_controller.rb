@@ -106,9 +106,38 @@ class AappController < ApplicationController
       flash[:notice] = @msg
       flash[:color]= "invalid"        
     end
-
   end
 
+  def actionFamilyMerged
+    curProject = nil
+    (@wspace,count) = Analysis.gWorkspace(session[:user])
+    if (count == 0)
+      curProject = nil
+    else
+      @wspace.each do |project|
+        curProject = project  
+      end
+    end
+    
+    if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
+      redirect_to :familyanalysis
+      flash[:notice] = "Sample ID(s) cant be empty !!"
+      flash[:color]= "invalid"
+      return
+    else
+      @msg = Corelib.familyActionsMerged(params[:sample1],params[:sample2],params[:sample3],params[:affected1],params[:affected2],params[:affected3],params[:vcfMerged],params[:selectedFileMerged],params[:inheritenceType],session[:user],curProject)
+    end
+
+    if @msg == "analysis"
+      redirect_to :analysis
+      flash[:notice] = "Analysis has started and the output files will available shortly !"
+      flash[:color]= "valid"        
+    else
+      redirect_to :analysis
+      flash[:notice] = @msg
+      flash[:color]= "invalid"        
+    end
+  end 
 
 
 

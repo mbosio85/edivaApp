@@ -55,6 +55,84 @@ class Corelib
       return valMsg
   end
   
+  def Corelib.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,user,curProject)
+
+    valMsg = nil
+    
+    mergedAnnotationFile = nil
+    rankedFile = nil
+    vcfFileChecker = nil
+    
+    ## write the initial family file for the family script from oliver      
+    familyFile = 'family.txt'
+    ## handle affected nil parameters
+    if (affected1 == nil)
+      affected1 = 0
+    end
+    if (affected2 == nil)
+      affected2 = 0
+    end
+    if (affected3 == nil)
+      affected3 = 0
+    end
+
+    File.open(Rails.root.join(user,project,familyFile), 'w') do |file|
+      file.write(sample1 + "\t" + affected1.to_s + "\n")
+      file.write(sample2 + "\t" + affected2.to_s + "\n")
+      file.write(sample3 + "\t" + affected3.to_s + "\n")
+    end
+    
+    
+    if (vcfMerged != nil)  
+      vcfFileChecker = vcfMerged.original_filename
+      valMsg = handleUserFile(vcfMerged,user,project)
+
+      ## merge sample annotated files for ranking tool
+      if (vcfFileChecker =~ /CD(.*)/)
+        mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
+        rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
+        annCommand = "scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        system(annCommand)      
+      elsif(vcfFileChecker =~ /VH(.*)/)
+        mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
+        rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
+        annCommand = "scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        system(annCommand)
+      else
+        ## lol you are fucked for now  
+      end
+      
+      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)      
+      sleep 30
+      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
+      valMsg = "analysis"    
+      return valMsg
+          
+    elsif (selectedFileMerged != nil)
+      ## merge sample annotated files for ranking tool
+      if (selectedFileMerged =~ /CD(.*)/)
+        mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
+        rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
+        annCommand = "scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        system(annCommand)      
+      elsif(selectedFileMerged =~ /VH(.*)/)
+        mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
+        rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
+        annCommand = "scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        system(annCommand)
+      else
+        ## lol you are fucked for now  
+      end
+      ##call ranking tool from oliver 
+      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)      
+      sleep 15
+      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
+      valMsg = "analysis"    
+    else    
+      valMsg = "Your file selection is not appropriate ! Please carefully choose again !!"
+    end    
+    return valMsg
+  end
   
   def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
   
@@ -139,12 +217,12 @@ class Corelib
         mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
         annCommand = "scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        #system(annCommand)      
+        system(annCommand)      
       elsif(selectedFile1 =~ /VH(.*)/)
         mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
         annCommand = "scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        #system(annCommand)
+        system(annCommand)
       else
         ## lol you are fucked for now  
       end
