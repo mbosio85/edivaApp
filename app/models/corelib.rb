@@ -16,8 +16,8 @@ class Corelib
         file.write(userFile.read)
       end
       
-      annotateVCF(fl,user,project)
-      #annotateVCFhack(fl,user,project)
+      #annotateVCF(fl,user,project)
+      annotateVCFhack(fl,user,project)
       
       valMsg = "upload" ## for validation response 
       return valMsg
@@ -25,14 +25,22 @@ class Corelib
   
   def self.annotateVCF(userFile,user,project)
     
-    annCommand = "nohup perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tempDir  /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " &"
+    annCommand = "nohup perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tempDir  /home/rrahman/scratch/ &"
     system(annCommand) 
     
   end
   
   def self.annotateVCFhack(userFile,user,project)
-    annCommand = "scp /home/rrahman/template/"+ userFile + " /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + ""
-    system(annCommand)   
+    
+    if (userFile =~ /CD(.*)/)
+      annCommand = "scp /home/rrahman/Template/CDs/"+ userFile + ".annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+      system(annCommand)      
+    end
+    if (userFile =~ /VH(.*)/)
+      annCommand = "scp /home/rrahman/Template/VHs/"+ userFile + ".annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+      system(annCommand)   
+    end
+    
   end
 
 
