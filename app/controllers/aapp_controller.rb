@@ -131,11 +131,13 @@ class AappController < ApplicationController
     if @msg == "analysis"
       redirect_to :analysis
       flash[:notice] = "Analysis has started and the output files will available shortly !"
-      flash[:color]= "valid"        
+      flash[:color]= "valid"
+      return        
     else
       redirect_to :analysis
       flash[:notice] = @msg
-      flash[:color]= "invalid"        
+      flash[:color]= "invalid"
+      return        
     end
   end 
 

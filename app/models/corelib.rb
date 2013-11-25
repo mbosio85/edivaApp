@@ -55,14 +55,12 @@ class Corelib
       return valMsg
   end
   
-  def Corelib.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,user,curProject)
+  def self.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,user,project)
 
     valMsg = nil
     
     mergedAnnotationFile = nil
     rankedFile = nil
-    vcfFileChecker = nil
-    
     ## write the initial family file for the family script from oliver      
     familyFile = 'family.txt'
     ## handle affected nil parameters
