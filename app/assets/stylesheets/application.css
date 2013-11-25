@@ -11,7 +11,10 @@
  *= require_self
  *= require_tree .
  *= require bootstrap_and_overrides
- */
+ *= require jquery.ui.all
+ *= require jquery.modal
+*/
+
 body{
 		padding-top:50px;
 }

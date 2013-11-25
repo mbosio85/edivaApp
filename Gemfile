@@ -13,6 +13,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'therubyracer' ## only uncomment this in production
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
+gem 'jquery-modal-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

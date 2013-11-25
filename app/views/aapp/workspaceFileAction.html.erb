@@ -1,0 +1,38 @@
+<div class="row-fluid">
+	<div class="span12">
+		<% if (@actionToRecognize == 'Preview') -%>
+			<table class="table table-striped">
+			<thead>
+			</thead>
+			<tbody>	
+			<%File.open(session[:user] + '/' +@curProject+'/'+@fileToShow, "r") do |infile| -%>
+				<% limit = 0 -%>
+				<% while (line = infile.gets) -%>
+        			<% if (line =~ /##/) -%>	
+	        		<% else -%>
+        			<tr>
+        			<td>
+	        			<%= line %><br/>	        	
+    				    <% limit = limit + 1 -%>
+    				<% end -%>
+        			</td>
+        			</tr>
+        			<% if (limit == 50) -%>
+        				<% break -%>
+        			<% end -%>	
+	    		<% end -%>
+			<% end -%>
+			</tbody>
+			</table>
+		<% elsif(@actionToRecognize == 'Delete') -%>
+			
+			<% delCommand = "rm "+ session[:user] + "/" + @curProject +"/"+@fileToShow + "" -%>
+			<% system(delCommand) -%>
+			
+			<p>Your <b><%= @fileToShow %></b> file form <b><%= @curProject %></b> project has been removed successfully</p> 
+			
+		<% else -%>
+			<p> Unknown action from Home page </p>
+		<% end -%>	
+	</div>
+</div>

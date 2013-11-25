@@ -30,7 +30,7 @@ class AappController < ApplicationController
       end     
       
     end
-    @actions = ['Choose action','Download','Delete']    
+    @actions = ['Preview','Download','Delete']    
   end
 
   def annotate
@@ -236,10 +236,35 @@ class AappController < ApplicationController
       redirect_to :analysis
       flash[:notice] = "Something went wrong !!"
       flash[:color]= "invalid"  
+      return
     end
   end
 
-  def workspaceFileAction     
+  def workspaceFileAction
+    
+    @curProject = nil
+    (@wspace,count) = Analysis.gWorkspace(session[:user])
+    if (count == 0)
+      @curProject = nil
+    else
+      @wspace.each do |project|
+        @curProject = project  
+      end
+    end    
+    
+    @fileToShow = params[:selectedFile]
+    @actionToRecognize = params[:selectedAction]
+
+    if(params[:selectedAction] == 'Download')
+      downloadFile(@fileToShow,session[:user],@curProject)
+    end       
   end
+
+  
+  def downloadFile(fileToDownload,user,project)
+    send_file Rails.root.join(user,project,fileToDownload), :disposition => 'attachment'
+  end
+
+
 
 end
