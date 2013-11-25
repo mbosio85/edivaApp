@@ -97,25 +97,26 @@ class Corelib
         mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
         annCommand = "scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        system(annCommand)      
+        #system(annCommand)      
       elsif(selectedFile1 =~ /VH(.*)/)
         mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
         annCommand = "scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        system(annCommand)
+        #system(annCommand)
       else
         ## lol you are fucked for now  
       end
       ##call ranking tool from oliver 
       valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)
       
-      while(true)
+      sleep 10
+      #while(true)
         ## call family analysis tool from oliver
-        if FileTest.exists?(Rails.root + "/"+ uset+"/"+project+"/"+rankedFile)
-          runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
-          break
-        end
-      end
+       # if FileTest.exists?(Rails.root + "/"+ uset+"/"+project+"/"+rankedFile)
+      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
+        #  break
+        #end
+      #end
             
       valMsg = "analysis"    
     else    
@@ -126,8 +127,9 @@ class Corelib
   end
   
   def self.runFamilyAnalysisTool(rankedFile,user,project,familyFile,inhT)
-    annCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/familySNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + rankedFile + " --outfile /var/www/html/ediva/current/" +user+ "/"+ project+ "/" + rankedFile + ".analyzed ----filteredoutfile /var/www/html/ediva/current/" +user+ "/"+ project+ "/" + rankedFile + ".analyzed.filtered --family /var/www/html/ediva/current/"+user+ "/"+ project+ "/family.txt --inheritance " + inhT + " &" 
+    annCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/familySNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + rankedFile + " --outfile /var/www/html/ediva/current/" +user+ "/"+ project+ "/" + rankedFile + "."+ inhT +".analyzed --filteredoutfile /var/www/html/ediva/current/" +user+ "/"+ project+ "/" + rankedFile + "."+ inhT +".analyzed.filtered --family /var/www/html/ediva/current/"+user+ "/"+ project+ "/family.txt --inheritance " + inhT + " &" 
     system(annCommand)          
+    return annCommand
   end
   
    
