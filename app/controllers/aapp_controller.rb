@@ -67,7 +67,7 @@ class AappController < ApplicationController
       @wspace.each do |r1|
       Dir.foreach(session[:user] + "/" + r1) do |file|
         next if file == '.' or file == '..'
-          if file =~ /ranked$/
+          if file =~ /annotated$/
             @files.push(file)
           end
         end
@@ -75,7 +75,37 @@ class AappController < ApplicationController
     end
   end
 
-  def actionFamily
+  def actionFamilySeparate
+
+    curProject = nil
+    (@wspace,count) = Analysis.gWorkspace(session[:user])
+    if (count == 0)
+      curProject = nil
+    else
+      @wspace.each do |project|
+        curProject = project  
+      end
+    end
+
+
+    if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
+      redirect_to :familyanalysis
+      flash[:notice] = "Sample ID(s) cant be empty !!"
+      flash[:color]= "invalid"
+      return
+    else
+      @msg = Corelib.familyActionsSeparate(params[:sample1],params[:sample2],params[:sample3],params[:vcf1],params[:vcf2],params[:vcf3],params[:selectedFile1],params[:selectedFile2],params[:selectedFile3],params[:affected1],params[:affected2],params[:affected3],params[:inheritenceType],session[:user],curProject)
+    end
+
+    if @msg == "analysis"
+      redirect_to :analysis
+      flash[:notice] = "Analysis has started and the output files will available shortly !"
+      flash[:color]= "valid"        
+    else
+      redirect_to :analysis
+      flash[:notice] = @msg
+      flash[:color]= "invalid"        
+    end
 
   end
 
