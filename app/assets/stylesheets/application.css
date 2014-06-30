@@ -32,6 +32,7 @@ body{
 		color: #000000;
 		padding: 5px;
 }
+<<<<<<< HEAD
 .workspaceactions {
 		margin:auto;
         background-color:#FFFFFF;
@@ -41,6 +42,8 @@ body{
 .workspaceactions table td{
 		padding: 5px;
 }
+=======
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 .SearchPanel{
 		right:0;
 		left:0;
@@ -122,7 +125,11 @@ body{
 		border:1px solid green;
 }*/
 .sfield{
+<<<<<<< HEAD
 		width: 200px;
+=======
+		width: 550px;
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 		height: 25px;
 		border-radius: 5px 5px 5px 5px;
 }

@@ -1,4 +1,5 @@
 <div class="row-fluid">
+<<<<<<< HEAD
 	
 	<div class="span12">
 	
@@ -102,3 +103,169 @@
 	
 	
 	>
+=======
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+
+	<div class="span12">
+		<% if @wspace == nil -%>
+			<p> Welcome, <%= session[:user] %>. You currently have no workspace. Set a main project please !! </p>	
+		<% else -%>
+			<% @wspace.each do |r1| -%>
+				<p> Welcome,<b> <%= session[:user] %></b>. Your current project is <b> <%= r1 %> </b></p>
+			<% end -%>
+		<% end -%>	
+	</div>
+</div>	
+
+
+<div class="row-fluid">
+	
+	<div class="span8">
+		<div class="Search">
+		   <%= form_tag(:controller => 'aapp',:action => 'createProject') do %>
+		   <table align="center">
+		   	<tr>
+           	<td>   
+	  		   <%= text_field_tag :project, nil, :class => 'sfield',:placeholder => 'Project name' %> 
+      		</td>
+			<td>
+           	   <label class="checkbox">
+           	   	<%= check_box_tag(:mainProject) %>
+				<%= label_tag(:mainProject, "Set as main project") %>
+      		   </label>
+           	</td>
+           	</tr>
+           	<tr>
+           		<th>
+           			<%= submit_tag "Create Project",  :class => 'btn btn-primary btn-medium' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>
+	</div>
+	
+	<div class="span4">
+		<div class="Search">
+		   <%= form_tag(:controller => 'aapp',:action => 'changeMainProject') do %>
+		   <table align="center">
+		   	<tr>
+		   		<td>
+					<% if @pros != nil -%>
+						Select project: <%= select_tag "mainProjecttoSet", options_for_select(@pros) %> &nbsp;
+					<% else -%>
+						<p> You have no projects yet !! </p>
+					<% end -%>	
+           		</td>
+           	</tr>
+           	<tr>
+           		<th>
+           			<%= submit_tag "Set Main Project",  :class => 'btn btn-primary btn-medium' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>		
+	</div>
+	
+</div>	
+
+<div class="row-fluid">
+	<div class="span12">
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+	</div>
+</div>
+
+
+
+<div class="row-fluid">
+	<div class="span8">
+		<% if @wspace != nil -%>
+			<h4>
+				Workspace Contents:
+			</h4>
+				<table class="table table-hover">
+				<thead>
+					<th>
+						<% if @wspace != nil -%>
+							<% @wspace.each do |r1| -%>
+								<b><%= r1 %> </b> 
+							<% end -%>
+						<% end -%>
+						File(s)
+					</th>
+				</thead>	
+				<tbody>
+				<% @wspace.each do |r1| -%>
+					<% if (Dir.entries(session[:user] + "/" + r1).length == 2) %>
+						<tr>
+						<td>
+							Your current project has no file(s).
+						</td>
+						</tr>
+					<% else -%>
+						<ul>
+						<% Dir.foreach(session[:user] + "/" + r1) do |file|-%>
+						<% next if file == '.' or file == '..' -%>
+							<tr>
+							<td>
+								<li> <%= file %> </li>
+							</td>
+							</tr>
+						<% end -%>	
+						</ul>
+					<% end -%>
+				<% end -%>
+				</tbody>
+				</table>
+		<% else -%>
+			<p> You need to set a main project. If you dont have any project then you should start with creating one !! </p>	
+		<% end -%>
+	</div>
+	
+	<div class="span4">
+		<div class="Search">
+			<h4>
+				File actions on Workspace
+			</h4>	
+			<table align="center">
+		   	<tr>
+		   		<td>
+					<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
+						<% if @files != nil %>
+							Select File: <%= select_tag "selectedFile", options_for_select(@files) %> &nbsp;
+						<% else -%>
+							<p> You have no files in this project !! </p>
+						<% end -%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+						Select Action: <%= select_tag "selectedAction", options_for_select(@actions) %> &nbsp;
+				</td>
+			</tr>		
+			<tr>
+				<th>				
+					<%= submit_tag "Commit", :class => 'btn btn-inverse btn-medium'%>
+					<% end -%>
+				</th>
+			</tr>
+			</table>
+		</div>		
+	</div>
+		
+</div>
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f

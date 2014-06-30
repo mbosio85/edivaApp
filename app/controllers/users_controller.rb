@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       flash[:notice] = "You should complete all the fields !"
       flash[:color]= "invalid"
       return
+<<<<<<< HEAD
     elsif (params[:username] =~ /(\s)+/)
       redirect_to :index
       flash[:notice] = "You username can not contain spaces !!"
@@ -25,11 +26,16 @@ class UsersController < ApplicationController
       flash[:notice] = "You username can not contain special character(s) !!"
       flash[:color]= "invalid"    
       return
+=======
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
     elsif (params[:username] == "test" or params[:username] == "Test" or params[:username] == "TEST")
       redirect_to :index
       flash[:notice] = "You username can not be " + params[:username] + " !! Try another username please !!"
       flash[:color]= "invalid"    
+<<<<<<< HEAD
       return
+=======
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
     elsif (! (params[:email] =~ /[A-Za-z0-9._%+-]+\@[A-Za-z0-9.-]+\.[A-Za-z]/)) ## initial check for valid email address format
       redirect_to :index
       flash[:notice] = "Not a valid email format !"

@@ -4,6 +4,7 @@ class Corelib
     
   end
   
+<<<<<<< HEAD
   def self.handleUserFile(userFile,user)
    
       valMsg = nil
@@ -13,11 +14,26 @@ class Corelib
       ## save uploaded file 
       #File.open(fl,'w') do |file|
       File.open(Rails.root.join(user,userFile.original_filename), 'w') do |file|
+=======
+  def self.handleUserFile(userFile,user,project)
+   
+      valMsg = nil
+      
+      fl = userFile.original_filename ## file name to do rest of the things after saving
+      #fl = '/Users/rrahman/Aptana Studio 3 Workspace/edivaApp/testUser/' + project.to_s + '/' + userFile.original_filename
+      ## save uploaded file 
+      #File.open(fl,'w') do |file|
+      File.open(Rails.root.join(user,project,userFile.original_filename), 'w') do |file|
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
         file.write(userFile.read)
       end
       
       #annotateVCF(fl,user,project)
+<<<<<<< HEAD
       #annotateVCFhack(fl,user,project)
+=======
+      annotateVCFhack(fl,user,project)
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
       
       valMsg = "upload" ## for validation response 
       return valMsg
@@ -44,19 +60,31 @@ class Corelib
   end
 
 
+<<<<<<< HEAD
   def self.rankUserAnnotatedFile(userFile,user)
       valMsg = nil
       
       ## call oliver's rank tool from ediva web server
       rankCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + 
       " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project + "/" + userFile + ".ranked  &"
+=======
+  def self.rankUserAnnotatedFile(userFile,user,project)
+      valMsg = nil
+      
+      ## call oliver's rank tool from ediva web server
+      rankCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project + "/" + userFile + ".ranked  &"
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
       system(rankCommand)
       
       valMsg = "rank" ## for validation response 
       return valMsg
   end
   
+<<<<<<< HEAD
   def self.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,familyType,user,project)
+=======
+  def self.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,user,project)
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 
     valMsg = nil
     
@@ -133,7 +161,11 @@ class Corelib
     return valMsg
   end
   
+<<<<<<< HEAD
   def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,familyType,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
+=======
+  def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
   
     valMsg = nil
     

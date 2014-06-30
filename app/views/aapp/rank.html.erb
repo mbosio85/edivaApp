@@ -1,7 +1,11 @@
 <div class="row-fluid">
+<<<<<<< HEAD
 
 	<div class="span12">
 
+=======
+	<div class="span12">
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 	<% if flash[:color]== "valid" %>
 		<div class="alert alert-success">
 			<p><%= flash[:notice]%></p>
@@ -14,6 +18,7 @@
 	
 	<%end%>
 
+<<<<<<< HEAD
 	<div class="Search">
 
 	<% if @files.length > 0 -%>
@@ -45,4 +50,40 @@
 
 	</div>	
 
+=======
+	<% if @wspace == nil -%>
+		<p>You currently have no workspace. Set a main project to continue please !! </p>	
+	<% else -%>
+		<% @wspace.each do |r1| -%>
+			<p> Your current project is <b> <%= r1 %> </b></p>
+		<% end -%>
+	<% end -%>	
+
+		<div class="Search">
+		   <%= form_tag(:controller => 'aapp',:action => 'actionRank') do %>
+		   <table align="center">
+		   	<tr>
+		   	<td>
+				Select annotated file to rank:
+	  		</td>
+           	</tr>
+           	<tr>
+           	<td>  
+				<% if @files != nil -%>
+					<%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
+				<% else -%>
+					<p> You have no annotated files to rank !! </p>
+				<% end -%>	
+           	</td>
+           	</tr>
+           	<tr>
+           		<th>
+           			<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>
+	</div>	
+>>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 </div>
