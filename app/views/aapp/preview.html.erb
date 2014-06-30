@@ -1,0 +1,29 @@
+<div class="row-fluid">
+	<div class="span12">
+
+			<table class="table table-striped">
+			<thead>
+			</thead>
+			<tbody>	
+			<%File.open(session[:user] + '/' + @file, "r") do |infile| -%>
+				<% limit = 0 -%>
+				<% while (line = infile.gets) -%>
+        			<% if (line =~ /##/) -%>	
+	        		<% else -%>
+        			<tr>
+        			<td>
+	        			<%= line %><br/>	        	
+    				    <% limit = limit + 1 -%>
+    				<% end -%>
+        			</td>
+        			</tr>
+        			<% if (limit == 50) -%>
+        				<% break -%>
+        			<% end -%>	
+	    		<% end -%>
+			<% end -%>
+			</tbody>
+			</table>
+		
+	</div>
+</div>

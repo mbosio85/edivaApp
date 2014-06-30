@@ -1,0 +1,48 @@
+<div class="row-fluid">
+
+	<div class="span12">
+
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+
+	<div class="Search">
+
+	<% if @files.length > 0 -%>
+	   <%= form_tag(:controller => 'aapp',:action => 'actionRank') do %>
+	   <table align="center">
+	   	<tr>
+		   	<td>
+				Select annotated file to rank:
+  			</td>
+       	</tr>
+       	<tr>
+       		<td>  
+       			<%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
+      		</td>
+       	</tr>
+       	<tr>
+   			<th>
+   				<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
+  			</th>
+      	</tr>		
+        </table>
+   	   <% end %>
+
+	<% else -%>
+		<p> You have no annotated files to rank ! Get started with annotating !! </p>
+	<% end -%>	
+
+	</div>
+
+	</div>	
+
+</div>

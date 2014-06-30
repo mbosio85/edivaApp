@@ -1,0 +1,64 @@
+<div class="row-fluid">
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>
+	
+    <div class="Search">
+    <%= form_tag(:controller => 'gapp',:action => 'search_chr_pos_show') do %>	
+	<table align="center">	
+		<tr>
+		   	<td>
+		   	Search variants in eDiVa database:
+	  		</td>
+       </tr>
+   		<tr>
+       	   <td>
+           <b>Chromosome</b>: <%= select_tag "chromosome", options_for_select(@chr), :prompt => "Select" %> 
+           <b>Start</b>: <%= text_field_tag :start_pos, nil, :class => 'sfieldOptional' %> 
+           <b>End</b>: <%= text_field_tag :end_pos, nil, :class => 'sfieldOptional' %> 
+           </td>
+        </tr>
+        <tr>
+        	<th>		   
+           		<%= submit_tag "Search", :class => 'btn btn-primary btn-medium' %>
+        	</th>
+        </tr>
+           <tr>
+           	<td>		
+           		<b>Advanced Options</b>
+           </td>
+           </tr>
+           <tr>
+           <td>
+	           Gene Definition: <%= select_tag "chGeneDef", options_for_select(@genedefinition) %> 
+           </td>
+           </tr>
+           <tr>
+           <td>
+	           Exonic Function: <%= select_tag "chFunction",options_for_select(@exonicFunction)  %> 
+    	   </td>
+           </tr>
+           <tr>
+           <td>
+           	   Variant Function: <%= select_tag "varfunction",options_for_select(@variantFunction) %> 
+           </td>
+           </tr>
+           <tr>
+           <td>
+	           Allele Frequency: <%= text_field_tag :af ,nil,  :placeholder => "e.g. >0.05" %>            
+    	   </td>
+           </tr>
+       </table>
+	   <% end %>
+	   </div>	
+	</div>
+</div>	
