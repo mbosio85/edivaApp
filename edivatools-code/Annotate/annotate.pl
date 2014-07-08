@@ -71,7 +71,7 @@ $fileSuffix =~ s/\:/-/g;
 $fileSuffix =~ s/\s/-/g;
 
 ## ANNOVAR settings
-our $ANNOVAR = "/users/GD/tools/eDiVaCommandLine/lib/Annovar"; 
+our $ANNOVAR = "/home/rrahman/soft/Annovar"; 
 
 ##############################################################################################
 ## COMMAND LINE OPTIONS
