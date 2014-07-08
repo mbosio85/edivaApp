@@ -179,7 +179,7 @@ class AappController < ApplicationController
 
     if @msg == "annotated"
       redirect_to :analysis
-      flash[:notice] = "Your job has been submitted. Your results will be available shortly."
+      flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."
       flash[:color]= "valid"        
     else
       redirect_to :analysis
