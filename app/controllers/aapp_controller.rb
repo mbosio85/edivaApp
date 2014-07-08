@@ -4,7 +4,9 @@ class AappController < ApplicationController
 
   def analysis
     
-    if (File.exists?(session[:user]))
+    wspace = "userspace" + "/" + session[:user]
+    
+    if (!File.directory?(wspace))
       Dir.mkdir(Rails.root.join("userspace", session[:user]))
     end
 

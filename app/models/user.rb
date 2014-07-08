@@ -37,7 +37,6 @@ class User
         (pass,salt) = encrypt_password(pass)
       
         qry = "insert into Table_users values('"+ username+"','"+ email +"','"+ pass+"','"+ salt+"')"
-        #qry = "insert into Table_users values('"+ username+"','"+ email +"','"+ pass+"','puta');"
         
         cc = User.new.self
         cc.query(qry)
@@ -76,17 +75,17 @@ class User
     qry = "select email from Table_users where username = '"+ username +"';"
 
     cc = User.new.self
-    usermysqlref = cc.query(qry)
-    cc.close
+    emailmysqlref = cc.query(qry)
     
-    usermysqlref.each do |r1|
+    emailmysqlref.each do |r1|
       dbmail = r1
     end
     
-    if (dbmail == "")
-      dbmail = "invaliduser"
+    if emailmysqlref.num_rows == 0
+        dbmail = "invaliduser"
     end
     
+    cc.close
     return dbmail
     
   end

@@ -47,13 +47,15 @@ class Corelib
     
       valMsg = nil
       jobscript = "jobtosubmit.sh"
-      csv_file = ".csv_file"
+      csv_file = "csv_file.csv"
       
       usermail = User.getemail(user)
+      mail = usermail.to_s[2..-3]
+
 
       ## write csv file
       File.open(Rails.root.join("userspace",user,csv_file), 'w') do |file|
-        file.write(user + "," + usermail + "\n")
+        file.write(user + "," + mail + "\n")
       end
       
       ## call ediva-tools rank program to calculate rank of the variants
@@ -61,7 +63,7 @@ class Corelib
       "-s complete -f --csv_file "+ csv_file +" > userspace/"+ user +"/job.log 2>&1"
 
       ## write line to job file
-      File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+      File.open(Rails.root.join("userspace",user,jobscript), 'w') do |file|
         file.write(annCommand + "\n")
       end
       
