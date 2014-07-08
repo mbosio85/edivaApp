@@ -1,0 +1,42 @@
+<div class="row-fluid">
+
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>	
+	<%end%>
+
+	<div class = "Documentation">
+	<table align="center">		
+		<tr>
+			<td>		
+				<%= link_to (image_tag('CRG-logo.png')), "http://pasteur.crg.es/portal/page/portal/Internet/", target: "_blank" %>
+			</td>
+			<td>
+			<table align="center">
+			<tr>	
+				<td><b>Stephan Ossowski</b> </br> Center for Genomic Regulation, Barcelona, Spain.</td>
+			</tr>
+			<tr><td></td></tr>
+			<tr>
+				<td><b>Oliver Drechsel</b> </br> Center for Genomic Regulation, Barcelona, Spain.</td>
+			</tr>
+			<tr><td></td></tr>
+			<tr>
+				<td><b>Rubayte Rahman</b> </br> Center for Genomic Regulation, Barcelona, Spain.</td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+	</table>
+	</div>
+
+	</div>
+
+</div>

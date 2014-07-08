@@ -8,24 +8,77 @@
 		<div class="alert alert-error">
 			<p><%=flash[:notice]%></p>
 		</div>
-	<% else -%>
-	
+	<% else -%>	
 	<%end%>
+	</div>
+</div>	
+	
+<div class="row-fluid">
 
-	<% if @wspace == nil -%>
-		<p>You currently have no workspace. Set a main project to continue please !! </p>	
+	<div class="span8">
+
+	<% if @analysisformtype == "1" -%>
+	
+		<div class="Search">
+			<h4>
+				<% if (@numberofsamples.to_i == 3) -%>
+				Trio/Family analysis
+				<% else -%>
+				Famlily analysis
+				<% end -%>
+			</h4>	
+			<h5>
+				Steps to perform: VCF Annotation -> Variants Ranking -> Trio/Family Analysis
+			</h5>	
+			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
+
+				<table class="table table-striped">
+				<b>Sample(s)</b>
+				<thead>
+					<tr>
+						<th>
+						</th>	
+					</tr>	
+				</thead>
+					
+				<tbody>
+					<tr class="success">
+						<% for sampleid in 1 .. @numberofsamples.to_i -%>
+							<td>
+								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %></br>
+								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "Affected") %>
+							</td>	
+						<% end -%>
+					</tr>	
+				</tbody>				
+				</table>
+		   			<% if @files.length > 0 -%>
+						Select Merged Annoatated and Ranked file from Project : <%= select_tag "selectedFileMerged", options_for_select(@files) %> or
+						Upload MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged' %></br>
+					<% else -%>	
+						Upload MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %></br>
+					<% end -%>	
+						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
+						Select Family Type: <%= select_tag "familyType", options_for_select(@famTypes) %></br>
+						<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
+						<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
+
+       	   <% end %>
+		</div>
+
+	
 	<% else -%>
-		<% @wspace.each do |r1| -%>
-			<p> Your current project is <b> <%= r1 %> </b></p>
-		<% end -%>
-	<% end -%>	
 
 		<div class="Search">
 			<h4>
-				Single Sample VCF Uploads for Trio/Family analysis
+				<% if (@numberofsamples.to_i == 3) -%>
+				Trio/Family analysis
+				<% else -%>
+				Famlily analysis
+				<% end -%>
 			</h4>	
 			<h5>
-				VCF Annotation -> Variants Ranking -> Trio/Family Analysis
+				Steps to perform: VCF Annotation -> Variants Ranking -> Trio/Family Analysis
 			</h5>	
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilySeparate'},:multipart => true) do %>
 
@@ -36,128 +89,125 @@
 							Sample(s)
 						</th>
 						<th>
+							Affected/Notaffected
+						</th>	
+						<th>
 							Upload File(s)
 						</th>
+			   			<% if @files.length > 0 -%>
 						<th>
 							Select File(s)
 						</th>
-						<th>
-							Affected/Notaffected
-						</th>	
+						<% end -%>
 					</tr>	
 				</thead>
 					
 				<tbody>
-					<tr class="success">
-						<td>
-							<%= text_field_tag :sample1, nil, :placeholder => 'sample 1' %>
-						</td>
-						<td>
-							<%= file_field_tag 'vcf1' %>
-						</td>
-						<td>
-							<%= select_tag "selectedFile1", options_for_select(@files) %>
-						</td>
-						<td>
-							<%= check_box_tag(:affected1) %><%= label_tag(:affected1, "Affected") %>
-						</td>	
-					</tr>	
-					<tr class="success">
-						<td>
-							<%= text_field_tag :sample2, nil, :placeholder => 'sample 2' %>
-						</td>
-						<td>
-							<%= file_field_tag 'vcf2' %>
-						</td>
-						<td>
-							<%= select_tag "selectedFile2", options_for_select(@files) %>
-						</td>
-						<td>
-							<%= check_box_tag(:affected2) %><%= label_tag(:affected2, "Affected") %>
-						</td>	
-					</tr>	
-					<tr class="success">
-						<td>
-							<%= text_field_tag :sample3, nil, :placeholder => 'sample 3' %>
-						</td>
-						<td>
-							<%= file_field_tag 'vcf3' %>
-						</td>
-						<td>
-							<%= select_tag "selectedFile3", options_for_select(@files) %>
-						</td>
-						<td>
-							<%= check_box_tag(:affected3) %><%= label_tag(:affected3, "Affected") %>
-						</td>	
-					</tr>	
+
+						<% for sampleid in 1 .. @numberofsamples.to_i -%>
+						<tr class="success">
+							<td>
+								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %>
+							</td>
+							<td>	
+								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "Affected") %>
+							</td>	
+							<td>
+								<%= file_field_tag 'vcf#{sampleid}',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+							</td>
+				   			<% if @files.length > 0 -%>
+							<td>
+								<%= select_tag "selectedFile#{sampleid}", options_for_select(@files) %>
+							</td>
+							<% end -%>
+						</tr>
+						<% end -%>
+
 				</tbody>				
 				</table>
 						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
-<<<<<<< HEAD
 						Select Family Type: <%= select_tag "familyType", options_for_select(@famTypes) %></br>
-=======
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
+						<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
 					<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
 
        	   <% end %>
-		</div>
-	</div>	
-</div>
+		</div>	
 
-<div class="row-fluid">
-	<div class="span12">
-		
-		<div class="Search">
+	<% end -%>
+	</div>
+	
+	<div class="span4">
+
+
+		<div class="workspaceactions">
 			<h4>
-				MultiSample/Merged VCF Upload for Trio/Family analysis
-			</h4>	
-			<h5>
-				VCF Annotation -> Variants Ranking -> Trio/Family Analysis
-			</h5>	
-			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
+				Upload File(s) to Workspace
+			</h4>
 
-				<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>
-						</th>
-						<th>
-							Sample(s)
-						</th>
-						<th>
-						</th>	
-					</tr>	
-				</thead>
-					
-				<tbody>
-					<tr class="success">
-						<td>
-							<%= text_field_tag :sample1, nil, :placeholder => 'sample 1' %></br>
-							<%= check_box_tag(:affected1) %><%= label_tag(:affected1, "Affected") %>
-						</td>	
-						<td>
-							<%= text_field_tag :sample2, nil, :placeholder => 'sample 2' %></br>
-							<%= check_box_tag(:affected2) %><%= label_tag(:affected2, "Affected") %>
-						</td>
-						<td>
-							<%= text_field_tag :sample3, nil, :placeholder => 'sample 3' %></br>
-							<%= check_box_tag(:affected3) %><%= label_tag(:affected3, "Affected") %>							
-						</td>
-					</tr>	
-				</tbody>				
-				</table>
-						Select MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged' %></br>
-						Select Merged Ranked file from Project : <%= select_tag "selectedFileMerged", options_for_select(@files) %></br>
-						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
-<<<<<<< HEAD
-						Select Family Type: <%= select_tag "familyType", options_for_select(@famTypes) %></br>
-=======
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-					<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
-
+			</br>
+		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>
+				<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %></br>
+      			<%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
        	   <% end %>
 		</div>
+
+		</br></br>
+
+		<div class="workspaceactions">
+			<h4>
+				Manage Workspace File(s)
+			</h4>
+
+			<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
+				<% if @files.length > 0 %>
+					<%= select_tag "selectedFile", options_for_select(@files) %> Select file
+					<br> 
+					<%= select_tag "selectedAction", options_for_select(@actions) %> Select action on file
+					<br>
+					<%= submit_tag "Commit", :class => 'btn btn-primary btn-medium'%>
+					<% else -%>
+						<p> Empty workspace !! </p>
+					<% end -%>
+			<% end -%>
+		</div>		
+
+		</br></br>
+
+		<div class="workspaceactions">
+			<h4>
+				Analyses
+			</h4>
+            <ul>
+            	<li><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></li>
+            	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation & damage potential scores.</dd>
+            	<li><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></li>
+            	<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
+            	<li><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></li>
+               	<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>	
+			</ul>
+		</div>		
+		
+
+	
 	</div>
 
+	
 </div>
 
+<script>
+function validateFiles(inputFile) {
+  var maxExceededMessage = "File exceeds the maximum allowed size (100 MB)";
+ 
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+ 
+  $.each(inputFile.files, function() {
+    if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+  });
+  if (sizeExceeded) {
+    window.alert(maxExceededMessage);
+    $(inputFile).val('');
+  };
+ 
+}
+</script>

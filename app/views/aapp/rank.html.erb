@@ -1,11 +1,7 @@
 <div class="row-fluid">
-<<<<<<< HEAD
 
 	<div class="span12">
 
-=======
-	<div class="span12">
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 	<% if flash[:color]== "valid" %>
 		<div class="alert alert-success">
 			<p><%= flash[:notice]%></p>
@@ -17,73 +13,123 @@
 	<% else -%>
 	
 	<%end%>
+	
+	</div>
+	
+</div>	
 
-<<<<<<< HEAD
-	<div class="Search">
+<div class="row-fluid">
 
-	<% if @files.length > 0 -%>
-	   <%= form_tag(:controller => 'aapp',:action => 'actionRank') do %>
-	   <table align="center">
-	   	<tr>
-		   	<td>
-				Select annotated file to rank:
-  			</td>
-       	</tr>
-       	<tr>
-       		<td>  
-       			<%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
-      		</td>
-       	</tr>
-       	<tr>
-   			<th>
-   				<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
-  			</th>
-      	</tr>		
-        </table>
-   	   <% end %>
+	<div class="span8">
+		
+		<div class="Search">
 
-	<% else -%>
-		<p> You have no annotated files to rank ! Get started with annotating !! </p>
-	<% end -%>	
+		   <%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
+	   		<table align="center">
+	   		<tr>
+				<td>
+		   			Upload vcf/annotated file to rank:
+	  			</td>
+        	</tr>
+        	<tr>
+           		<td>  
+					<%= file_field_tag 'ann',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+           		</td>
+        	</tr>
+       		<% if @files.length > 0 -%>   	
+        	<tr>
+        		<td>
+        			or
+        		</td>
+        	</tr>		   	
+       		<tr>
+       			<td>  
+       				Select vcf/annotated file to rank: <%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
+      			</td>
+       		</tr>
+       		<% end -%>
+       		<tr>
+   				<th>
+   					<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
+  				</th>
+      		</tr>		
+        	</table>
+           <% end -%>
+		</div>
 
 	</div>
+	
+	<div class="span4">
 
-	</div>	
 
-=======
-	<% if @wspace == nil -%>
-		<p>You currently have no workspace. Set a main project to continue please !! </p>	
-	<% else -%>
-		<% @wspace.each do |r1| -%>
-			<p> Your current project is <b> <%= r1 %> </b></p>
-		<% end -%>
-	<% end -%>	
+		<div class="workspaceactions">
+			<h4>
+				Upload File(s) to Workspace
+			</h4>
 
-		<div class="Search">
-		   <%= form_tag(:controller => 'aapp',:action => 'actionRank') do %>
-		   <table align="center">
-		   	<tr>
-		   	<td>
-				Select annotated file to rank:
-	  		</td>
-           	</tr>
-           	<tr>
-           	<td>  
-				<% if @files != nil -%>
-					<%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
-				<% else -%>
-					<p> You have no annotated files to rank !! </p>
-				<% end -%>	
-           	</td>
-           	</tr>
-           	<tr>
-           		<th>
-           			<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
-           		</th>
-           	</tr>		
-           </table>
+			</br>
+		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>
+				<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %></br>
+      			<%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
        	   <% end %>
 		</div>
-	</div>	
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-</div>
+
+		</br></br>
+
+		<div class="workspaceactions">
+			<h4>
+				Manage Workspace File(s)
+			</h4>
+
+			<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
+				<% if @files.length > 0 %>
+					<%= select_tag "selectedFile", options_for_select(@files) %> Select file
+					<br> 
+					<%= select_tag "selectedAction", options_for_select(@actions) %> Select action on file
+					<br>
+					<%= submit_tag "Commit", :class => 'btn btn-primary btn-medium'%>
+					<% else -%>
+						<p> Empty workspace !! </p>
+					<% end -%>
+			<% end -%>
+		</div>		
+
+		</br></br>
+
+		<div class="workspaceactions">
+			<h4>
+				Analyses
+			</h4>
+            <ul>
+            	<li><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></li>
+            	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation & damage potential scores.</dd>
+            	<li><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></li>
+            	<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
+            	<li><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></li>
+               	<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>	
+			</ul>
+		</div>		
+		
+
+	
+	</div>
+	
+</div>	
+
+<script>
+function validateFiles(inputFile) {
+  var maxExceededMessage = "File exceeds the maximum allowed size (100 MB)";
+ 
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+ 
+  $.each(inputFile.files, function() {
+    if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+  });
+  if (sizeExceeded) {
+    window.alert(maxExceededMessage);
+    $(inputFile).val('');
+  };
+ 
+}
+</script>

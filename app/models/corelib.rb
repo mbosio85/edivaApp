@@ -4,168 +4,272 @@ class Corelib
     
   end
   
-<<<<<<< HEAD
-  def self.handleUserFile(userFile,user)
+  def self.uploadUserFile(userFile,user)
    
       valMsg = nil
-      
-      #fl = userFile.original_filename ## file name to do rest of the things after saving
-      #fl = '/Users/rrahman/Aptana Studio 3 Workspace/edivaApp/testUser/' + project.to_s + '/' + userFile.original_filename
+      ## file name to do rest of the things after saving
+      fl = userFile.original_filename
       ## save uploaded file 
-      #File.open(fl,'w') do |file|
-      File.open(Rails.root.join(user,userFile.original_filename), 'w') do |file|
-=======
-  def self.handleUserFile(userFile,user,project)
-   
-      valMsg = nil
-      
-      fl = userFile.original_filename ## file name to do rest of the things after saving
-      #fl = '/Users/rrahman/Aptana Studio 3 Workspace/edivaApp/testUser/' + project.to_s + '/' + userFile.original_filename
-      ## save uploaded file 
-      #File.open(fl,'w') do |file|
-      File.open(Rails.root.join(user,project,userFile.original_filename), 'w') do |file|
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
+      File.open(Rails.root.join('userspace',user,userFile.original_filename), 'w') do |file|
         file.write(userFile.read)
       end
-      
-      #annotateVCF(fl,user,project)
-<<<<<<< HEAD
-      #annotateVCFhack(fl,user,project)
-=======
-      annotateVCFhack(fl,user,project)
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-      
-      valMsg = "upload" ## for validation response 
+      ## set return message      
+      valMsg = "uploaded"
       return valMsg
-  end
-  
-  def self.annotateVCF(userFile,user,project)
-    
-    annCommand = "nohup perl /home/rrahman/soft/eDiVaAnnotation/annotateSNP.pl --input /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --tempDir  /home/rrahman/scratch/ &"
-    system(annCommand) 
-    
-  end
-  
-  def self.annotateVCFhack(userFile,user,project)
-    
-    if (userFile =~ /CD(.*)/)
-      annCommand = "scp /home/rrahman/Template/CDs/"+ userFile + ".annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-      system(annCommand)      
-    end
-    if (userFile =~ /VH(.*)/)
-      annCommand = "scp /home/rrahman/Template/VHs/"+ userFile + ".annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-      system(annCommand)   
-    end
-    
+      
   end
 
+  
+  def self.handleUserFileAndAction(userFile,user,action)
+   
+      valMsg = nil
+   
+      ## save uploaded file
+      valMsg = uploadUserFile(userFile,user)
+      
+      if(valMsg == "uploaded")        
+      
+        if(action == "annotation" )
+          ## annotate the uploaded vcf      
+          valMsg = annotateVCF(fl,user)
+        else
+          ## rank the uploaded file      
+          valMsg = rankUserAnnotatedFile(fl,user)
+        end
+      end 
+        
+      return valMsg
+      
+  end  
 
-<<<<<<< HEAD
+
+  def self.annotateVCF(userFile,user)
+    
+      valMsg = nil
+      jobscript = "jobtosubmit.sh"
+      csv_file = ".csv_file"
+      
+      usermail = User.getemail(user)
+
+      ## write csv file
+      File.open(Rails.root.join("userspace",user,csv_file), 'w') do |file|
+        file.write(user + "," + usermail + "\n")
+      end
+      
+      ## call ediva-tools rank program to calculate rank of the variants
+      annCommand = "perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
+      "-s complete -f --csv_file "+ csv_file +" > userspace/"+ user +"/job.log 2>&1"
+
+      ## write line to job file
+      File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+        file.write(annCommand + "\n")
+      end
+      
+
+      ## chmod
+      system ("chmod 775 userspace/" + user + "/" + jobscript)
+      ## start the job
+      system("userspace/"+ user +"/" + jobscript)
+
+      ## set return message
+      valMsg = "annotated"
+      
+      return valMsg
+
+  end
+ 
   def self.rankUserAnnotatedFile(userFile,user)
+
       valMsg = nil
+      jobscript = "jobtosubmit.sh"
       
-      ## call oliver's rank tool from ediva web server
-      rankCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + 
-      " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project + "/" + userFile + ".ranked  &"
-=======
-  def self.rankUserAnnotatedFile(userFile,user,project)
-      valMsg = nil
+      ## delete the target file(s) if exists
+      delcmmd = "rm userspace/" + user + "/" + jobscript
+      system(delcmmd)
+
+      ## if vcf file was provided then annotate it first
+      if (userFile =~ /vcf$/)
+        ## call ediva-tools rank program to calculate rank of the variants
+        annCommand = "perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
+        " -f  > userspace/"+ user +"/job.log 2>&1"
+
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(annCommand + "\n")
+        end
+      end
+
+      ## call ediva-tools rank program to calculate rank of the variants
+      rankCommand = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
+      " --outfile userspace/"+ user + "/" + userFile + ".ranked  > userspace/"+ user +"/job.log 2>&1"
       
-      ## call oliver's rank tool from ediva web server
-      rankCommand = "nohup python /home/rrahman/soft/eDiVaAnnotation/rankSNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + userFile + " --outfile /var/www/html/ediva/current/"+ user+ "/"+ project + "/" + userFile + ".ranked  &"
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-      system(rankCommand)
+      ## write line to job file
+      File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+        file.write(rankCommand + "\n")
+      end
       
-      valMsg = "rank" ## for validation response 
+      ## chmod
+      system ("chmod 775 userspace/" + user + "/" + jobscript)
+      ## start the job
+      system("userspace/"+ user +"/" + jobscript)
+      ## set return message
+      valMsg = "ranked"
+
       return valMsg
-  end
+
+  end    
   
-<<<<<<< HEAD
-  def self.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,familyType,user,project)
-=======
-  def self.familyActionsMerged(sample1,sample2,sample3,affected1,affected2,affected3,vcfMerged,selectedFileMerged,inheritenceType,user,project)
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
+
+  def self.familyActionsMerged(params,user)
 
     valMsg = nil
     
     mergedAnnotationFile = nil
-    rankedFile = nil
-    ## write the initial family file for the family script from oliver      
     familyFile = 'family.txt'
-    ## handle affected nil parameters
-    if (affected1 == nil)
-      affected1 = 0
-    end
-    if (affected2 == nil)
-      affected2 = 0
-    end
-    if (affected3 == nil)
-      affected3 = 0
-    end
-
-    File.open(Rails.root.join(user,project,familyFile), 'w') do |file|
-      file.write(sample1 + "\t" + affected1.to_s + "\n")
-      file.write(sample2 + "\t" + affected2.to_s + "\n")
-      file.write(sample3 + "\t" + affected3.to_s + "\n")
-    end
+    jobscript = "jobtosubmit.sh"
+    
+    ## delete the target file(s) if exists
+    delcmmd = "rm userspace/" + user + "/" + familyFile
+    system(delcmmd)
+    delcmmd = "rm userspace/" + user + "/" + jobscript
+    system(delcmmd)
     
     
-    if (vcfMerged != nil)  
-      vcfFileChecker = vcfMerged.original_filename
-      valMsg = handleUserFile(vcfMerged,user,project)
-
-      ## merge sample annotated files for ranking tool
-      if (vcfFileChecker =~ /CD(.*)/)
-        mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
-        rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
-        annCommand = "scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        system(annCommand)      
-      elsif(vcfFileChecker =~ /VH(.*)/)
-        mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
-        rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
-        annCommand = "scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        system(annCommand)
-      else
-        ## lol you are fucked for now  
-      end
+    ## upload user file or select the file from userspace
+    if (params[:vcfMerged])
       
-      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)      
-      sleep 30
-      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
-      valMsg = "analysis"    
-      return valMsg
-          
-    elsif (selectedFileMerged != nil)
-      ## merge sample annotated files for ranking tool
-      if (selectedFileMerged =~ /CD(.*)/)
-        mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
-        rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
-        annCommand = "scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        system(annCommand)      
-      elsif(selectedFileMerged =~ /VH(.*)/)
-        mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
-        rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
-        annCommand = "scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
-        system(annCommand)
-      else
-        ## lol you are fucked for now  
+      valMsg = uploadUserFile(params[:vcfMerged],user)
+
+      if (valMsg == "uploaded")
+        filename = params[:vcfMerged].original_filename
+        commands = "" 
+        ## write the family script
+        params.each do |key,value| 
+          if (key =~ /sample/)
+            sampleindex = key[6..key.length]
+            affectstatus = 1
+            if (params[:"affected#{sampleindex}"] == nil)
+              affectstatus = 0
+            end
+            File.open(Rails.root.join("userspace",user,familyFile), 'a') do |file|
+              file.write(value + "\t" + affectstatus.to_s + "\n")
+            end
+          end
+        end  
+        
+        ## annotate line
+        commands = "perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ filename + 
+        " -s complete -f  > userspace/"+ user +"/job.log 2>&1"
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(commands + "\n")
+        end
+        
+        ## update filename as per annotation tool
+        ## remove the .vcf extension from file name
+        filename = filename[0..-5]
+        
+        ## rank line
+        commands = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename + ".sorted.annotated" +  
+        " --outfile userspace/"+ user + "/" + filename + ".sorted.annotated.ranked  > userspace/"+ user +"/job.log 2>&1"
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(commands + "\n")
+        end
+      
+        ## family script
+        if (params[:geneexclusionlist] == "1")
+          commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+          user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "
+        else
+          commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+          user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]    
+        end
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(commands + "\n")
+        end
+        
+        ## chmod
+        system ("chmod 775 userspace/" + user +"/" + jobscript)
+        ## start the job
+        system("userspace/"+ user +"/" + jobscript)
+        ## set return message       
+        valMsg = "jobsubmitted"
       end
-      ##call ranking tool from oliver 
-      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)      
-      sleep 15
-      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
-      valMsg = "analysis"    
-    else    
-      valMsg = "Your file selection is not appropriate ! Please carefully choose again !!"
-    end    
+
+    else
+      mergedAnnotationFile = params[:selectedFileMerged]
+
+       commands = "" 
+       ## write the family script
+       params.each do |key,value| 
+         if (key =~ /sample/)
+           sampleindex = key[6..key.length]
+           affectstatus = 1
+           if (params[:"affected#{sampleindex}"] == nil)
+             affectstatus = 0
+           end
+           File.open(Rails.root.join("userspace",user,familyFile), 'a') do |file|
+             file.write(value + "\t" + affectstatus.to_s + "\n")
+           end
+         end
+       end  
+        
+       if (mergedAnnotationFile =~ /annotated$/)
+
+        ## rank line
+        commands = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
+        " --outfile userspace/"+ user + "/" + mergedAnnotationFile + ".ranked  > userspace/"+ user +"/job.log 2>&1"
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(commands + "\n")
+        end         
+
+        ## family script
+        commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
+        user + "/" + mergedAnnotationFile + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered --family userspace/"+
+        user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+         file.write(commands + "\n")
+        end
+
+       elsif(mergedAnnotationFile =~ /ranked$/)
+        ## family script
+        if (params[:geneexclusionlist] == "1")
+          commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+          user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "
+        else
+          commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+          user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]    
+        end
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+         file.write(commands + "\n")
+        end
+         
+       end        
+       
+       ## chmod
+       system ("chmod 775 userspace/" + user +"/" + jobscript)
+       ## start the job
+       system("userspace/"+ user +"/" + jobscript)
+       ## set return message       
+       valMsg = "jobsubmitted"
+    end     
+
+
     return valMsg
+
   end
   
-<<<<<<< HEAD
+
   def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,familyType,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
-=======
-  def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
   
     valMsg = nil
     

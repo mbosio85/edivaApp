@@ -46,7 +46,7 @@ class User
         pass = nil
 
         ## create webserver physical workspace
-        Dir.mkdir(Rails.root.join(username)) unless File.exists?(username)
+        Dir.mkdir(Rails.root.join("userspace", username)) unless File.exists?(username)
     
         ## return message
         return "success"      
@@ -66,6 +66,29 @@ class User
       encrypted_password = BCrypt::Engine.hash_secret(password, salt)
     end
     return encrypted_password,salt
+  end
+  
+  ## get email address
+  def self.getemail(username)
+
+    dbmail = ""
+
+    qry = "select email from Table_users where username = '"+ username +"';"
+
+    cc = User.new.self
+    usermysqlref = cc.query(qry)
+    cc.close
+    
+    usermysqlref.each do |r1|
+      dbmail = r1
+    end
+    
+    if (dbmail == "")
+      dbmail = "invaliduser"
+    end
+    
+    return dbmail
+    
   end
   
   ## validate saved user for login

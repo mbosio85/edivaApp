@@ -3,187 +3,126 @@ class AappController < ApplicationController
   before_filter :authenticate_user, :only => [:analysis]
 
   def analysis
-<<<<<<< HEAD
-    #(@wspace,count) = Analysis.gWorkspace(session[:user])
-    #(projects,pros_number) = Analysis.gProjects(session[:user])
     
-    #if (pros_number == 0)
-    # @pros = Array.new
-    #else
-    #  @pros = Array.new(pros_number)
-    #  if projects != nil
-    #    projects.each do |p|
-    #      @pros.push(p)
-    #    end
-    #  end      
-    #end
-    #if (count == 0)
-    #  @wspace = nil
-    #else
-    #  @wspace.each do |r1|
-    #  Dir.foreach(session[:user] + "/" + r1) do |file|
-    #    next if file == '.' or file == '..'
-    #      @files.push(file)
-    #    end
-    #  end     
-      
-    #end
-    
+    if (File.exists?(session[:user]))
+      Dir.mkdir(Rails.root.join("userspace", session[:user]))
+    end
+
+    @actions = ['Preview','Download','Delete', 'Empty workspace']        
     @files = Array.new
-    Dir.foreach(session[:user] + "/") do |file|
+    Dir.foreach("userspace/" + session[:user] + "/") do |file|
         next if file == '.' or file == '..'
           @files.push(file)
     end
-    
-=======
-    (@wspace,count) = Analysis.gWorkspace(session[:user])
-    (projects,pros_number) = Analysis.gProjects(session[:user])
-    
-    if (pros_number == 0)
-     @pros = Array.new
-    else
-      @pros = Array.new(pros_number)
-      if projects != nil
-        projects.each do |p|
-          @pros.push(p)
-        end
-      end      
-    end
-    
-    @files = Array.new
-    
-    if (count == 0)
-      @wspace = nil
-    else
-      @wspace.each do |r1|
-      Dir.foreach(session[:user] + "/" + r1) do |file|
-        next if file == '.' or file == '..'
-          @files.push(file)
-        end
-      end     
-      
-    end
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-    @actions = ['Preview','Download','Delete']    
   end
 
   def annotate
-     
+    @actions = ['Preview','Download','Delete', 'Empty workspace']
+    @files = Array.new
+    
+     Dir.foreach("userspace/" + session[:user] + "/") do |file|
+       next if file == '.' or file == '..'
+        if file =~ /vcf$/ 
+           @files.push(file)
+        end   
+     end     
   end
 
   def rank
-<<<<<<< HEAD
+    @actions = ['Preview','Download','Delete', 'Empty workspace']    
     @files = Array.new
     
-     Dir.foreach(session[:user] + "/") do |file|
+     Dir.foreach("userspace/" + session[:user] + "/") do |file|
        next if file == '.' or file == '..'
-         if file =~ /annotated$/
+        if (file =~ /vcf$/ or file =~ /annotated$/) 
            @files.push(file)
-         end
+        end
      end
 
   end
 
-  def familyanalysis
-    @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound']#['denovo','dominant','recessive']
-    @famTypes = ['trio','family']
-=======
-    (@wspace,count) = Analysis.gWorkspace(session[:user])
+  def familyanalysissamples
+    @actions = ['Preview','Download','Delete', 'Empty workspace']
     @files = Array.new
-    
-    if (count == 0)
-      @wspace = nil
-    else
-      @wspace.each do |r1|
-      Dir.foreach(session[:user] + "/" + r1) do |file|
+    Dir.foreach("userspace/" + session[:user] + "/") do |file|
         next if file == '.' or file == '..'
-          if file =~ /annotated$/
-            @files.push(file)
-          end
-        end
-      end      
+          @files.push(file)
     end
-    
   end
 
   def familyanalysis
-    @inhTypes = ['denovo','dominant','recessive']
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-    (@wspace,count) = Analysis.gWorkspace(session[:user])
+    @actions = ['Preview','Download','Delete', 'Empty workspace']
+    if (params[:samplecount].to_i < 2)
+      redirect_to :familyanalysissamples
+      flash[:notice] = "Number of samples must be 2 or more"
+      flash[:color]= "invalid"
+      return        
+    end
+    
+    @analysisformtype = params[:mergedvcf]
+    @numberofsamples = params[:samplecount]    
+
+    if (@numberofsamples.to_i !=3 )
+      @famTypes = ['family']      
+      @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked']
+    else
+      @famTypes = ['trio','family']
+      @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound']      
+    end
+
     @files = Array.new
     
-    if (count == 0)
-      @wspace = nil
-    else
-      @wspace.each do |r1|
-      Dir.foreach(session[:user] + "/" + r1) do |file|
-        next if file == '.' or file == '..'
-          if file =~ /annotated$/
-            @files.push(file)
-          end
-        end
-      end      
-    end
+    Dir.foreach("userspace/" + session[:user] + "/") do |file|
+      next if file == '.' or file == '..'
+          @files.push(file)
+    end      
+    
   end
 
   def actionFamilySeparate
 
-    curProject = nil
-    (@wspace,count) = Analysis.gWorkspace(session[:user])
-    if (count == 0)
-      curProject = nil
-    else
-      @wspace.each do |project|
-        curProject = project  
-      end
-    end
+    #printkeys = ""
+    #params.each { |key,value| printkeys = printkeys + "," + key}
 
 
-    if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
-      redirect_to :familyanalysis
-      flash[:notice] = "Sample ID(s) cant be empty !!"
+    #if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
+    #  redirect_to :familyanalysis
+    #  flash[:notice] = "Sample ID(s) cant be empty !!"
+    #  flash[:color]= "invalid"
+    #  return
+    #else
+    #  @msg = Corelib.familyActionsSeparate(params[:sample1],params[:sample2],params[:sample3],params[:vcf1],params[:vcf2],params[:vcf3],params[:selectedFile1],params[:selectedFile2],params[:selectedFile3],params[:affected1],params[:affected2],params[:affected3],params[:inheritenceType],session[:user],curProject)
+    #end
+
+    #if @msg == "analysis"
+    #  redirect_to :analysis
+    #  flash[:notice] = "Analysis has started and the output files will available shortly !"
+    #  flash[:color]= "valid"        
+    #  return
+    #else
+      redirect_to :analysis
+      flash[:notice] = "this portion is not active yet! use the merged vcf section please" # printkeys #@msg
       flash[:color]= "invalid"
-      return
-    else
-      @msg = Corelib.familyActionsSeparate(params[:sample1],params[:sample2],params[:sample3],params[:vcf1],params[:vcf2],params[:vcf3],params[:selectedFile1],params[:selectedFile2],params[:selectedFile3],params[:affected1],params[:affected2],params[:affected3],params[:inheritenceType],session[:user],curProject)
-    end
-
-    if @msg == "analysis"
-      redirect_to :analysis
-      flash[:notice] = "Analysis has started and the output files will available shortly !"
-      flash[:color]= "valid"        
-    else
-      redirect_to :analysis
-      flash[:notice] = @msg
-      flash[:color]= "invalid"        
-    end
+      return        
+    #end
   end
 
   def actionFamilyMerged
-    curProject = nil
-    (@wspace,count) = Analysis.gWorkspace(session[:user])
-    if (count == 0)
-      curProject = nil
-    else
-      @wspace.each do |project|
-        curProject = project  
-      end
-    end
     
-    if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
-      redirect_to :familyanalysis
-      flash[:notice] = "Sample ID(s) cant be empty !!"
-      flash[:color]= "invalid"
-      return
-    else
-<<<<<<< HEAD
-      @msg = Corelib.familyActionsMerged(params[:sample1],params[:sample2],params[:sample3],params[:affected1],params[:affected2],params[:affected3],params[:vcfMerged],params[:selectedFileMerged],params[:inheritenceType],params[:familyType],session[:user],curProject)
-=======
-      @msg = Corelib.familyActionsMerged(params[:sample1],params[:sample2],params[:sample3],params[:affected1],params[:affected2],params[:affected3],params[:vcfMerged],params[:selectedFileMerged],params[:inheritenceType],session[:user],curProject)
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-    end
+    params.each do |key,value| 
+      if (key =~ /sample/)
+        if (value == "")
+          redirect_to :familyanalysissamples
+          flash[:notice] = "sample id cant be empty !"
+          flash[:color]= "invalid"
+          return
+        end
+      end
+    end  
+    
+    @msg = Corelib.familyActionsMerged(params,session[:user])
 
-    if @msg == "analysis"
+    if @msg == "jobsubmitted"
       redirect_to :analysis
       flash[:notice] = "Analysis has started and the output files will available shortly !"
       flash[:color]= "valid"
@@ -197,101 +136,83 @@ class AappController < ApplicationController
   end 
 
 
+  def actionUploadFile
+    
+    if (params[:vcf] == nil)
+      redirect_to :analysis
+      flash[:notice] = "Please select a file to upload."
+      flash[:color]= "invalid"
+      return              
+    end
+    
+    @msg = Corelib.uploadUserFile(params[:vcf],session[:user])
+    if @msg == "uploaded"
+      redirect_to :analysis
+      flash[:notice] = "Your file has been uploaded."
+      flash[:color]= "valid"        
+      return
+    else
+      redirect_to :analysis
+      flash[:notice] = "Something went wrong"
+      flash[:color]= "invalid"
+      return              
+    end
+  end
+
 
   def actionAnnotate
-<<<<<<< HEAD
-    #workspace = nil
-    #@wspace,count = Analysis.gWorkspace(session[:user])
     
-    #if count == 0
-    #  workspace = nil
-    #else
-    #  @wspace.each do |r1|
-    #    workspace = r1
-    #  end
-    #end
-    
-    #if workspace == nil
-    #  redirect_to :annotate
-    #  flash[:notice] = "You need to select a main project before proceeding with the analysis !"
-    #  flash[:color]= "invalid"
-    #else  
-      ## handle user input file for variants
-      #userVcf = params[:vcf].original_filename
-    @msg = Corelib.handleUserFile(params[:vcf],session[:user])
-    if @msg == "upload"
-      redirect_to :analysis
-      flash[:notice] = "VCF file uplaoded and annotated"
-      flash[:color]= "valid"        
-    end
-    #end
-  end
-
-  def actionRank
-    
-      @msg = Corelib.rankUserAnnotatedFile(params[:fileToRank],session[:user])
-=======
-    workspace = nil
-    @wspace,count = Analysis.gWorkspace(session[:user])
-    
-    if count == 0
-      workspace = nil
-    else
-      @wspace.each do |r1|
-        workspace = r1
-      end
-    end
-    
-    if workspace == nil
+    if(params[:vcf] == nil and params[:fileToAnnotate] == nil)
       redirect_to :annotate
-      flash[:notice] = "You need to select a main project before proceeding with the analysis !"
-      flash[:color]= "invalid"
-    else  
-      ## handle user input file for variants
-      #userVcf = params[:vcf].original_filename
-      @msg = Corelib.handleUserFile(params[:vcf],session[:user],workspace)
-      if @msg == "upload"
-        redirect_to :analysis
-        flash[:notice] = "VCF file uplaoded and annotated"
-        flash[:color]= "valid"        
-      end
+      flash[:notice] = "you need to upload a file or select a file from your workspace"
+      flash[:color]= "invalid"                    
+      return
+    end  
+    
+    if (params[:fileToAnnotate] == nil)
+      @msg = Corelib.handleUserFileAndAction(params[:vcf],session[:user],"annotation")      
+    else
+      @msg = Corelib.annotateVCF(params[:fileToAnnotate],session[:user])
+    end
+
+    if @msg == "annotated"
+      redirect_to :analysis
+      flash[:notice] = "Your job has been submitted. Your results will be available shortly."
+      flash[:color]= "valid"        
+    else
+      redirect_to :analysis
+      flash[:notice] = "Something went wrong"
+      flash[:color]= "invalid"              
     end
   end
 
   def actionRank
-    workspace = nil
-    @wspace,count = Analysis.gWorkspace(session[:user])
-    
-    if count == 0
-      workspace = nil
-    else
-      @wspace.each do |r1|
-        workspace = r1
-      end
-    end
-    
-    if workspace == nil
+
+    if(params[:ann] == nil and params[:fileToRank] == nil)
       redirect_to :rank
-      flash[:notice] = "You need to select a main project before proceeding with the analysis !"
-      flash[:color]= "invalid"
-    else  
-      @msg = Corelib.rankUserAnnotatedFile(params[:fileToRank],session[:user],workspace)
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
-      if @msg == "rank"
-        redirect_to :analysis
-        flash[:notice] = "Annotated file has been ranked !"
-        flash[:color]= "valid"
-      else
-        redirect_to :rank
-        flash[:notice] = "something went wrong !"
-        flash[:color]= "invalid"
-      end
-<<<<<<< HEAD
-      
-=======
+      flash[:notice] = "you need to upload a file or select a file from your workspace"
+      flash[:color]= "invalid"                    
+      return
+    end  
+    
+    if (params[:fileToRank] == nil)
+      @msg = Corelib.handleUserFileAndAction(params[:vcf],session[:user],"rank")      
+    else
+      @msg = Corelib.rankUserAnnotatedFile(params[:fileToRank],session[:user])
     end
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
+  
+    if @msg == "ranked"
+      redirect_to :analysis
+      flash[:notice] = "Your job has been submitted. Your results will be available shortly."
+      flash[:color]= "valid"        
+    else
+      redirect_to :analysis
+      flash[:notice] = "Something went wrong"
+      flash[:color]= "invalid"              
+    end  
+  
   end
+
 
 
   def createProject
@@ -300,7 +221,6 @@ class AappController < ApplicationController
       redirect_to :analysis
       flash[:notice] = "Invalid project name !"
       flash[:color]= "invalid"
-<<<<<<< HEAD
     elsif (params[:project] =~ /(\s)+/)
       redirect_to :analysis
       flash[:notice] = "You project name can not contain spaces !!"
@@ -311,8 +231,6 @@ class AappController < ApplicationController
       flash[:notice] = "You project name can not contain special character(s) !!"
       flash[:color]= "invalid"    
       return
-=======
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
     else
       @msg = Analysis.cProject(params[:project],session[:user], params[:mainProject])
     end
@@ -346,25 +264,34 @@ class AappController < ApplicationController
   end
 
   def workspaceFileAction
-<<<<<<< HEAD
+    
+    @actions = ['Preview','Download','Delete', 'Empty workspace']
+    @files = Array.new
+    Dir.foreach("userspace/" + session[:user] + "/") do |file|
+      next if file == '.' or file == '..'
+          @files.push(file)
+    end      
+
+
     @fileToShow = params[:selectedFile]
     @actionToRecognize = params[:selectedAction]
     @msg = nil
 
     if(params[:selectedAction] == 'Download')
       downloadFile(@fileToShow,session[:user])
-    elsif(params[:selectedAction] == 'Delete')
-      rmCommand = "rm " + session[:user]+ "/" + @fileToShow
+    end
+    
+    if(params[:selectedAction] == 'Delete')
+      rmCommand = "rm " + "userspace/" + session[:user]+ "/" + @fileToShow
       system(rmCommand)
       @msg = "delete"
-    elsif(params[:selectedAction] == 'Preview')
-      preview(@fileToShow)
-    else
-      redirect_to :analysis
-      flash[:notice] = " unknown action !!"
-      flash[:color]= "invalid"
-      return      
-    end       
+    end
+    
+    if(params[:selectedAction] =~ /Empty/)
+      rmCommand = "rm " + "userspace/" + session[:user]+ "/*.*"
+      system(rmCommand)
+      @msg = "alldelete"
+    end
 
     if @msg == "delete"
       redirect_to :analysis
@@ -373,50 +300,40 @@ class AappController < ApplicationController
       return
     end
  
-  end
+    if @msg == "alldelete"
+      redirect_to :analysis
+      flash[:notice] = "All files have been deleted !!"
+      flash[:color]= "valid"
+      return
+    end
 
-  def preview(fileToView)
-    @file = fileToView
   end
 
   
   def downloadFile(fileToDownload,user)
-    #send_file Rails.root.join(user,project,fileToDownload), :disposition => 'attachment'
-    #scpCommand = "scp /var/www/html/ediva/current/"+user+"/"+fileToDownload+ " /var/www/html/ediva/current/"+user+"/"+fileToDownload+".csv "
-    #system(scpCommand)
-    #newFileToDownload = fileToDownload + ".csv"
-    send_file Rails.root.join(user,fileToDownload), :disposition => 'attachment'
-    #rmCommand = "rm /var/www/html/ediva/current/"+user+"/"+newFileToDownload
-    #system(rmCommand)  
-  end
 
-
-=======
-    
-    @curProject = nil
-    (@wspace,count) = Analysis.gWorkspace(session[:user])
-    if (count == 0)
-      @curProject = nil
+    if(fileToDownload =~ /annotated$/ or fileToDownload =~ /ranked$/ or fileToDownload =~ /analysed$/ or fileToDownload =~ /filtered$/)
+      newfileToDownload = fileToDownload + ".csv"
+      scpCommand = "scp userspace/"+user+"/"+fileToDownload+ " userspace/"+user+"/"+newfileToDownload
+      system(scpCommand)
+      send_file Rails.root.join("userspace",user,newfileToDownload), :disposition => 'attachment'
+      system("rm userspace/" + user + "/" + newfileToDownload)
     else
-      @wspace.each do |project|
-        @curProject = project  
-      end
+      send_file Rails.root.join("userspace",user,fileToDownload), :disposition => 'attachment'      
     end    
+
+  end
+
+  def about
     
-    @fileToShow = params[:selectedFile]
-    @actionToRecognize = params[:selectedAction]
-
-    if(params[:selectedAction] == 'Download')
-      downloadFile(@fileToShow,session[:user],@curProject)
-    end       
   end
-
   
-  def downloadFile(fileToDownload,user,project)
-    send_file Rails.root.join(user,project,fileToDownload), :disposition => 'attachment'
+  def contact
+    
   end
 
+  def docs
+    
+  end
 
-
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 end

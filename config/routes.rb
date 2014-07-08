@@ -8,6 +8,10 @@ EdivaApp::Application.routes.draw do
   match "annotate", :to => 'aapp#annotate'
   match "rank", :to => 'aapp#rank'
   match "familyanalysis", :to => 'aapp#familyanalysis'
+  match "familyanalysissamples", :to => 'aapp#familyanalysissamples'
+  match "about", :to => 'aapp#about'
+  match "contact", :to => 'aapp#contact'
+  match "docs", :to => 'aapp#docs'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

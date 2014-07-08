@@ -5,7 +5,7 @@
 			<thead>
 			</thead>
 			<tbody>	
-			<%File.open(session[:user] + '/' + @file, "r") do |infile| -%>
+			<%File.open("userspace/" + @username + '/' + @file, "r") do |infile| -%>
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
         			<% if (line =~ /##/) -%>	

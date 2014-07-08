@@ -1,0 +1,80 @@
+
+<div class="row-fluid">
+
+	<div class="span6">
+
+		<h3>
+			Getting started with uploading & management of files and analyses
+		</h3>
+		
+		</br>
+		
+		<p>		
+			After logging into eDiVa app, you can upload and manage your files in your home page. On the right hand side of your home page,
+			you can see the forms for uplaoding your files and below that you can perform basic tasks (e.g viewing, deleting and downloading)
+			on your uploaded files in your workspace. The main portion of your home page shows the files you currently have in your workspace.
+			 
+		</p>
+		
+		<p>
+			Also, immediately below the file management section on the right hand side of your home page, you can see the analyses that you can do using
+			eDiVa app. You can annotate your genomic variants using the <b>Annotate Variants</b> section. A list contaning the description of the annotated
+			fields in the result file is given below in this page. <b>Rank Variants</b> section allows you to rank your genomic variants using the annotated
+			fileds from the annotation step. The ranking is done considering multiple factors. Finally in the <b>Trio/Family Analysis</b> section, you can 
+			perofrm multiple inheritence testing in small families and trios to detect susceptible genes. This analysis step works on multiple VCF files from
+			different samples or a single merged VCF file (multi-sample VCF file, click 
+			<%= link_to :here, "http://www.1000genomes.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-41", target: "_blank", class: "nav_links_body"%> 
+			for information on VCF file format) containing genotypes of differnet samples per varinat line. All analyses work 
+			with both Single nucleotide variants and short insertion-deletion variants.
+		</p>
+		
+	</div>
+	
+	<div class="span6">
+
+				<%= image_tag('homepagedoc.png')%>
+	</div>
+	
+</div>	
+
+<div class="row-fluid">
+
+	<div class="span6">
+
+		<h3>
+			Performing analyses on eDiVa
+		</h3>
+		
+		</br>
+		
+		<p>		
+			Running analyses in eDiVa is very easy & simple. To run the annotation task, you can directly upload a VCF file or you can also select a VCF file
+			from your workspace as well. Emails are sent your email address as soon as the task is completed. Running the ranking tool is exactly the same.
+			You can either upload a VCF file or eDiVa annotated annotation file or select a file from your workspace. Selecting or uploading an annotated file
+			in this case will result in a smaller job execution time as annotation job is no longer required.
+		</p>		
+		
+		<p>
+			For running Trio/Family analysis step, after providing the number of samples with separate sample/ merged sample mode, you can uoload single sample
+			or merged vcf and select the inheritance type & family type. You can also select appropriate files from your workspace as well to run this step. You 
+			should always make sure, the sample indentifiers inside the VCF/annotation file is provided in the Trio/Family analysis form in the Sample(s) field.
+		</p>
+		
+	</div>
+	
+	<div class="span4">
+
+				<%= image_tag('annotatedoc.png')%>
+				<%= image_tag('rankdoc.png')%>
+
+	</div>
+	
+
+	<div class="span6">
+
+				<%= image_tag('famanalysisdoc.png')%>
+
+	</div>
+
+
+</div>

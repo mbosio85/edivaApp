@@ -11,6 +11,8 @@
  *= require_self
  *= require_tree .
  *= require bootstrap_and_overrides
+ *= require jquery.ui.all
+ *= require jquery.modal
 */
 
 body{
@@ -32,18 +34,15 @@ body{
 		color: #000000;
 		padding: 5px;
 }
-<<<<<<< HEAD
 .workspaceactions {
 		margin:auto;
-        background-color:#FFFFFF;
+        background-color:#E8E8E8;
         border-radius: 5px 5px 5px 5px;
         padding: 10px;
 }
 .workspaceactions table td{
 		padding: 5px;
 }
-=======
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 .SearchPanel{
 		right:0;
 		left:0;
@@ -67,25 +66,13 @@ body{
         text-align: left;
         margin: auto;
 }
-.search_res{
-		height: inherit;
-}
-.search_res table tr{
-        text-align: center;
-        margin: auto;
-        border: 2px solid #FF0000;
-        background-color: rgba(0, 0, 0, .2);
-        box-shadow: 5px 5px 5px #888888;
-}
 .search_res table{
 		font-size: smaller;
-        text-align: center;
-        margin:auto;
-        margin-top:1px;
-        box-shadow: 5px 5px 5px #888888;
+		width:inherit;
 }
-.search_res table th td{
-        padding: 6px 16px 6px 6px;
+.search_res table tr{
+        background-color: rgba(0, 0, 0, .2);
+        padding: 6px 6px 6px 6px;
 }
 .footer{
 		color: #FFFFFF;
@@ -125,11 +112,7 @@ body{
 		border:1px solid green;
 }*/
 .sfield{
-<<<<<<< HEAD
 		width: 200px;
-=======
-		width: 550px;
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
 		height: 25px;
 		border-radius: 5px 5px 5px 5px;
 }

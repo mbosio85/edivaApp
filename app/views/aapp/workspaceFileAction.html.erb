@@ -1,38 +1,56 @@
 <div class="row-fluid">
+
 	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>	
+	<%end%>
+	
+	</div>
+
+</div>
+
+<div class="row-fluid">
+
+	<div class="span12">
+
 		<% if (@actionToRecognize == 'Preview') -%>
-			<table class="table table-striped">
-			<thead>
-			</thead>
+		<div class="alert alert-error">
+			<p><%= "Only first 100 lines are shown here" %></p>
+		</div>
+
+		<div class = "search_res">
+		<table class="table table-hover">
 			<tbody>	
-			<%File.open(session[:user] + '/' +@curProject+'/'+@fileToShow, "r") do |infile| -%>
+			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
-        			<% if (line =~ /##/) -%>	
-	        		<% else -%>
         			<tr>
         			<td>
-	        			<%= line %><br/>	        	
+	        			<% if(line =~ /^#/) -%>
+	        			<%= line %>
+	        			<% else -%>
+	        			<b><%= line %></b>
+	        			<% end -%>	        	
     				    <% limit = limit + 1 -%>
-    				<% end -%>
         			</td>
         			</tr>
-        			<% if (limit == 50) -%>
+        			<% if (limit == 100) -%>
         				<% break -%>
         			<% end -%>	
 	    		<% end -%>
 			<% end -%>
 			</tbody>
-			</table>
-		<% elsif(@actionToRecognize == 'Delete') -%>
-			
-			<% delCommand = "rm "+ session[:user] + "/" + @curProject +"/"+@fileToShow + "" -%>
-			<% system(delCommand) -%>
-			
-			<p>Your <b><%= @fileToShow %></b> file form <b><%= @curProject %></b> project has been removed successfully</p> 
-			
-		<% else -%>
-			<p> Unknown action from Home page </p>
+		</table>
+		</div>	
 		<% end -%>	
+	
 	</div>
+
 </div>

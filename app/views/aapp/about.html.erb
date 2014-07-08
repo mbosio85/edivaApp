@@ -1,0 +1,48 @@
+<div class="row-fluid">
+
+	<div class="span12">
+	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>	
+	<%end%>
+
+
+	<div class = "Documentation">
+		<h4>About eDiVa </h4>
+		<p>
+		need to put in text
+		</p>
+
+	</div>
+
+	<div class = "Documentation">
+	<h4>Disclaimer</h4>
+
+		<p>
+			The submitters are responsible to ensure that all data they submit to GEEVS fulfill all applicable legal and ethical requirements, and notably that the individuals 
+			from whom the data was extracted have signed a relevant consent form approving of the submission of their data in a pooled database.
+		</p>
+	</div>
+
+	<div class = "Documentation">
+	<h4>Confidentiality</h4>
+
+		<p>
+		GEEVS will only publish aggregate exome variant frequencies from a pool of data provided by the submitters. Each submission is composed of data from a minimum of 50 samples.
+		No personal data (age, sex, surname, country of origin, presence or absence of specific traits) will be available in GEEVS from any single individuals.
+		Data available for pooled data will be: country where the data was processed, and disease which has been studies. The GEEVS responsibles are aware of the literature 
+		concerning the identification of individuals from pooled genomic data, and of the ethical and legal regulations of privacy in genomics research (see bibliography below).
+		GEEVS responsibles will make all possible efforts to ensure that individuals will be non-identifiable to the greatest possible degree within GEEVS.
+		</p>
+
+	</div>
+
+	</div>
+
+</div>

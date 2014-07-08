@@ -29,6 +29,7 @@ sub usage { print "\n$0 usage:\n",
 	   "--sampleGenotypeMode,-s  complete: reports all genotypes from the input VCF file\n\t\t\t compact: reports only heterozygous and homozygous alteration genotypes from the input VCF file \n\t\t\t none: exclude sample wise genotype information in annotation \n\t\t\t default: compact \n\n",
 	   "--onlyGenicAnnotation,-o  If set, then only genic annotation will be performed \n\n",
 	   "--forceNewFileCreate,-f  If set, then it will over-write existing output annotation file with the same name \n\n",
+	   "--csv_file csv file containing the email address of the person \n\n",
 	   "--help,-h \t\t show help \n\n"
 }
 
@@ -39,6 +40,7 @@ sub usage { print "\n$0 usage:\n",
 
 ## variables
 my $help = 0;
+my $csv_file;
 my $input; ## main input vcf file
 my $geneDef = "refGene"; ## gene Definition
 my $sep = ","; ## separator for annotation outfile; currently comma (,) is default;
@@ -69,7 +71,7 @@ $fileSuffix =~ s/\:/-/g;
 $fileSuffix =~ s/\s/-/g;
 
 ## ANNOVAR settings
-our $ANNOVAR = "put_annovar_path/"; 
+our $ANNOVAR = "/users/GD/tools/eDiVaCommandLine/lib/Annovar"; 
 
 ##############################################################################################
 ## COMMAND LINE OPTIONS
@@ -77,7 +79,7 @@ our $ANNOVAR = "put_annovar_path/";
 
 
 ## grab command line options
-unknownArguments() if (!GetOptions("input=s" => \$input, "tempDir=s" => \$templocation, "geneDef=s" => \$geneDef, "variantType=s" => \$type, "onlyGenicAnnotation" => \$onlygenic, "forceNewFileCreate" => \$forceDel, "quicklookup=s" => \$qlookup, "sampleGenotypeMode=s" => \$gtMode, "help" => \$help));
+unknownArguments() if (!GetOptions("input=s" => \$input, "csv_file=s" => \$csv_file, "tempDir=s" => \$templocation, "geneDef=s" => \$geneDef, "variantType=s" => \$type, "onlyGenicAnnotation" => \$onlygenic, "forceNewFileCreate" => \$forceDel, "quicklookup=s" => \$qlookup, "sampleGenotypeMode=s" => \$gtMode, "help" => \$help));
 
 
 ## check mandatory command line parameters and take necessary actions
@@ -1959,6 +1961,10 @@ if ($qlookup eq "NA")
 	print "MESSAGE :: Finalizing annotation process \n";
 	&finalize;
 	print "MESSAGE :: Finalization completed \n";
+
+	## email command
+	my $mailCmd = "python ../python-mailer/pymailer.py -s python ../python-mailer/annotation.html " + $csv_file + " Annotation";
+	system($mailCmd);
 
 }else{
 

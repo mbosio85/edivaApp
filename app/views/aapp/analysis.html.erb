@@ -1,5 +1,4 @@
 <div class="row-fluid">
-<<<<<<< HEAD
 	
 	<div class="span12">
 	
@@ -15,7 +14,7 @@
 		
 		<%end%>
 		
-		<p> Welcome,<b> <%= session[:user] %></b>.		
+		<p> Welcome,<b> <%= session[:user] %></b>. To Get started with using eDiVa, have a look <%=  link_to_modal "here", "#gsModal", :class=>"button" %>.		
 
 	</div>
 	
@@ -32,7 +31,7 @@
 		<thead>
 		</thead>	
 		<tbody>
-			<% if (Dir.entries(session[:user] + "/").length == 2) %>
+			<% if (Dir.entries("userspace/" + session[:user] + "/").length == 2) %>
 			<tr>
 			<td>
 				Your currently have no file(s).
@@ -40,7 +39,7 @@
 			</tr>
 			<% else -%>
 				<ul>
-				<% Dir.foreach(session[:user] + "/") do |file|-%>
+				<% Dir.foreach("userspace/" + session[:user] + "/") do |file|-%>
 					<% next if file == '.' or file == '..' -%>
 				<tr>
 				<td>
@@ -57,14 +56,30 @@
 
 
 	<div class="span4">
-		<h4>
-			Workspace File Action(s)
-		</h4>
 
 		<div class="workspaceactions">
+			<h4>
+				Upload File(s) to Workspace
+			</h4>
+
+			</br>
+		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>
+				<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %></br>
+      			<%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
+       	   <% end %>
+		</div>
+
+		</br></br>
+
+		<div class="workspaceactions">
+			<h4>
+				Manage Workspace File(s)
+			</h4>
+
 			<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 				<% if @files.length > 0 %>
-					<%= select_tag "selectedFile", options_for_select(@files) %> Select file 
+					<%= select_tag "selectedFile", options_for_select(@files) %> Select file
+					<br> 
 					<%= select_tag "selectedAction", options_for_select(@actions) %> Select action on file
 					<br>
 					<%= submit_tag "Commit", :class => 'btn btn-primary btn-medium'%>
@@ -74,198 +89,77 @@
 			<% end -%>
 		</div>		
 
-	
-	</div>
+		</br></br>
 
-
-
-</div>
-
-<!--
-	
-		    <%= form_tag(:controller => 'aapp',:action => 'createProject') do %>
-	  		   <%= text_field_tag :project, nil,:placeholder => 'Project name' %> 
-           	   <%= check_box_tag :mainProject, true %> Set as main project
-           	   <br>
-           	   <%= submit_tag "Create new project",  :class => 'btn btn-primary btn-medium' %>
-       	   <% end %>
-
-		   <%= form_tag(:controller => 'aapp',:action => 'changeMainProject') do %>
-				<% if @pros != nil -%>
-					<%= select_tag "mainProjecttoSet", options_for_select(@pros) %> Select project to change
-					<br>
-	       			<%= submit_tag "Change project",  :class => 'btn btn-primary btn-medium' %>
-				<% else -%>
-					<p> You have no projects yet !! </p>
-				<% end -%>	
-       	   <% end %>	
-	
-	
-	
-	>
-=======
-	<% if flash[:color]== "valid" %>
-		<div class="alert alert-success">
-			<p><%= flash[:notice]%></p>
-		</div>
-	<% elsif flash[:color]== "invalid"%>
-		<div class="alert alert-error">
-			<p><%=flash[:notice]%></p>
-		</div>
-	<% else -%>
-	
-	<%end%>
-
-	<div class="span12">
-		<% if @wspace == nil -%>
-			<p> Welcome, <%= session[:user] %>. You currently have no workspace. Set a main project please !! </p>	
-		<% else -%>
-			<% @wspace.each do |r1| -%>
-				<p> Welcome,<b> <%= session[:user] %></b>. Your current project is <b> <%= r1 %> </b></p>
-			<% end -%>
-		<% end -%>	
-	</div>
-</div>	
-
-
-<div class="row-fluid">
-	
-	<div class="span8">
-		<div class="Search">
-		   <%= form_tag(:controller => 'aapp',:action => 'createProject') do %>
-		   <table align="center">
-		   	<tr>
-           	<td>   
-	  		   <%= text_field_tag :project, nil, :class => 'sfield',:placeholder => 'Project name' %> 
-      		</td>
-			<td>
-           	   <label class="checkbox">
-           	   	<%= check_box_tag(:mainProject) %>
-				<%= label_tag(:mainProject, "Set as main project") %>
-      		   </label>
-           	</td>
-           	</tr>
-           	<tr>
-           		<th>
-           			<%= submit_tag "Create Project",  :class => 'btn btn-primary btn-medium' %>
-           		</th>
-           	</tr>		
-           </table>
-       	   <% end %>
-		</div>
-	</div>
-	
-	<div class="span4">
-		<div class="Search">
-		   <%= form_tag(:controller => 'aapp',:action => 'changeMainProject') do %>
-		   <table align="center">
-		   	<tr>
-		   		<td>
-					<% if @pros != nil -%>
-						Select project: <%= select_tag "mainProjecttoSet", options_for_select(@pros) %> &nbsp;
-					<% else -%>
-						<p> You have no projects yet !! </p>
-					<% end -%>	
-           		</td>
-           	</tr>
-           	<tr>
-           		<th>
-           			<%= submit_tag "Set Main Project",  :class => 'btn btn-primary btn-medium' %>
-           		</th>
-           	</tr>		
-           </table>
-       	   <% end %>
-		</div>		
-	</div>
-	
-</div>	
-
-<div class="row-fluid">
-	<div class="span12">
-	</div>
-</div>
-<div class="row-fluid">
-	<div class="span12">
-	</div>
-</div>
-
-
-
-<div class="row-fluid">
-	<div class="span8">
-		<% if @wspace != nil -%>
+		<div class="workspaceactions">
 			<h4>
-				Workspace Contents:
+				Analyses
 			</h4>
-				<table class="table table-hover">
-				<thead>
-					<th>
-						<% if @wspace != nil -%>
-							<% @wspace.each do |r1| -%>
-								<b><%= r1 %> </b> 
-							<% end -%>
-						<% end -%>
-						File(s)
-					</th>
-				</thead>	
-				<tbody>
-				<% @wspace.each do |r1| -%>
-					<% if (Dir.entries(session[:user] + "/" + r1).length == 2) %>
-						<tr>
-						<td>
-							Your current project has no file(s).
-						</td>
-						</tr>
-					<% else -%>
-						<ul>
-						<% Dir.foreach(session[:user] + "/" + r1) do |file|-%>
-						<% next if file == '.' or file == '..' -%>
-							<tr>
-							<td>
-								<li> <%= file %> </li>
-							</td>
-							</tr>
-						<% end -%>	
-						</ul>
-					<% end -%>
-				<% end -%>
-				</tbody>
-				</table>
-		<% else -%>
-			<p> You need to set a main project. If you dont have any project then you should start with creating one !! </p>	
-		<% end -%>
-	</div>
-	
-	<div class="span4">
-		<div class="Search">
-			<h4>
-				File actions on Workspace
-			</h4>	
-			<table align="center">
-		   	<tr>
-		   		<td>
-					<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
-						<% if @files != nil %>
-							Select File: <%= select_tag "selectedFile", options_for_select(@files) %> &nbsp;
-						<% else -%>
-							<p> You have no files in this project !! </p>
-						<% end -%>
-				</td>
-			</tr>
-			<tr>
-				<td>
-						Select Action: <%= select_tag "selectedAction", options_for_select(@actions) %> &nbsp;
-				</td>
-			</tr>		
-			<tr>
-				<th>				
-					<%= submit_tag "Commit", :class => 'btn btn-inverse btn-medium'%>
-					<% end -%>
-				</th>
-			</tr>
-			</table>
+            <ul>
+            	<li><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></li>
+            	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation & damage potential scores.</dd>
+            	<li><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></li>
+            	<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
+            	<li><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></li>
+               	<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>	
+			</ul>
 		</div>		
-	</div>
 		
+
+	</div>
+
 </div>
->>>>>>> 125617c60d28ff78cc6dfcac741e9583c13b493f
+
+<script>
+function validateFiles(inputFile) {
+  var maxExceededMessage = "File exceeds the maximum allowed size (100 MB)";
+ 
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+ 
+  $.each(inputFile.files, function() {
+    if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+  });
+  if (sizeExceeded) {
+    window.alert(maxExceededMessage);
+    $(inputFile).val('');
+  };
+ 
+}
+</script>
+<div id="gsModal" class="demo-description" style="display: none;">
+
+  		<div class="modal-header">
+			<b>Getting started with uploading & management of files and analyses</b>
+		</div>
+		
+		<div class="modal-body">
+		<p>		
+			After logging into eDiVa app, you can upload and manage your files in your home page. On the right hand side of your home page,
+			you can see the forms for uplaoding your files and below that you can perform basic tasks (e.g viewing, deleting and downloading)
+			on your uploaded files in your workspace. The main portion of your home page shows the files you currently have in your workspace.
+			 
+		</p>
+		
+		<p>
+			Also, immediately below the file management section on the right hand side of your home page, you can see the analyses that you can do using
+			eDiVa app. You can annotate your genomic variants using the <b>Annotate Variants</b> section. A list contaning the description of the annotated
+			fields in the result file is given below in this page. <b>Rank Variants</b> section allows you to rank your genomic variants using the annotated
+			fileds from the annotation step. The ranking is done considering multiple factors. Finally in the <b>Trio/Family Analysis</b> section, you can 
+			perofrm multiple inheritence testing in small families and trios to detect susceptible genes. This analysis step works on multiple VCF files from
+			different samples or a single merged VCF file (multi-sample VCF file, click 
+			<%= link_to :here, "http://www.1000genomes.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-41", target: "_blank", class: "nav_links_body"%> 
+			for information on VCF file format) containing genotypes of differnet samples per varinat line. All analyses work 
+			with both Single nucleotide variants and short insertion-deletion variants.
+		</p>
+		
+		<p>
+			<%= image_tag('homepagedoc.png')%>  	
+  		</p>	
+  				
+  		<p>
+  			Read the full documentation <%= link_to :"here", :controller => "aapp", :action => "docs"%>.
+  		</p>			
+  		</div>
+
+</div>
