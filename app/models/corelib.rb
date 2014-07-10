@@ -46,8 +46,8 @@ class Corelib
   def self.annotateVCF(userFile,user)
     
       valMsg = nil
-      jobscript = "jobtosubmit.sh"
-      csv_file = "csv_file.csv"
+      jobscript = ".jobtosubmit.sh"
+      csv_file = ".csv_file.csv"
       
       usermail = User.getemail(user)
       mail = usermail.to_s[2..-3]
@@ -60,7 +60,7 @@ class Corelib
       
       ## call ediva-tools rank program to calculate rank of the variants
       annCommand = "perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
-      " -s complete -f --csv_file "+ csv_file +" > userspace/"+ user +"/job.log 2>&1"
+      " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/job.log 2>&1"
 
       ## write line to job file
       File.open(Rails.root.join("userspace",user,jobscript), 'w') do |file|

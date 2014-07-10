@@ -823,9 +823,10 @@ sub eDiVaAnnotation
 sub AnnovarAnnotation
 {	
 	my $annCmm;
+	my $logfile = ".".$input.".annovar.log";
 	
 	## prepare Annovar input
-	my $annInCmm = "perl $ANNOVAR/convert2annovar.pl --includeinfo -format vcf4 $input > $templocation/annInfile".$fileSuffix."   2> ".$input.".annovar.log";
+	my $annInCmm = "perl $ANNOVAR/convert2annovar.pl --includeinfo -format vcf4 $input > $templocation/annInfile".$fileSuffix."   2> ".$logfile;
 	##print "MESSAGE :: Running Annovar command \> $annInCmm\n";
 	system ($annInCmm);
 
@@ -835,32 +836,32 @@ sub AnnovarAnnotation
 	## run Annovar annotation
 	if ($geneDef eq 'ensGene')
 	{
-		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype ensgene --step 1 --outfile $templocation/Ensembl$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$input.".annovar.log";
+		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype ensgene --step 1 --outfile $templocation/Ensembl$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$logfile;
 		##print "MESSAGE :: Running Annovar command \> $annCmm\n";
 		system ($annCmm);		
 	}elsif($geneDef eq 'refGene')
 	{
-		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --step 1 --outfile $templocation/Refseq$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$input.".annovar.log";
+		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --step 1 --outfile $templocation/Refseq$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$logfile;
 		##print "MESSAGE :: Running Annovar command \> $annCmm\n";
 		system ($annCmm);
 	}elsif($geneDef eq 'knownGene')
 	{
-		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype knowngene --step 1 --outfile $templocation/Known$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$input.".annovar.log";
+		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype knowngene --step 1 --outfile $templocation/Known$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$logfile;
 		##print "MESSAGE :: Running Annovar command \> $annCmm\n";
 		system ($annCmm);
 	}elsif($geneDef eq 'all')
 	{
 		##print "MESSAGE :: No sepicific gene definition selected, hence Annovar is going to run on all definitions !\n";
 		## refgene
-		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --step 1 --outfile $templocation/Refseq$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$input.".annovar.log";
+		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --step 1 --outfile $templocation/Refseq$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$logfile;
 		##print "MESSAGE :: Running Annovar command \> $annCmm\n";
 		system ($annCmm);
 		## ensgene
-		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype ensgene --step 1 --outfile $templocation/Ensembl$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$input.".annovar.log";
+		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype ensgene --step 1 --outfile $templocation/Ensembl$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$logfile;
 		##print "MESSAGE :: Running Annovar command \> $annCmm\n";
 		system ($annCmm);
 		## knowngene
-		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype knowngene --step 1 --outfile $templocation/Known$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$input.".annovar.log";
+		$annCmm = "$ANNOVAR/ediva_summarize_annovar.pl --buildver hg19  --genetype knowngene --step 1 --outfile $templocation/Known$fileSuffix $templocation/annInfile".$fileSuffix." $ANNOVAR/hg19/ 2> ".$logfile;
 		##print "MESSAGE :: Running Annovar command \> $annCmm\n";
 		system ($annCmm);
 	}else
@@ -1963,7 +1964,7 @@ if ($qlookup eq "NA")
 	print "MESSAGE :: Finalization completed \n";
 
 	## email command
-	my $mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/annotation.html " + $csv_file + " Annotation";
+	my $mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/annotation.html $csv_file Annotation";
 	system($mailCmd);
 
 }else{
