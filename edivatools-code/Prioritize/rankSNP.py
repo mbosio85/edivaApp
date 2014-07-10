@@ -135,10 +135,9 @@ def main ():
     outcsv.writerow(header)
     for line in alldata:
         outcsv.writerow(line)
-    
-    ## send email
-	mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/rank.html "+ csvfile +" Ranking"
-	os.system(mailCmd)
+        
+    mailCmd = 'python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/rank.html '+ str(args.csvfile) +' Ranking'
+    os.system(mailCmd)    
 
     exit(0)
 

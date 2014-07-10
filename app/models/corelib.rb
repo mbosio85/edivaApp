@@ -111,16 +111,32 @@ class Corelib
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(annCommand + "\n")
         end
+        
+        ## update filename
+        ## remove the .vcf extension from file name
+        userFile = userFile[0..-5]
+        userFile = userFile + ".sorted.annotated"
+
+        ## call ediva-tools rank program to calculate rank of the variants
+        rankCommand = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
+        " --outfile userspace/"+ user + "/" + userFile + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+        
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(rankCommand + "\n")
+        end        
+        
+      else
+        ## call ediva-tools rank program to calculate rank of the variants
+        rankCommand = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
+        " --outfile userspace/"+ user + "/" + userFile + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+        
+        ## write line to job file
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+          file.write(rankCommand + "\n")
+        end        
       end
 
-      ## call ediva-tools rank program to calculate rank of the variants
-      rankCommand = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
-      " --outfile userspace/"+ user + "/" + userFile + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
-      
-      ## write line to job file
-      File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
-        file.write(rankCommand + "\n")
-      end
       
       ## chmod
       system ("chmod 775 userspace/" + user + "/" + jobscript)
