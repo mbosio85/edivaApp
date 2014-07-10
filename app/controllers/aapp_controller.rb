@@ -13,7 +13,7 @@ class AappController < ApplicationController
     @actions = ['Preview','Download','Delete', 'Empty workspace']        
     @files = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
-        next if file =~ /^./
+        next if file =~ /^\./
           @files.push(file)
     end
   end
@@ -23,7 +23,7 @@ class AappController < ApplicationController
     @files = Array.new
     
      Dir.foreach("userspace/" + session[:user] + "/") do |file|
-       next if file == '.' or file == '..'
+       next if file =~ /^\./
         if file =~ /vcf$/ 
            @files.push(file)
         end   
@@ -35,7 +35,7 @@ class AappController < ApplicationController
     @files = Array.new
     
      Dir.foreach("userspace/" + session[:user] + "/") do |file|
-       next if file == '.' or file == '..'
+       next if file =~ /^\./
         if (file =~ /vcf$/ or file =~ /annotated$/) 
            @files.push(file)
         end
@@ -47,7 +47,7 @@ class AappController < ApplicationController
     @actions = ['Preview','Download','Delete', 'Empty workspace']
     @files = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
-        next if file == '.' or file == '..'
+        next if file =~ /^\./
           @files.push(file)
     end
   end
@@ -75,7 +75,7 @@ class AappController < ApplicationController
     @files = Array.new
     
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
-      next if file == '.' or file == '..'
+      next if file =~ /^\./
           @files.push(file)
     end      
     
@@ -126,7 +126,7 @@ class AappController < ApplicationController
 
     if @msg == "jobsubmitted"
       redirect_to :analysis
-      flash[:notice] = "Analysis has started and the output files will available shortly !"
+      flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."
       flash[:color]= "valid"
       return        
     else
@@ -205,7 +205,7 @@ class AappController < ApplicationController
   
     if @msg == "ranked"
       redirect_to :analysis
-      flash[:notice] = "Your job has been submitted. Your results will be available shortly."
+      flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."
       flash[:color]= "valid"        
     else
       redirect_to :analysis
@@ -270,7 +270,7 @@ class AappController < ApplicationController
     @actions = ['Preview','Download','Delete', 'Empty workspace']
     @files = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
-      next if file == '.' or file == '..'
+      next if file =~ /^\./
           @files.push(file)
     end      
 

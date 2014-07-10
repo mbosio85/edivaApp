@@ -1963,9 +1963,15 @@ if ($qlookup eq "NA")
 	&finalize;
 	print "MESSAGE :: Finalization completed \n";
 
-	## email command
-	my $mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/annotation.html $csv_file Annotation";
-	system($mailCmd);
+	## check csv file existence and send email
+	if (-e $csv_file)
+	{
+		## email command
+		my $mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/annotation.html $csv_file Annotation";
+		system($mailCmd);
+		print "MESSAGE :: Email sent \n";
+	}
+
 
 }else{
 

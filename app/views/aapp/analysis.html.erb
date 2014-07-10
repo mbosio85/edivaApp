@@ -40,7 +40,7 @@
 			<% else -%>
 				<ul>
 				<% Dir.foreach("userspace/" + session[:user] + "/") do |file|-%>
-					<% next if file == '.' or file == '..' -%>
+					<% next if file =~ /^\./ -%>
 				<tr>
 				<td>
 					<li> <%= file %> </li>

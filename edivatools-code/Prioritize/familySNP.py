@@ -3,6 +3,7 @@ import csv
 import pprint
 import re
 from scipy.stats import poisson
+import os
 
 try:
     import xlsxwriter
@@ -70,6 +71,7 @@ Xlinked: used for X linked recessive variants in trios only
 compound: detect compound heterozygous recessive variants
 """)
 parser.add_argument('--familytype', choices=['trio', 'family'], dest='familytype', required=True, help="choose if the data you provide is a trio or a larger family")
+parser.add_argument('--csvfile', type=argparse.FileType('r'), dest='csvfile', required=False, help='csv file with username and user email address. [optional]')
 parser.add_argument('--geneexclusion',  type=argparse.FileType('r'), dest='geneexclusion', required=False, help='[Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035]. [required]')
 
 args = parser.parse_args()
@@ -582,6 +584,10 @@ def main (args):
         
         xls.close()
     
+    ## send email
+    mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/family.html "+ csvfile +" Trio/Family analysis"
+    os.system(mailCmd)
+
     exit(0)
 
 
