@@ -823,7 +823,7 @@ sub eDiVaAnnotation
 sub AnnovarAnnotation
 {	
 	my $annCmm;
-	my $logfile = ".".$input.".annovar.log";
+	my $logfile = $input.".annovar.log";
 	
 	## prepare Annovar input
 	my $annInCmm = "perl $ANNOVAR/convert2annovar.pl --includeinfo -format vcf4 $input > $templocation/annInfile".$fileSuffix."   2> ".$logfile;

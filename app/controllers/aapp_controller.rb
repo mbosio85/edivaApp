@@ -13,7 +13,7 @@ class AappController < ApplicationController
     @actions = ['Preview','Download','Delete', 'Empty workspace']        
     @files = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
-        next if file == '.' or file == '..'
+        next if file =~ /^./
           @files.push(file)
     end
   end
