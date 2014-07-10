@@ -585,7 +585,7 @@ def main (args):
         xls.close()
     
     ## send email
-    mailCmd = "python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/family.html "+ str(args.csvfile) +" Trio/Family analysis"
+    mailCmd = 'python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/family.html '+ str(args.csvfile) +' Trio/Family_analysis'
     os.system(mailCmd)
 
     exit(0)
