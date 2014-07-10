@@ -196,42 +196,94 @@ class Corelib
           end
         end  
         
-        ## call ediva-tools annotation program to calculate rank of the variants
-        commands = "perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ filename + 
-        " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
-        ## write line to job file
-        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
-          file.write(commands + "\n")
-        end
+        if (filename =~ /vcf$/)
+          ## call ediva-tools annotation program to calculate rank of the variants
+          commands = "perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ filename + 
+          " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+          ## write line to job file
+          File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+          end
         
-        ## update filename as per annotation tool
-        ## remove the .vcf extension from file name
-        filename = filename[0..-5]
+          ## update filename as per annotation tool
+          ## remove the .vcf extension from file name
+          filename = filename[0..-5]
         
-        ## rank line
-        commands = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename + ".sorted.annotated" +  
-        " --outfile userspace/"+ user + "/" + filename + ".sorted.annotated.ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
-        ## write line to job file
-        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
-          file.write(commands + "\n")
-        end
+          ## rank line
+          commands = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename + ".sorted.annotated" +  
+          " --outfile userspace/"+ user + "/" + filename + ".sorted.annotated.ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+          ## write line to job file
+          File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+          end
       
-        ## family script
-        if (params[:geneexclusionlist] == "1")
-          commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
-          user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
-          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
-          "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
-        else
-          commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
-          user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
-          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
-        end
-        ## write line to job file
-        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
-          file.write(commands + "\n")
-        end
+          ## family script
+          if (params[:geneexclusionlist] == "1")
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+            user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
+            "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
+          else
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+            user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
+          end
+          ## write line to job file
+          File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+          end
         
+        elsif( filename =~ /annotated$/)
+
+          ## rank line
+          commands = "python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename +   
+          " --outfile userspace/"+ user + "/" + filename + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+          ## write line to job file
+          File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+          end
+
+          ## family script
+          if (params[:geneexclusionlist] == "1")
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".ranked --outfile userspace/" +
+            user + "/" + filename + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".ranked.analysed.filtered --family userspace/"+
+            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
+            "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
+          else
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".ranked --outfile userspace/" +
+            user + "/" + filename + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".ranked.analysed.filtered --family userspace/"+
+            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
+          end
+          ## write line to job file
+          File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+          end
+          
+        elsif( filename =~ /ranked$/)
+          
+          ## family script
+          if (params[:geneexclusionlist] == "1")
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + " --outfile userspace/" +
+            user + "/" + filename + ".analysed --filteredoutfile userspace/" + user + "/" + filename + ".analysed.filtered --family userspace/"+
+            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
+            "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
+          else
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + " --outfile userspace/" +
+            user + "/" + filename + ".analysed --filteredoutfile userspace/" + user + "/" + filename + ".analysed.filtered --family userspace/"+
+            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
+          end
+          ## write line to job file
+          File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+          end
+          
+        else
+  
+          valMsg = "Unknown file type provided in the analysis !"
+          return valMsg
+
+        end
+          
         ## chmod
         system ("chmod 775 userspace/" + user +"/" + jobscript)
         ## start the job
@@ -350,7 +402,12 @@ class Corelib
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
          file.write(commands + "\n")
         end
-         
+       
+       else
+
+        valMsg = "Unknown file type provided in the analysis !"
+        return valMsg
+
        end        
        
        ## chmod

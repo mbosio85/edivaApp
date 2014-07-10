@@ -31,7 +31,7 @@
 		<thead>
 		</thead>	
 		<tbody>
-			<% if (Dir.entries("userspace/" + session[:user] + "/").length == 2) %>
+			<% if @files.length == 0 %>
 			<tr>
 			<td>
 				Your currently have no file(s).
