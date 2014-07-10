@@ -332,12 +332,13 @@ class Corelib
         end
 
        elsif(mergedAnnotationFile =~ /ranked$/)
+         
         ## family script
         if (params[:geneexclusionlist] == "1")
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + " --outfile userspace/" +
           user + "/" + mergedAnnotationFile + ".analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".analysed.filtered --family userspace/"+
-          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "
-          +"--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " +
+          " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         else
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + " --outfile userspace/" +
           user + "/" + mergedAnnotationFile + ".analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".analysed.filtered --family userspace/"+
