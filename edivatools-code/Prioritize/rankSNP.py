@@ -58,7 +58,7 @@ def main ():
     
     parser.add_argument('--infile', type=argparse.FileType('r'), dest='infile', required=True, help='comma separated list of SNPs annotated with mutation impact data. [required]')
     parser.add_argument('--outfile', type=argparse.FileType('w'), dest='outfile', required=True, help='comma separated list of SNPs annotated with ranks. [required]')
-    parser.add_argument('--csvfile', type=argparse.FileType('r'), dest='csvfile', required=False, help='csv file with username and user email address. [optional]')
+    parser.add_argument('--csvfile', dest='csvfile', required=False, help='csv file with username and user email address. [optional]')
     
     args = parser.parse_args()
     
@@ -137,6 +137,7 @@ def main ():
         outcsv.writerow(line)
         
     mailCmd = 'python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/rank.html '+ str(args.csvfile) +' Ranking'
+    #print mailCmd
     os.system(mailCmd)    
 
     exit(0)
