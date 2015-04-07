@@ -140,12 +140,11 @@ body{
 		width: 150px;
 		border-radius: 3px 3px 3px 3px;	
 }
-.signupPanel{
-		
+.signupPanel{		
 		width: 75%;
 		height: 25px;
 		border-radius: 5px 5px 5px 5px;
-		margin: auto;
+		
 }
 .submission{
        	background-color:#F0F0F0;
