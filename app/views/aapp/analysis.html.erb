@@ -29,11 +29,12 @@
 
 		<table class="table table-hover">
 		<thead>
+			<th colspan:"8"></th>
 		</thead>	
 		<tbody>
 			<% if @files.length == 0 %>
 			<tr>
-			<td>
+			<td colspan:"8">
 				Your currently have no file(s).
 			</td>
 			</tr>
@@ -42,7 +43,10 @@
 				<% Dir.foreach("userspace/" + session[:user] + "/") do |file|-%>
 					<% next if file =~ /^\./ -%>
 				<tr>
-				<td>
+				<td colspan:"5">
+					<li> <%= file %> </li>
+				</td>
+				<td colspan:"3">
 					<li> <%= file %> </li>
 				</td>
 				</tr>
