@@ -47,13 +47,16 @@
 					<li> <%= file %> </li>
 				</td>
 				<td colspan:"1">
-					<li> Preview </li>
+					 Preview 
 				</td>
 				<td colspan:"1">
-					<li> Download </li>
-				</td>
+					  <%= form_tag({:controller => 'aapp',:action => 'downloadFile'}) do %>
+					  <%= text_field_tag :fileToDownload,<%= file %> %>
+					  <%= text_field_tag :user,  session[:user]) %>
+					  <%= submit_tag 	"Download",  :class => 'btn btn-primary btn-medium' %>
+				</td> 
 				<td colspan:"1">
-					<li> Delete </li>
+					 Delete 
 				</td>
 				</tr>
 				<% end -%>	
