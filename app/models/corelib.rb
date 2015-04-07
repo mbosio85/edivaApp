@@ -31,10 +31,10 @@ class Corelib
       
         if(action == "annotation" )
           ## annotate the uploaded vcf      
-          valMsg = annotateVCF(fl,user)
+          valMsg = annotateVCF(userFile.original_filename,user)
         else
           ## rank the uploaded file      
-          valMsg = rankUserAnnotatedFile(fl,user)
+          valMsg = rankUserAnnotatedFile(userFile.original_filename,user)
         end
       end 
         
@@ -219,15 +219,22 @@ class Corelib
       
           ## family script
           if (params[:geneexclusionlist] == "1")
+            #commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+            #user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+            #user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
+            #"--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
             commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
-            user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+            user + "/" + filename + ".sorted.annotated.ranked.analysed."+ params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
             user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
             "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
-          else
-            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
-            user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
-            user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
-          end
+	  else
+            #commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
+            #user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
+            #user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
+            commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed." + 
+	    params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered." + params[:inheritenceType] + " --family userspace/"+ user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+   
+	  end
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
@@ -246,12 +253,12 @@ class Corelib
           ## family script
           if (params[:geneexclusionlist] == "1")
             commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".ranked --outfile userspace/" +
-            user + "/" + filename + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".ranked.analysed.filtered --family userspace/"+
+            user + "/" + filename + ".ranked.analysed."+ params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".ranked.analysed.filtered."+ params[:inheritenceType] +" --family userspace/"+
             user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
             "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
           else
             commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".ranked --outfile userspace/" +
-            user + "/" + filename + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".ranked.analysed.filtered --family userspace/"+
+            user + "/" + filename + ".ranked.analysed."+ params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".ranked.analysed.filtered."+ params[:inheritenceType] +" --family userspace/"+
             user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
           end
           ## write line to job file
@@ -264,12 +271,12 @@ class Corelib
           ## family script
           if (params[:geneexclusionlist] == "1")
             commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + " --outfile userspace/" +
-            user + "/" + filename + ".analysed --filteredoutfile userspace/" + user + "/" + filename + ".analysed.filtered --family userspace/"+
+            user + "/" + filename + ".analysed."+ params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".analysed.filtered."+ params[:inheritenceType] +" --family userspace/"+
             user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
             "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
           else
             commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + " --outfile userspace/" +
-            user + "/" + filename + ".analysed --filteredoutfile userspace/" + user + "/" + filename + ".analysed.filtered --family userspace/"+
+            user + "/" + filename + ".analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + filename + ".analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
             user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
           end
           ## write line to job file
@@ -340,12 +347,12 @@ class Corelib
         ## family script
         if (params[:geneexclusionlist] == "1")
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered --family userspace/"+
+          user + "/" + mergedAnnotationFile + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
           "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         else
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered --family userspace/"+
+          user + "/" + mergedAnnotationFile + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]  + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + 
           csv_file +" > userspace/"+ user +"/.job.log 2>&1"  
         end
@@ -368,12 +375,12 @@ class Corelib
         ## family script
         if (params[:geneexclusionlist] == "1")
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered --family userspace/"+
+          user + "/" + mergedAnnotationFile + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
           "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         else
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".ranked.analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered --family userspace/"+
+          user + "/" + mergedAnnotationFile + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]  + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + 
           csv_file +" > userspace/"+ user +"/.job.log 2>&1"  
         end
@@ -388,12 +395,12 @@ class Corelib
         ## family script
         if (params[:geneexclusionlist] == "1")
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + " --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".analysed.filtered --family userspace/"+
+          user + "/" + mergedAnnotationFile + ".analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " +
           " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         else
           commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + " --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".analysed --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".analysed.filtered --family userspace/"+
+          user + "/" + mergedAnnotationFile + ".analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]  + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +
           " > userspace/"+ user +"/.job.log 2>&1"  
         end
