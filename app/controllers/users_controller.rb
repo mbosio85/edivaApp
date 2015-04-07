@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     ## check signup parameter values
     if (params[:username] == "" or params[:email]=="" or params[:password]=="" or params[:password_confirmation]=="")
       redirect_to :index
-      flash[:notice] = "You should complete all the fields !"
+      flash[:notice] = "Please fill all the requested fields"
       flash[:color]= "invalid"
       return
     elsif (params[:username] =~ /(\s)+/)
@@ -36,15 +36,15 @@ class UsersController < ApplicationController
       flash[:color]= "invalid"
     elsif (params[:password].length < 6)
       redirect_to :index
-      flash[:notice] = "Password too small !"
+      flash[:notice] = "Password too short !"
       flash[:color]= "invalid"
     elsif (params[:password].length > 20)
       redirect_to :index
-      flash[:notice] = "Password too big !"
+      flash[:notice] = "Password too long !"
       flash[:color]= "invalid"      
     elsif (params[:password] != params[:password_confirmation]) ## checking for password and password confirmation match
       redirect_to :index
-      flash[:notice] = "Password and password confirmation mismatch ! Carefully enter again !!"
+      flash[:notice] = "Password and password confirmation mismatch ! Please re-enter it "
       flash[:color]= "invalid"
     else
       @msg = User.createSubmituser(params[:username],params[:email],params[:password])

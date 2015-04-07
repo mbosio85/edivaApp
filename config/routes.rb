@@ -2,7 +2,7 @@ EdivaApp::Application.routes.draw do
 
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'users#index'
-  match "index", :to => 'users#index'
+  match "index", :to => 'users#index'  #Actual home page of ediva
   match "home", :to => 'eapp#home'
   match "analysis", :to => 'aapp#analysis'
   match "annotate", :to => 'aapp#annotate'
