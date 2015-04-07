@@ -50,10 +50,7 @@
 					 Preview 
 				</td>
 				<td colspan:"1">
-					  <%= form_tag({:controller => 'aapp',:action => 'downloadFile'}) do %>
-					  <%= text_field_tag :fileToDownload,<%= file %> %>
-					  <%= text_field_tag :user,  session[:user]) %>
-					  <%= submit_tag 	"Download",  :class => 'btn btn-primary btn-medium' %>
+					  Download
 				</td> 
 				<td colspan:"1">
 					 Delete 
