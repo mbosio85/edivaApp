@@ -32,7 +32,7 @@ RegExp.escape= function(s) {
 };
 
 (function( $ ) {
-  'use strict',
+  'use strict';
   /**
    * jQuery.csv.defaults
    * Encapsulates the method paramater defaults for the CSV plugin module.
