@@ -60,7 +60,7 @@
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
 						<%= hidden_field_tag "selectedAction", "Download" %> 
-						<%= submit_tag "Download", :class => 'btn   btn-link btn-xs',:confirm => "Are you sure  do"%>
+						<%= submit_tag "Download", :class => 'btn   btn-link btn-xs'%>
 						<% end -%>
 					<% end -%>
 					  
@@ -71,7 +71,7 @@
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
 						<%= hidden_field_tag "selectedAction", "Delete" %> 
-						<%= submit_tag "Delete",  :class => 'btn  btn-link btn-xs',:confirm => "Are you sure  do"  %>
+						<%= submit_tag "Delete",  :class => 'btn  btn-link btn-xs' %>
 						<% end -%>
 					<% end -%>  
 				</td>

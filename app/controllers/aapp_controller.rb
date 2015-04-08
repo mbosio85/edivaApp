@@ -284,6 +284,7 @@ class AappController < ApplicationController
     end
     
     if(params[:selectedAction] == 'Delete' )
+      
       rmCommand = "rm " + "userspace/" + session[:user]+ "/" + @fileToShow
       system(rmCommand)
       @msg = "delete"
