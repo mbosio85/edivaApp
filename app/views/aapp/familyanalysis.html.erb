@@ -163,6 +163,8 @@
 							<td class="tablecol4">
 								 <%= select_tag "inheritenceType", options_for_select(@inhTypes) %>
 							</td>
+							<td class="tablecol4">  &nbsp; </td>
+							<td class="tablecol4"> &nbsp;</td>
 						</tr>
 						<tr>
 							<td class="tablecol4">
@@ -180,14 +182,10 @@
 							<br/>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="4">
-								<br/>
-								<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
-							</td>
-						</tr>	
-				</tbody>				
+					</tbody>				
 				</table>
+				<br/>
+				<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
        	   <% end %>
 		</div>	
 
