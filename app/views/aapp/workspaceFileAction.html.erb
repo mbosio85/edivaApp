@@ -33,7 +33,7 @@
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
         			<tr>
-        			<td>
+        			<td></td>
 	        			<% if(line =~ /^#/) -%>
 	        			<%  line %>
 	        			<% aa=  line.split(/,/) %>
@@ -54,7 +54,7 @@
 	        			
 	        			<% end -%>	        	
     				    <% limit = limit + 1 -%>
-        			</td>
+        			<td></td>
         			</tr>
         			<% if (limit == 100) -%>
         				<% break -%>
