@@ -17,11 +17,11 @@
 
 .btn-custom {
   height: 50px;
-  width:100px;
+  width:45% !important;
 }
 
 .btn-login {
   height : 70px;
-  width :100% !important;
+  width :45% !important;
   padding: 0;
 }
