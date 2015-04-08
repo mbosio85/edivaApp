@@ -23,10 +23,3 @@ $(function(){
   $('#indexCarousel').carousel();
 });
 
-document.write("\<script src='http://code.jquery.com/jquery-latest.min.js' type='text/javascript'>\<\/script>");
-$(function(){
-    $('#link-upload').click(function(e){
-      e.preventDefault();
-      $('#file').click();
-    });
-});
