@@ -24,7 +24,7 @@
 			
 <div class="row-fluid">
 	<div class="workspaceactions">
-		<h2>Possible Analyses</h2>
+		<h2>eDiVa analysis options</h2>
 		<table class="table table-hover" text-align:center table-layout: fixed>
 		<thead >
 			<th colspan:"3"></th>
@@ -32,15 +32,15 @@
 		<tbody>
 			<tr>
 			<td class="tablecol">			
-	            <h5><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></h5>
+	            <h3><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></h3>
 	        	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation and damage potential scores.</dd>
 			</td>
 			<td class="tablecol">
-				<h5><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></h5>
+				<h3><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></h3>
         		<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
 			</td>
 			<td class="tablecol">
-				<h5><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></h5>
+				<h3><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></h3>
            		<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>
 			</td>
 			</tr>
