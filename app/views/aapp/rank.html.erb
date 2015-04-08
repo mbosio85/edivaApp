@@ -34,14 +34,14 @@
            	</tr>
            	<tr>
            		<!--Here two columns one for select from database and one from the local environment   -->
-	           	<td>  
+	           	<td width="50%">  
 	           		<br/>
 	           		<h4>Select from your PC</h4>
 	           		<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
 					<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 					<br/>
 	           	</td>
-				<td>
+				<td width="50%">
 					<br/>
 					<h4>Select a vcf file to rank from workspace</h4>
 					 <%= select_tag "fileToAnnotate", options_for_select(@files), {:style => "min-width: 200px;"} %>
