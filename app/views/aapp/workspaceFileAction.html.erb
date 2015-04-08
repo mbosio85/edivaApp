@@ -1,3 +1,25 @@
+<script src="https://www.google.com/jsapi"></script>
+   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+   <script src="jquery.csv-0.71.js"></script>
+   <script>
+  // wait till the DOM is loaded
+  $(function() {
+     // grab the CSV
+ $.get("userspace/" + @username + '/' + @file, "r", function(csvString) {
+    // display the contents of the CSV
+    $("#chart").html(csvString);
+         });
+      });
+   </script>
+				
+	<div id="chart">
+       
+	 </div>
+				
+<!-->				
+
+
+
 <div class="row-fluid">
 
 	<div class="span12">
@@ -54,3 +76,5 @@
 	</div>
 
 </div>
+
+-->
