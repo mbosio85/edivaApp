@@ -51,17 +51,7 @@
 
 	<div class="span6">
 	<div class="Search">
-	<% if flash[:color]== "valid" %>
-		<div class="alert alert-success">
-			<p><%= flash[:notice]%></p>
-		</div>
-	<% elsif flash[:color]== "invalid"%>
-		<div class="alert alert-error">
-			<p><%=flash[:notice]%></p>
-		</div>
-	<% else -%>
-	
-	<%end%>
+
 	
 	<%= form_tag(:controller => 'users', :action => 'authenticateUser') do %>				
 	<table align="center"  width="75%">
@@ -133,6 +123,21 @@
   	<% end %>
 	</div>
 	</div>
+	
+ <div>
+ 	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>	
+ </div>
+
 
    <div class="footer">
    		
