@@ -49,40 +49,13 @@
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
 
 				<table class="table table-striped">
-					<th colspan="2" class="tablecol2">Sample(s)</th>
+					<th colspan="2" class="tablecol2">Global parameters</th>
 					<br/>
 				<thead>
 	
 				</thead>					
 				<tbody>
-					<tr>
-						<th colspan="2"  class="tablecol2">
-							Samples to analyze
-							
-						</th>
-						
-					</tr>
-					<tr>
-						<td class="tablecol4">Sample ID</td>						
-						
-						<td class="tablecol4">Affected ?</td>
-					</tr>
-
-						<% for sampleid in 1 .. @numberofsamples.to_i -%>
-						 <tr>
-							<td class="tablecol4">
-								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %></br>
-							</td>
-							<td class="tablecol4">
-								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
-							</td>
-							
-						</tr>	
-						<% end -%>
-
-				<br/>
-				
-		   			<% if @files.length > 0 -%>
+							   			<% if @files.length > 0 -%>
 		   			<tr>
 		   			<td class="tablecol4">
 						Select Merged Annoatated and Ranked file from Project : </td>
@@ -118,6 +91,35 @@
 						<td class="tablecol4"><%= select_tag "familyType", options_for_select(@famTypes) %></td>
 					</tr>
 		
+					
+					<tr>
+						<th colspan="2"  class="tablecol2">
+							Samples to analyze
+							
+						</th>
+						
+					</tr>
+					<tr>
+						<td class="tablecol4">Sample ID</td>						
+						
+						<td class="tablecol4">Affected ?</td>
+					</tr>
+
+						<% for sampleid in 1 .. @numberofsamples.to_i -%>
+						 <tr>
+							<td class="tablecol4">
+								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %></br>
+							</td>
+							<td class="tablecol4">
+								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
+							</td>
+							
+						</tr>	
+						<% end -%>
+
+				<br/>
+				
+
 				</tbody>				
 				</table>	
 				<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
