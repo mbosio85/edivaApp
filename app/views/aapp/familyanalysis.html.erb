@@ -15,7 +15,7 @@
 	
 <div class="row-fluid">
 
-	<div class="span12">
+	<div class="span8">
 
 	<% if @analysisformtype == "1" -%>
 	
@@ -157,20 +157,22 @@
 						<% end -%>
 
 						<tr>
-							<td class="tablecol2">
+							<td class="tablecol4">
 								Select Inheritence Type:
 							</td>
-							<td class="tablecol2">
+							<td class="tablecol4">
 								 <%= select_tag "inheritenceType", options_for_select(@inhTypes) %>
 							</td>
 						</tr>
 						<tr>
-							<td class="tablecol2">
+							<td class="tablecol4">
 								Select Family Type: 
 							</td>
-							<td class="tablecol2">
+							<td class="tablecol4">
 								 <%= select_tag "familyType", options_for_select(@famTypes) %>
 							</td>
+							<td class="tablecol4"></td>
+							<td class="tablecol4"></td>
 						</tr>						
 						<tr>
 							<td colspan="4">
