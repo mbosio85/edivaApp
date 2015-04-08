@@ -15,7 +15,7 @@
 	
 <div class="row-fluid">
 
-	<div class="span8">
+	<div class="span12">
 
 	<% if @analysisformtype == "1" -%>
 	
@@ -67,6 +67,8 @@
 					</tr>	
 				</tbody>				
 				</table>
+				<br/>
+				
 		   			<% if @files.length > 0 -%>
 						Select Merged Annoatated and Ranked file from Project : <%= select_tag "selectedFileMerged", options_for_select(@files) %> or
 						Upload MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged' %></br>
@@ -133,7 +135,7 @@
 					</tr>	
 				</thead>
 					
-				<tbody class="tabline">
+				<tbody >
 
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
 						<tr >
@@ -148,19 +150,42 @@
 							</td>
 				   			<% if @files.length > 0 -%>
 							<td class="tablecol4">
-								<%= select_tag "selectedFile#{sampleid}", options_for_select(@files) %>
+								<%= select_tag "selectedFile#{sampleid}", options_for_select(@files) ,{:style => "min-width: 150px;"}%>
 							</td>
 							<% end -%>
 						</tr>
 						<% end -%>
 
+						<tr>
+							<td class="tablecol2">
+								Select Inheritence Type:
+							</td>
+							<td class="tablecol2">
+								 <%= select_tag "inheritenceType", options_for_select(@inhTypes) %>
+							</td>
+						</tr>
+						<tr>
+							<td class="tablecol2">
+								Select Family Type: 
+							</td>
+							<td class="tablecol2">
+								 <%= select_tag "familyType", options_for_select(@famTypes) %>
+							</td>
+						</tr>						
+						<tr>
+							<td colspan="4">
+							<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
+							<br/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<br/>
+								<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
+							</td>
+						</tr>	
 				</tbody>				
 				</table>
-						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
-						Select Family Type: <%= select_tag "familyType", options_for_select(@famTypes) %></br>
-						<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
-					<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
-
        	   <% end %>
 		</div>	
 
@@ -189,3 +214,4 @@ function validateFiles(inputFile) {
  
 }
 </script>
+
