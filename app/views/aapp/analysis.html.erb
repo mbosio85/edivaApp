@@ -14,7 +14,7 @@
 		
 		<%end%>
 		</br></br>
-		<p> Welcome,<b> <%= session[:user] %></b>. To Get started with using eDiVa, have a look <%=  link_to_modal "here", "#gsModal", :class=>"button" %>.		
+		<p> Welcome, <%= session[:user] %>. To Get started with using eDiVa, have a look <%=  link_to_modal "here", "#gsModal", :class=>"button" %>.		
 		</br></br>
 	</div>
 	
@@ -22,7 +22,7 @@
 
 <!--Analses  --> 
 <div class="row-fluid">
-	<div class="span8">
+	<div class="span12">
 		<div class="workspaceactions">
 			<h4>
 				Analyses
@@ -39,12 +39,11 @@
 	</div>
 </div>
 
-</br></br></br></br>
-
+</br></br>
 <!--Workspace  -->
 <div class="row-fluid">
 
-	<div class="span8">
+	<div class="span12">
 		<h2>
 			Workspace File(s)
 		</h2>
@@ -109,7 +108,7 @@
 
 <!--Upload  --> 
 <div class="row-fluid">
-	<div class="span8">		
+	<div class="span12">		
 		<div class="workspaceactions">
 		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
 		   	<%= submit_tag 	"Upload File(s) to Workspace.",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -118,7 +117,6 @@
        	   <% end %>
 		</div>
 
-		</br></br>
 		<!--Actions   
 		<div class="workspaceactions">
 			<h4>
