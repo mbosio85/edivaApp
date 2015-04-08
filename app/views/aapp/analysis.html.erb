@@ -52,7 +52,7 @@
 				<td colspan:"1">				  
 					<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
-						<%= hidden_field_tag "selectedFile", "ooo" %> 
+						<%= hidden_field_tag "selectedFile", file %> 
 						<br> 
 						<%= hidden_field_tag "selectedAction", "Download" %> 
 						<br>
