@@ -34,7 +34,9 @@
 				<% while (line = infile.gets) -%>
         			<tr>
         			<td>
-						<%= line %>
+	        			<% if(line =~ /^#/) -%>
+	        			<%= line %>
+	        									
 	        			<% else -%>
 	        			
 	        			<b><%= line %></b>
