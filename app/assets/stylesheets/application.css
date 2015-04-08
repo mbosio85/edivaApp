@@ -37,8 +37,9 @@ body{
 .workspaceactions {
 		margin:auto;
         background-color:#E8E8E8;
-        border-radius: 5px 5px 5px 5px;
+        border-radius: 2px;
         padding: 10px;
+        text-align: center
 }
 .workspaceactions table td{
 		padding: 5px;
