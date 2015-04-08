@@ -133,10 +133,10 @@
 					</tr>	
 				</thead>
 					
-				<tbody>
+				<tbody class="tabline">
 
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
-						<tr class="success tabline">
+						<tr >
 							<td class="tablecol4">
 								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %>
 							</td>
