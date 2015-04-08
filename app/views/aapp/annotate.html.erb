@@ -37,14 +37,14 @@
            	</tr>
            	<tr>
            		<!--Here two columns one for select from database and one from the local environment   -->
-	           	<td class=".tablecol2">  
+	           	<td class="tablecol2">  
 	           		<br/>
 	           		<h4>Select from your local PC</h4>
 	           		<%= form_tag({:controller => 'aapp',:action => 'actionAnnotate'}, :multipart => true) do %>
 					<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 					<br/>
 	           	</td>
-				<td class=".tablecol2">
+				<td class="tablecol2">
 					<br/>
 					<h4>Select a vcf file to annotate from your workspace:</h4>
 					 <%= select_tag "fileToAnnotate", options_for_select(@files), {:style => "min-width: 200px;"} %>

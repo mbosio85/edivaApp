@@ -15,27 +15,34 @@
 
 <div class="row-fluid">
 	
-	<div class="span8">	
+	<div class="span12">	
 		
 		<%= form_tag(:controller => 'aapp', :action => 'familyanalysis') do %>				
 			<table align="center">
 				<tr>
-  					<th>
-  						
+  					<th colspan="2">
+  						<h2>Trio/Family analysis: Step 1/2</h2>
+  						<p> First step to analyze multiple related samples.</p>
+  						<p> Please indicate the number of samples to analyze and if the submitted VCF file is a multisample-call file.</p>
+  						<br/>
   					</th>
   				</tr>
 				<tr>
-					<td>
+					<td class="tablecol2">
+						<h4>Indicate here the number of samples</h4>
 						<%= text_field_tag :samplecount , nil, :class => "signupPanel" ,:placeholder => "Indicate the number of samples for analysis" %>
+						<br/>
 					</td>
-				</tr>
-				<tr>	
-					<td>
+					
+					<td class="tablecol2">
+						<h4>Is your VCF a multisample-call?</h4>
 						<%= check_box_tag(:mergedvcf) %> <%= label_tag(:mergedvcf, "Check this option only if analysis will be done with a merged vcf or multi-sample vcf") %>
+						<br/>
 					</td>
 				</tr>
 				<tr>
-					<th>
+					<th colspan="2">
+						<br/>
 						<%= submit_tag "Next", :class => 'btn btn-primary btn-large' %>
 					</th>			
 				</tr>
@@ -44,57 +51,7 @@
 		
 	</div>
 	
-	<div class="span4">
-
-
-		<div class="workspaceactions">
-			<h4>
-				Upload File(s) to Workspace
-			</h4>
-
-			</br>
-		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>
-				<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %></br>
-      			<%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-medium' %>
-       	   <% end %>
-		</div>
-
-		</br></br>
-
-		<div class="workspaceactions">
-			<h4>
-				Manage Workspace File(s)
-			</h4>
-
-			<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
-				<% if @files.length > 0 %>
-					<%= select_tag "selectedFile", options_for_select(@files) %> Select file
-					<br> 
-					<%= select_tag "selectedAction", options_for_select(@actions) %> Select action on file
-					<br>
-					<%= submit_tag "Commit", :class => 'btn btn-primary btn-medium'%>
-					<% else -%>
-						<p> Empty workspace !! </p>
-					<% end -%>
-			<% end -%>
-		</div>		
-
-		</br></br>
-
-		<div class="workspaceactions">
-			<h4>
-				Analyses
-			</h4>
-            <ul>
-            	<li><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></li>
-            	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation & damage potential scores.</dd>
-            	<li><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></li>
-            	<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
-            	<li><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></li>
-               	<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>	
-			</ul>
-		</div>		
-		
+	
 
 	
 	</div>
