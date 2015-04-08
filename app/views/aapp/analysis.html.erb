@@ -50,9 +50,9 @@
 					 <%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
-						<br> 
+						 
 						<%= hidden_field_tag "selectedAction", "Preview" %> 
-						<br>
+						
 						<%= submit_tag "Preview", :class => 'btn  btn-link btn-xs'%>
 						<% end -%>
 					<% end -%> 
@@ -61,9 +61,9 @@
 					<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
-						<br> 
+						 
 						<%= hidden_field_tag "selectedAction", "Download" %> 
-						<br>
+						
 						<%= submit_tag "Download", :class => 'btn   btn-link btn-xs'%>
 						<% end -%>
 					<% end -%>
@@ -74,9 +74,9 @@
 					 <%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
-						<br> 
+						
 						<%= hidden_field_tag "selectedAction", "Delete" %> 
-						<br>
+						
 						<%= submit_tag "Delete", :class => 'btn  btn-link btn-xs'%>
 						<% end -%>
 					<% end -%>  
