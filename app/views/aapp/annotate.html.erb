@@ -24,7 +24,7 @@
 		   	<tr>
 		   	<td colspan="2" text-align:center>
 		   		<h1>Annotate VCF file</h1>
-		   		<p>Here you can annotate the variants contained in a VCF file using hte eDiVa integrated database against several high-quality resources.</p>
+		   		<p>Here you can annotate the variants contained in a VCF file using the eDiVa integrated database against several high-quality resources.</p>
 		   		<p>The eDiVa engine will provide relevant information for each variant: </p>
 		   		<br/>
 		   		<ul>
@@ -38,15 +38,15 @@
            		<!--Here two columns one for select from database and one from the local environment   -->
 	           	<td>  
 	           		<br/>
-	           		<h4>Select from Local</h4>
+	           		<h4>Select from your local PC</h4>
 	           		<%= form_tag({:controller => 'aapp',:action => 'actionAnnotate'}, :multipart => true) do %>
 					<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 					<br/>
 	           	</td>
 				<td>
 					<br/>
-					<h4>Select a vcf file to annotate:</h4>
-					 <%= select_tag "fileToAnnotate", options_for_select(@files), {:style => "min-width: 1000px;"} %>
+					<h4>Select a vcf file to annotate from your workspace:</h4>
+					 <%= select_tag "fileToAnnotate", options_for_select(@files), {:style => "min-width: 200px;"} %>
 					 <br/>
 	      		</td>
       		</tr>

@@ -17,48 +17,49 @@
 	</div>
 	
 </div>	
-
 <div class="row-fluid">
-
-	<div class="span8">
-		
-		<div class="Search">
-
-		   <%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
-	   		<table align="center">
-	   		<tr>
-				<td>
-		   			Upload vcf/annotated file to rank:
-	  			</td>
-        	</tr>
-        	<tr>
-           		<td>  
-					<%= file_field_tag 'ann',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
-           		</td>
-        	</tr>
-       		<% if @files.length > 0 -%>   	
-        	<tr>
-        		<td>
-        			or
-        		</td>
-        	</tr>		   	
-       		<tr>
-       			<td>  
-       				Select vcf/annotated file to rank: <%= select_tag "fileToRank", options_for_select(@files) %> &nbsp;
-      			</td>
-       		</tr>
-       		<% end -%>
-       		<tr>
-   				<th>
-   					<%= submit_tag "Rank Variants",  :class => 'btn btn-primary btn-medium' %>
-  				</th>
-      		</tr>		
-        	</table>
-           <% end -%>
-		</div>
-
-	</div>
 	
+	<div class="span12">
+	
+		<div class="Search">
+		   <table align="center">
+		   	<tr>
+		   	<td colspan="2" text-align:center>
+		   		<h1>Rank annotated VCF file</h1>
+		   		<p>Here you can rank the annotated variants produced from annotation in a VCF file using  eDiVa rank-product prioritization algorithm.</p>
+		   		<p>The eDiVa algorithm combines information from variant frequency, the conservation and the multiple risk-scores to sort all variants: </p>
+		   		<p>The output ranks with lower values the most relevant variants found by the eDiVa algorithm.</p>
+		   		<br/>
+		   		<br/>
+           	</tr>
+           	<tr>
+           		<!--Here two columns one for select from database and one from the local environment   -->
+	           	<td>  
+	           		<br/>
+	           		<h4>Select from your PC</h4>
+	           		<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
+					<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+					<br/>
+	           	</td>
+				<td>
+					<br/>
+					<h4>Select a vcf file to rank from workspace</h4>
+					 <%= select_tag "fileToAnnotate", options_for_select(@files), {:style => "min-width: 200px;"} %>
+					 <br/>
+	      		</td>
+      		</tr>
+      		<tr>
+           		<th>
+           			<br/>
+           			<%= submit_tag 	"Rank variants",  :class => 'btn btn-primary btn-large' %>
+           		</th>
+           	</tr>		
+           </table>
+       	   <% end %>
+		</div>
+	</div>	
+
+<!--	
 	<div class="span4">
 
 
@@ -110,12 +111,10 @@
 			</ul>
 		</div>		
 		
-
 	
 	</div>
+-->
 	
-</div>	
-
 <script>
 function validateFiles(inputFile) {
   var maxExceededMessage = "File exceeds the maximum allowed size (100 MB)";
