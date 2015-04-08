@@ -109,7 +109,8 @@
 				<li>Xlinked</li>
 				<li>Compound [only for trios]</li>
 			</ul>
-
+			<br/>
+			
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilySeparate'},:multipart => true) do %>
 
 				<table class="table table-striped">
@@ -135,18 +136,18 @@
 				<tbody>
 
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
-						<tr class="success">
-							<td>
+						<tr class="tabline">
+							<td class="tablecol4">
 								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %>
 							</td>
-							<td>	
-								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "Affected") %>
+							<td class="tablecol4">	
+								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
 							</td>	
-							<td>
+							<td class="tablecol4">
 								<%= file_field_tag 'vcf#{sampleid}',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 							</td>
 				   			<% if @files.length > 0 -%>
-							<td>
+							<td class="tablecol4">
 								<%= select_tag "selectedFile#{sampleid}", options_for_select(@files) %>
 							</td>
 							<% end -%>
