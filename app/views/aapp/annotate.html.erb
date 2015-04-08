@@ -17,35 +17,36 @@
 
 <div class="row-fluid">
 	
-	<div class="span8">
+	<div class="span12">
 	
 		<div class="Search">
-		   <%= form_tag({:controller => 'aapp',:action => 'actionAnnotate'}, :multipart => true) do %>
 		   <table align="center">
 		   	<tr>
-		   	<td>
-		   	Upload vcf file to annotate:
-	  		</td>
+		   	<td colspan="2">
+		   		<h1>Annotate VCF file</h1>
+		   		<p>Here you can annotate the variants contained in a VCF file using hte eDiVa integrated database against several high-quality resources.</p>
+		   		<p>The eDiVa engine will provide relevant information for each variant: </p>
+		   		<ul>
+		   			<li>Estimation of dangerousness of the variable with multiple scores </li>
+		   			<li>Level of conservation of the variant during evolution</li>
+		   			<li>How common is the variant in the worldwide population (1000 Genomes project and EVS database) and segmented by regions</li>
+		   		</ul>
            	</tr>
            	<tr>
-           	<td>  
-				<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
-           	</td>
-   			<% if @files.length > 0 -%>
-           	<tr>
-           	<td>
-           		or
-           	</td>	
-           	</tr>	
-   	       	<tr>
-       		<td>  
-       			Select a vcf file to annotate: <%= select_tag "fileToAnnotate", options_for_select(@files) %> &nbsp;
-      		</td>
-	       	</tr>
-           	<% end -%>
-           	<tr>
+           		<!--Here two columns one for select from database and one from the local environment   -->
+	           	<td>  
+	           		<h4>Select from Local</h4>
+	           		<%= form_tag({:controller => 'aapp',:action => 'actionAnnotate'}, :multipart => true) do %>
+					<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+	           	</td>
+				<td>
+					<h4>Select a vcf file to annotate:</h4>
+					 <%= select_tag "fileToAnnotate", options_for_select(@files) %>
+	      		</td>
+      		</tr>
+      		<tr>
            		<th>
-           			<%= submit_tag 	"Annotate",  :class => 'btn btn-primary btn-medium' %>
+           			<%= submit_tag 	"Annotate",  :class => 'btn btn-primary btn-large' %>
            		</th>
            	</tr>		
            </table>
@@ -53,6 +54,7 @@
 		</div>
 	</div>	
 
+<!-- Side Panel -useless
 	<div class="span4">
 
 
@@ -109,7 +111,7 @@
 	</div>
 
 </div>
-
+-->
 <script>
 function validateFiles(inputFile) {
   var maxExceededMessage = "File exceeds the maximum allowed size (100 MB)";
