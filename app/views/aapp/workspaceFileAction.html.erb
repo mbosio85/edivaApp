@@ -36,7 +36,7 @@
         			<td></td>
 	        			<% if(line =~ /^#/) -%>
 	        			<%  line %>
-	        			<% aa=  line.split(/,/) %>
+	        			<% aa=  line.split(',') %>
 	        			<% (1..aa).each do |i| %>
 						  <td>
 						  	<%= i %> 						  	
@@ -45,7 +45,7 @@
 	        			
 	        			<% else -%>
 	        			<b><% line %></b>
-	        			<% aa=  line.split(/,/) %>
+	        			<% aa=  line.split(',') %>
 	        			<% (1..aa).each do |i| %>
 						  <td>
 						  	<%= i %> 						  	
