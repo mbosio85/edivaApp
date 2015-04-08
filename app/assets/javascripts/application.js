@@ -18,8 +18,11 @@
 //= require jquery.ui.all
 //= require jquery.modal
 
+require jquery.csv-0.71.js
 
 $(function(){
   $('#indexCarousel').carousel();
 });
+
+
 
