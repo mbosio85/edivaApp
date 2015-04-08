@@ -123,11 +123,11 @@
 			  document.write("\<script src='http://code.jquery.com/jquery-latest.min.js' type='text/javascript'>\<\/script>");
 			</script>	
 			
-			<a href="#" id='link-upload'>"Select file to upload"</a>
+			<a href="#" id='link-upload'>"Select file to upload : "&nbsp;  vcf.files[0].name </a>
 			
 		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>
 		   	<%= submit_tag 	"Upload File(s) to Workspace.",  :class => 'btn btn-primary btn-large' %> </br></br>
-			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>&nbsp;&nbsp;&nbsp;
+			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>&nbsp;&nbsp;
       			
        	   <% end %>
 		</div>
