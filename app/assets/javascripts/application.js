@@ -17,8 +17,7 @@
 //= require_tree .
 //= require jquery.ui.all
 //= require jquery.modal
-
-require jquery.csv-0.71.js;
+//= require_tree .
 
 $(function(){
   $('#indexCarousel').carousel();
