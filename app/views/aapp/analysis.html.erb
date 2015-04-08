@@ -64,7 +64,7 @@
 				<% Dir.foreach("userspace/" + session[:user] + "/") do |file|-%>
 					<% next if file =~ /^\./ -%>
 				<tr>
-				<td colspan:"15">
+				<td colspan:"13">
 					 <%= file %> 
 				</td>
 				<td colspan:"1">
@@ -75,9 +75,8 @@
 						<%= submit_tag "Preview", :class => 'btn  btn-link btn-xs'%>
 						<% end -%>
 					<% end -%> 
-				<!-- ></td>
-				<td colspan:"1">		
-					-->		  
+				</td>
+				<td colspan:"1">				  
 					<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
@@ -85,10 +84,9 @@
 						<%= submit_tag "Download", :class => 'btn   btn-link btn-xs'%>
 						<% end -%>
 					<% end -%>
-					  
-				<!-- ></td>
-				<td colspan:"1">		
-					-->	
+
+				</td> 
+				<td colspan:"1">
 					 <%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
