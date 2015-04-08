@@ -18,10 +18,13 @@
 .btn-custom {
   height: 50px;
   width:45% !important;
+  color:#99FF99;
+  border-radius:0px !important;
 }
 
 .btn-login {
   height : 70px;
   width :45% !important;
   padding: 0;
+  border-radius:0px !important;
 }
