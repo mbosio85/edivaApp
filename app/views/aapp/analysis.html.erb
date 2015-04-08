@@ -22,6 +22,7 @@
 
 <div class="row-fluid">
 
+    <!--Workspace  --> 
 	<div class="span8">
 		<h4>
 			Workspace File(s)
@@ -84,9 +85,26 @@
 
 	</div>
 
-
+	<!--Analses  --> 
+	<div class="span8">
+		<div class="workspaceactions">
+			<h4>
+				Analyses
+			</h4>
+            <ul>
+            	<li><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></li>
+            	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation & damage potential scores.</dd>
+            	<li><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></li>
+            	<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
+            	<li><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></li>
+               	<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>	
+			</ul>
+		</div>		
+	</div>
+	
+	
 	<div class="span4">
-
+		<!--Upload  --> 
 		<div class="workspaceactions">
 			<h4>
 				Upload File(s) to Workspace
@@ -100,7 +118,7 @@
 		</div>
 
 		</br></br>
-
+		<!--Actions   
 		<div class="workspaceactions">
 			<h4>
 				Manage Workspace File(s)
@@ -117,23 +135,10 @@
 						<p> Empty workspace !! </p>
 					<% end -%>
 			<% end -%>
-		</div>		
+		</div>		-->
 
 		</br></br>
-
-		<div class="workspaceactions">
-			<h4>
-				Analyses
-			</h4>
-            <ul>
-            	<li><%= link_to :"Annotate Variants", :controller => "aapp", :action => "annotate"%></li>
-            	<dd>Annotate your genomic variants (e.g. snvs, indels) with multiple gene definitions, public frequencies and conservation & damage potential scores.</dd>
-            	<li><%= link_to :"Rank Variants", :controller => "aapp", :action => "rank"%></li>
-            	<dd>Rank your genomic variants using multiple features from the eDiVa Annotation system.</dd>
-            	<li><%= link_to :"Trio/Family Analysis", :controller => "aapp", :action => "familyanalysissamples"%></li>
-               	<dd>Perform family and trio analysis from your NGS experiments to find potential causal gene(s).</dd>	
-			</ul>
-		</div>		
+		
 		
 
 	</div>
