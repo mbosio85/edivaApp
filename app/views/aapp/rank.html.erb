@@ -23,6 +23,7 @@
 	
 		<div class="Search">
 		   <table align="center">
+		   	<tbody>
 		   	<tr>
 		   	<td colspan="2" text-align:center>
 		   		<h2>Rank annotated VCF file</h2>
@@ -49,11 +50,12 @@
 	      		</td>
       		</tr>
       		<tr>
-           		<th>
+           		<td colspan="2">
            			<br/>
            			<%= submit_tag 	"Rank variants",  :class => 'btn btn-primary btn-large' %>
-           		</th>
-           	</tr>		
+           		</td>
+           	</tr>	
+           	</tbody>	
            </table>
        	   <% end %>
 		</div>
