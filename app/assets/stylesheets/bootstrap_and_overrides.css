@@ -22,6 +22,6 @@
 
 .btn-login {
   height : 70px;
-  width :340px;
+  width :340px !important;
   padding: 0;
 }
