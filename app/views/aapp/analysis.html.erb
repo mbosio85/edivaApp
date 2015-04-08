@@ -67,11 +67,11 @@
 					  
 				</td> 
 				<td colspan:"1">
-					 <%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') %>
+					 <%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
 						<%= hidden_field_tag "selectedAction", "Delete" %> 
-						<%= submit_tag "Delete",  :class => 'btn  btn-link btn-xs' %>
+						<%= submit_tag "Delete", :class => 'btn  btn-link btn-xs'  %>
 						<% end -%>
 					<% end -%>  
 				</td>
