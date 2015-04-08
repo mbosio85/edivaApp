@@ -22,6 +22,7 @@
 				<tr>
   					<th colspan="2">
   						<h2>Trio/Family analysis: Step 1/2</h2>
+  						<br/>
   						<p> First step to analyze multiple related samples.</p>
   						<p> Please indicate the number of samples to analyze and if the submitted VCF file is a multisample-call file.</p>
   						<br/>
@@ -30,13 +31,15 @@
 				<tr>
 					<td class="tablecol2">
 						<h4>Indicate here the number of samples</h4>
+						<br/>
 						<%= text_field_tag :samplecount , nil, :class => "signupPanel" ,:placeholder => "Indicate the number of samples for analysis" %>
 						<br/>
 					</td>
 					
 					<td class="tablecol2">
 						<h4>Is your VCF a multisample-call?</h4>
-						<%= check_box_tag(:mergedvcf) %> <%= label_tag(:mergedvcf, "Check this option only if analysis will be done with a merged vcf or multi-sample vcf") %>
+						<br/>
+						<%= check_box_tag(:mergedvcf) %> <%= label_tag(:mergedvcf, "Check here for multisample VCF") %>
 						<br/>
 					</td>
 				</tr>
