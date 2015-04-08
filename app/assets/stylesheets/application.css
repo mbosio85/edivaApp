@@ -213,3 +213,8 @@ body{
         padding: 10px;
 		border-bottom: 1px solid;
 }
+.tablecol
+        {
+            width: 100%;
+            text-align:center;
+        }
