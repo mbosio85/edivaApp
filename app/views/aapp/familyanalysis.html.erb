@@ -44,27 +44,42 @@
 				<li>Xlinked</li>
 				<li>Compound [only for trios]</li>
 			</ul>
-
+			<br/>
+			
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
 
 				<table class="table table-striped">
-				<b>Sample(s)</b>
+					<th>Sample(s)</th>
+					<br/>
 				<thead>
-					<tr>
-						<th>
-						</th>	
-					</tr>	
-				</thead>
-					
+	
+				</thead>					
 				<tbody>
-					<tr class="success">
+					<tr>
+						<td colspan="2">
+							Samples to analyze
+							<br/>
+						</td>
+						
+					</tr>
+					<tr>
+						<td>Sample ID</td>
+						
+						
+						<td>Affected ?</td>
+					</tr>
+
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
+						 <tr>
 							<td>
 								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %></br>
-								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "Affected") %>
-							</td>	
+							</td>
+							<td>
+								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
+							</td>
+							
+						</tr>	
 						<% end -%>
-					</tr>	
 				</tbody>				
 				</table>
 				<br/>
@@ -116,7 +131,7 @@
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilySeparate'},:multipart => true) do %>
 
 				<table class="table table-striped">
-				<thead>
+				<thead >
 					<tr>
 						<th class="tablecol4">
 							Sample ID
@@ -184,7 +199,9 @@
 						</tr>
 					</tbody>				
 				</table>
+				
 				<br/>
+				
 				<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
        	   <% end %>
 		</div>	
