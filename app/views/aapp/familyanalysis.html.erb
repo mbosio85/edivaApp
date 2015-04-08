@@ -56,25 +56,25 @@
 				</thead>					
 				<tbody>
 					<tr>
-						<td colspan="2">
+						<td colspan="2" class="tablecol2">
 							Samples to analyze
 							<br/>
 						</td>
+						<td>&nbsp;</td>
 						
 					</tr>
 					<tr>
-						<td>Sample ID</td>
+						<td class="tablecol4">Sample ID</td>						
 						
-						
-						<td>Affected ?</td>
+						<td class="tablecol4">Affected ?</td>
 					</tr>
 
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
 						 <tr>
-							<td>
+							<td class="tablecol4">
 								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %></br>
 							</td>
-							<td>
+							<td class="tablecol4">
 								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
 							</td>
 							
