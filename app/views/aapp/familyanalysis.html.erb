@@ -32,11 +32,11 @@
 				Steps to be performed: VCF Annotation -> Variants Ranking -> Trio/Family Analysis
 			</h5>	
 			<br/>
-			<p>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list of candidate variants for monogenic mendelian diseases.</p>
-			<p>It will proceed to Annotate the variants form the VCF file(s), Rank them with a product-rank custom algorithm to integrate multiple information sources and finally it will filter.
-				the variants in agreement with the chosen inheritance pattern</p>
+			<dd>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list of candidate variants for monogenic mendelian diseases.</dd>
+			<dd>It will proceed to Annotate the variants form the VCF file(s), Rank them with a product-rank custom algorithm to integrate multiple information sources and finally it will filter.
+				the variants in agreement with the chosen inheritance pattern</dd>
 			<br/>
-			<p>eDiVa allows to choose five inheritance patterns:</p>
+			<dd>eDiVa allows to choose five inheritance patterns:</dd>
 			<ul>
 				<li>Dominant_denovo</li>
 				<li>Dominant_inherited</li>
@@ -79,20 +79,50 @@
 							
 						</tr>	
 						<% end -%>
-				</tbody>				
-				</table>
+
 				<br/>
 				
 		   			<% if @files.length > 0 -%>
-						Select Merged Annoatated and Ranked file from Project : <%= select_tag "selectedFileMerged", options_for_select(@files) %> or
-						Upload MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged' %></br>
+		   			<tr>
+		   			<td class="tablecol4">
+						Select Merged Annoatated and Ranked file from Project : </td>
+					<td class="tablecol4">	
+						<%= select_tag "selectedFileMerged", options_for_select(@files) %> </td>
+						</tr>
+					<tr>		
+						<td class="tablecol4">
+						Upload MultiSample/Merged VCF : 
+						</td>
+						<td class="tablecol4">
+						<%= file_field_tag 'vcfMerged' %>
+						</td>						
+					</tr>
 					<% else -%>	
-						Upload MultiSample/Merged VCF : <%= file_field_tag 'vcfMerged',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %></br>
+					<tr>
+						<td class="tablecol4">
+						Upload MultiSample/Merged VCF :
+						</td> 
+						<td class="tablecol4">
+							<%= file_field_tag 'vcfMerged',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+						</td>
+					</tr>
 					<% end -%>	
-						Select Inheritence Type: <%= select_tag "inheritenceType", options_for_select(@inhTypes) %></br>
-						Select Family Type: <%= select_tag "familyType", options_for_select(@famTypes) %></br>
-						<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
-						<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-medium' %>
+					<tr>
+						<td class="tablecol4">
+						Select Inheritence Type: </td>
+						<td class="tablecol4"><%= select_tag "inheritenceType", options_for_select(@inhTypes) %></td>
+					</tr>
+					<tr>
+						<td class="tablecol4">
+						Select Family Type: </td>
+						<td class="tablecol4"><%= select_tag "familyType", options_for_select(@famTypes) %></td>
+					</tr>
+		
+				</tbody>				
+				</table>	
+				<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
+				<br/>
+				<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
 
        	   <% end %>
 		</div>
