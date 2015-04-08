@@ -33,28 +33,17 @@
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
         			<tr>
-        			<td></td>
+        			<td>
 	        			<% if(line =~ /^#/) -%>
-	        			<%  line %>
-	        			<% aa=  line.split(',') %>
-	        			<% (1..aa).each do |i| %>
-						  <td>
-						  	<%= i %> 						  	
-						  </td>   
-						<% end %>
+	        			<%=  line %>
 	        			
 	        			<% else -%>
-	        			<b><% line %></b>
-	        			<% aa=  line.split(',') %>
-	        			<% (1..aa).each do |i| %>
-						  <td>
-						  	<%= i %> 						  	
-						  </td>   
-						<% end %>
+	        			<b><%= line %></b>
+	        			
 	        			
 	        			<% end -%>	        	
     				    <% limit = limit + 1 -%>
-        			<td></td>
+        			</td>
         			</tr>
         			<% if (limit == 100) -%>
         				<% break -%>
