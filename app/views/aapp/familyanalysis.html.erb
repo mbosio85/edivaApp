@@ -97,11 +97,11 @@
 				Steps to be performed: VCF Annotation -> Variants Ranking -> Trio/Family Analysis
 			</h5>	
 			<br/>
-			<p>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list of candidate variants for monogenic mendelian diseases.</p>
-			<p>It will proceed to Annotate the variants form the VCF file(s), Rank them with a product-rank custom algorithm to integrate multiple information sources and finally it will filter.
-				the variants in agreement with the chosen inheritance pattern</p>
+			<dd>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list of candidate variants for monogenic mendelian diseases.</dd>
+			<dd>It will proceed to Annotate the variants form the VCF file(s), Rank them with a product-rank custom algorithm to integrate multiple information sources and finally it will filter.
+				the variants in agreement with the chosen inheritance pattern</dd>
 			<br/>
-			<p>eDiVa allows to choose five inheritance patterns:</p>
+			<dd>eDiVa allows to choose five inheritance patterns:</dd>
 			<ul>
 				<li>Dominant_denovo</li>
 				<li>Dominant_inherited</li>
@@ -115,18 +115,18 @@
 				<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>
-							Sample(s)
+						<th class="tablecol4">
+							Sample ID
 						</th>
-						<th>
-							Affected/Notaffected
+						<th class="tablecol4">
+							Affected ?
 						</th>	
-						<th>
-							Upload File(s)
+						<th class="tablecol4">
+							Upload File (local PC)
 						</th>
 			   			<% if @files.length > 0 -%>
-						<th>
-							Select File(s)
+						<th class="tablecol4">
+							Select File (Workspace)
 						</th>
 						<% end -%>
 					</tr>	
