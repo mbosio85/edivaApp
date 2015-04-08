@@ -138,7 +138,7 @@
 				<tbody >
 
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
-						<tr >
+						<tr background-color:"#FFFFFF" >
 							<td class="tablecol4">
 								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %>
 							</td>
@@ -171,8 +171,8 @@
 							<td class="tablecol4">
 								 <%= select_tag "familyType", options_for_select(@famTypes) %>
 							</td>
-							<td class="tablecol4"></td>
-							<td class="tablecol4"></td>
+							<td class="tablecol4">  &nbsp; </td>
+							<td class="tablecol4"> &nbsp;</td>
 						</tr>						
 						<tr>
 							<td colspan="4">
