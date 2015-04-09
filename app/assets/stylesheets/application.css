@@ -78,7 +78,7 @@ body{
 .footer{
 		color: #FFFFFF;
 		height:50px;
-		padding:5px;
+		padding:0px;
 		font-size: smaller;
 		position: fixed;
 		bottom: 0px;
@@ -89,6 +89,11 @@ body{
 }
 .footer li{
         display: inline;
+}
+
+.row-fluid{
+	padding-bottom: 50px;
+	
 }
 /*.notice, .valid_notice, .invalid_notice{
 		height: auto; 
