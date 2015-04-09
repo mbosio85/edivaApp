@@ -38,7 +38,7 @@ body{
 		margin:auto;
         background-color:#E8E8E8;
         border-radius: 2px;
-        padding: 0px;
+        padding: 0px 0px 10px 10px;
         text-align: center
 }
 .workspaceactions table td{
