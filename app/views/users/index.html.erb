@@ -1,12 +1,26 @@
 <head>
-	<link rel="shortcut icon" href="/assets/web_icon.ico” type="image/x-icon">
-	
+	<link rel="shortcut icon" href="/assets/web_icon.ico” type="image/x-icon">	
 	<link rel="icon" href="/assets/web_icon.ico" type="image/x-icon">
 	
 </head>
 
-<div class="row-fluid">
-		
+<body>
+	
+ <div class="row-fluid">
+ 	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>	
+ </div>	
+	
+<div class="row-fluid">		
 	<div class="span6">
 	 <!-- Carousel
     ================================================== -->
@@ -126,20 +140,7 @@
   	<% end %>
 	</div>
 	</div>
-	
- <div class="row-fluid">
- 	<% if flash[:color]== "valid" %>
-		<div class="alert alert-success">
-			<p><%= flash[:notice]%></p>
-		</div>
-	<% elsif flash[:color]== "invalid"%>
-		<div class="alert alert-error">
-			<p><%=flash[:notice]%></p>
-		</div>
-	<% else -%>
-	
-	<%end%>	
- </div>
+
 
 
    <div class="footer">
@@ -157,3 +158,4 @@
 
 
 </div>
+</body>
