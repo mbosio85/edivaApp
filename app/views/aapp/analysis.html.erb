@@ -51,6 +51,42 @@
 
 </br></br>
 
+<!--Upload  --> 
+<div class="row-fluid">
+	<div class="span12">		
+		<div class="workspaceactions">
+		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
+		   	<%= submit_tag 	"Upload File(s) to Workspace.",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
+			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+      			
+       	   <% end %>
+		</div>
+
+		<!--Actions   
+		<div class="workspaceactions">
+			<h4>
+				Manage Workspace File(s)
+			</h4>
+
+			<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
+				<% if @files.length > 0 %>
+					<%= select_tag "selectedFile", options_for_select(@files) %> Select file
+					<br> 
+					<%= select_tag "selectedAction", options_for_select(@actions) %> Select action on file
+					<br>
+					<%= submit_tag "Commit", :class => 'btn btn-primary btn-medium'%>
+					<% else -%>
+						<p> Empty workspace !! </p>
+					<% end -%>
+			<% end -%>
+		</div>		-->
+
+		</br></br>	
+		
+
+	</div>
+</div>
+
 <!--Workspace  -->
 <div class="row-fluid">
 
@@ -115,41 +151,7 @@
 	</div>
 </div>
 
-<!--Upload  --> 
-<div class="row-fluid">
-	<div class="span12">		
-		<div class="workspaceactions">
-		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
-		   	<%= submit_tag 	"Upload File(s) to Workspace.",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
-			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
-      			
-       	   <% end %>
-		</div>
 
-		<!--Actions   
-		<div class="workspaceactions">
-			<h4>
-				Manage Workspace File(s)
-			</h4>
-
-			<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
-				<% if @files.length > 0 %>
-					<%= select_tag "selectedFile", options_for_select(@files) %> Select file
-					<br> 
-					<%= select_tag "selectedAction", options_for_select(@actions) %> Select action on file
-					<br>
-					<%= submit_tag "Commit", :class => 'btn btn-primary btn-medium'%>
-					<% else -%>
-						<p> Empty workspace !! </p>
-					<% end -%>
-			<% end -%>
-		</div>		-->
-
-		</br></br>	
-		
-
-	</div>
-</div>
 
 <script>
 function validateFiles(inputFile) {
