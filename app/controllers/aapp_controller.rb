@@ -85,7 +85,7 @@ class AappController < ApplicationController
 
     printkeys = ""
     params.each { |key,value| printkeys = printkeys + "," + key}
-    redirect_to :analysis
+    
 
 
     if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
