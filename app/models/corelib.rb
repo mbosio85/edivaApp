@@ -433,7 +433,7 @@ class Corelib
 
   def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,familyType,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
   
-    valMsg = nil
+    valMsg = "analysis"
     
     if (vcf1 != nil and vcf2 != nil and vcf3 != nil)  
       ## upload VCFs
