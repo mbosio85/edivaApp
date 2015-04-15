@@ -83,30 +83,30 @@ class AappController < ApplicationController
 
   def actionFamilySeparate
 
-    #printkeys = ""
-    #params.each { |key,value| printkeys = printkeys + "," + key}
+    printkeys = ""
+    params.each { |key,value| printkeys = printkeys + "," + key}
 
 
-    #if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
-    #  redirect_to :familyanalysis
-    #  flash[:notice] = "Sample ID(s) cant be empty !!"
-    #  flash[:color]= "invalid"
-    #  return
-    #else
-    #  @msg = Corelib.familyActionsSeparate(params[:sample1],params[:sample2],params[:sample3],params[:vcf1],params[:vcf2],params[:vcf3],params[:selectedFile1],params[:selectedFile2],params[:selectedFile3],params[:affected1],params[:affected2],params[:affected3],params[:inheritenceType],session[:user],curProject)
-    #end
+    if (params[:sample1] == '' or params[:sample2] == '' or params[:sample3] == '')
+      redirect_to :familyanalysis
+      flash[:notice] = "Sample ID(s) cant be empty !!"
+      flash[:color]= "invalid"
+      return
+    else
+      @msg = Corelib.familyActionsSeparate(params[:sample1],params[:sample2],params[:sample3],params[:vcf1],params[:vcf2],params[:vcf3],params[:selectedFile1],params[:selectedFile2],params[:selectedFile3],params[:affected1],params[:affected2],params[:affected3],params[:inheritenceType],session[:user],curProject)
+    end
 
-    #if @msg == "analysis"
-    #  redirect_to :analysis
-    #  flash[:notice] = "Analysis has started and the output files will available shortly !"
-    #  flash[:color]= "valid"        
-    #  return
-    #else
+    if @msg == "analysis"
+      redirect_to :analysis
+      flash[:notice] = "Analysis has started and the output files will available shortly !"
+      flash[:color]= "valid"        
+      return
+    else
       redirect_to :analysis
       flash[:notice] = "this portion is not active yet! use the merged vcf section please" # printkeys #@msg
       flash[:color]= "invalid"
       return        
-    #end
+    end
   end
 
   def actionFamilyMerged
