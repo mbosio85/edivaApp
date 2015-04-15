@@ -434,7 +434,7 @@ class Corelib
   def self.familyActionsSeparate(sample1,sample2,sample3,vcf1,vcf2,vcf3,familyType,selectedFile1,selectedFile2,selectedFile3,affected1,affected2,affected3,inheritenceType,user,project)
   
     valMsg = "analysis"
-    <<-DOC
+=begin
     if (vcf1 != nil and vcf2 != nil and vcf3 != nil)  
       ## upload VCFs
       vcfFileChecker = vcf1.original_filename
@@ -539,7 +539,7 @@ class Corelib
     else    
       valMsg = "Your file selection is not appropriate ! Please carefully choose again !!"
     end
-  __END__  
+=end
     return valMsg
   end
   
