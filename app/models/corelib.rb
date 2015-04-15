@@ -435,7 +435,7 @@ class Corelib
   
       valMsg = "analysis"
 
-    if (vcf1 != "" and vcf2 !=  ""  and vcf3 != "")  
+    if (vcf1 != nil and vcf2 != nil and vcf3 != nil)  
       ## upload VCFs
       vcfFileChecker = vcf1.original_filename
       
@@ -542,6 +542,12 @@ class Corelib
 
     return valMsg
   end
+
+
+  def self.Corelib.familyActionsSeparate_2(oo)
+    return oo
+  end
+
   
   def self.runFamilyAnalysisTool(rankedFile,user,familyFile,inhT)
     annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 nohup python /home/rrahman/soft/eDiVaAnnotation/familySNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+  rankedFile + " --outfile /var/www/html/ediva/current/" +user+ "/"+  rankedFile + "."+ inhT +".analyzed --filteredoutfile /var/www/html/ediva/current/" +user+ "/"+  + rankedFile + "."+ inhT +".analyzed.filtered --family /var/www/html/ediva/current/"+user+ "/"+ "/family.txt --inheritance " + inhT + " &" 
