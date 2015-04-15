@@ -539,7 +539,7 @@ class Corelib
     else    
       valMsg = "Your file selection is not appropriate ! Please carefully choose again !!"
     end
-    valMsg = "analysis"
+    #valMsg = "analysis"
     return valMsg
     
   end
