@@ -98,12 +98,12 @@ class AappController < ApplicationController
     end
 
     if @msg == "analysis"
-      redirect_to :analysis
+      redirect_to :familyanalysis
       flash[:notice] = "Analysis has started and the output files will available shortly !"
       flash[:color]= "valid"        
       return
     else
-      redirect_to :analysis
+      redirect_to :familyanalysis
       flash[:notice] = "this portion is not active yet! use the merged vcf section please" # printkeys #@msg
       flash[:color]= "invalid"
       return        
