@@ -525,21 +525,21 @@ class Corelib
       end
 
       ##call ranking tool from oliver 
-      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user)
+      ##valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user)
       
       sleep 15
       #while(true)
         ## call family analysis tool from oliver
        # if FileTest.exists?(Rails.root + "/"+ uset+"/"+project+"/"+rankedFile)
-      valMsg = runFamilyAnalysisTool(rankedFile,user,familyFile,inheritenceType)
+      ##valMsg = runFamilyAnalysisTool(rankedFile,user,familyFile,inheritenceType)
         #  break
         #end
       #end
-      valMsg = "analysis"    
+      valMsg = "analysis2"    
     else    
       valMsg = "Your file selection is not appropriate ! Please carefully choose again !!"
     end
-    valMsg = "analysis" 
+    
     return valMsg
   end
   
