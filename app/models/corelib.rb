@@ -439,9 +439,9 @@ class Corelib
       ## upload VCFs
       vcfFileChecker = vcf1.original_filename
       
-      valMsg = handleUserFile(vcf1,user,project)
-      valMsg = handleUserFile(vcf2,user,project)
-      valMsg = handleUserFile(vcf3,user,project)      
+      valMsg = uploadUserFile(vcf1,user)
+      valMsg = uploadUserFile(vcf2,user)
+      valMsg = uploadUserFile(vcf3,user)      
       
       mergedAnnotationFile = nil
       rankedFile = nil
@@ -480,9 +480,9 @@ class Corelib
       end
 
       ##call ranking tool from oliver 
-      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)      
+      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user)      
       sleep 30
-      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
+      valMsg = runFamilyAnalysisTool(rankedFile,user,familyFile,inheritenceType)
       valMsg = "analysis"    
       return valMsg
   
@@ -513,25 +513,25 @@ class Corelib
       if (selectedFile1 =~ /CD(.*)/)
         mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
-        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+  "/"
         system(annCommand)      
       elsif(selectedFile1 =~ /VH(.*)/)
         mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
-        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"
         system(annCommand)
       else
         ## lol you are fucked for now  
       end
 
       ##call ranking tool from oliver 
-      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user,project)
+      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user)
       
       sleep 15
       #while(true)
         ## call family analysis tool from oliver
        # if FileTest.exists?(Rails.root + "/"+ uset+"/"+project+"/"+rankedFile)
-      valMsg = runFamilyAnalysisTool(rankedFile,user,project,familyFile,inheritenceType)
+      valMsg = runFamilyAnalysisTool(rankedFile,user,familyFile,inheritenceType)
         #  break
         #end
       #end
@@ -543,8 +543,8 @@ class Corelib
     return valMsg
   end
   
-  def self.runFamilyAnalysisTool(rankedFile,user,project,familyFile,inhT)
-    annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 nohup python /home/rrahman/soft/eDiVaAnnotation/familySNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+ project+ "/" + rankedFile + " --outfile /var/www/html/ediva/current/" +user+ "/"+ project+ "/" + rankedFile + "."+ inhT +".analyzed --filteredoutfile /var/www/html/ediva/current/" +user+ "/"+ project+ "/" + rankedFile + "."+ inhT +".analyzed.filtered --family /var/www/html/ediva/current/"+user+ "/"+ project+ "/family.txt --inheritance " + inhT + " &" 
+  def self.runFamilyAnalysisTool(rankedFile,user,familyFile,inhT)
+    annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 nohup python /home/rrahman/soft/eDiVaAnnotation/familySNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+  rankedFile + " --outfile /var/www/html/ediva/current/" +user+ "/"+  rankedFile + "."+ inhT +".analyzed --filteredoutfile /var/www/html/ediva/current/" +user+ "/"+  + rankedFile + "."+ inhT +".analyzed.filtered --family /var/www/html/ediva/current/"+user+ "/"+ "/family.txt --inheritance " + inhT + " &" 
     system(annCommand)          
     return annCommand
   end
