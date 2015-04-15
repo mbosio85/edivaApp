@@ -458,7 +458,7 @@ class Corelib
         affected3 = 0
       end
 
-      File.open(Rails.root.join(user,project,familyFile), 'w') do |file|
+      File.open(Rails.root.join(user,familyFile), 'w') do |file|
         file.write(sample1 + "\t" + affected1.to_s + "\n")
         file.write(sample2 + "\t" + affected2.to_s + "\n")
         file.write(sample3 + "\t" + affected3.to_s + "\n")
@@ -468,12 +468,12 @@ class Corelib
       if (vcfFileChecker =~ /CD(.*)/)
         mergedAnnotationFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'CD_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'
-        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/CDs/CD_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/" 
         system(annCommand)      
       elsif(vcfFileChecker =~ /VH(.*)/)
         mergedAnnotationFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated'
         rankedFile = 'VH_.GATK.snp.filtered.cleaned.vcf.annotated.ranked'                
-        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"+ project+ "/"
+        annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 scp /home/rrahman/Template/VHs/VH_.GATK.snp.filtered.cleaned.vcf.annotated /var/www/html/ediva/current/"+ user+ "/"
         system(annCommand)
       else
         ## lol you are fucked for now  
@@ -503,7 +503,7 @@ class Corelib
         affected3 = 0
       end
 
-      File.open(Rails.root.join(user,project,familyFile), 'w') do |file|
+      File.open(Rails.root.join(user,familyFile), 'w') do |file|
         file.write(sample1 + "\t" + affected1.to_s + "\n")
         file.write(sample2 + "\t" + affected2.to_s + "\n")
         file.write(sample3 + "\t" + affected3.to_s + "\n")
