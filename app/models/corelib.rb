@@ -547,6 +547,7 @@ class Corelib
     annCommand = "/home/rrahman/soft/ts-0.7.5/ts -N 3 nohup python /home/rrahman/soft/eDiVaAnnotation/familySNP.py --infile /var/www/html/ediva/current/"+ user+ "/"+  rankedFile + " --outfile /var/www/html/ediva/current/" +user+ "/"+  rankedFile + "."+ inhT +".analyzed --filteredoutfile /var/www/html/ediva/current/" +user+ "/"+  + rankedFile + "."+ inhT +".analyzed.filtered --family /var/www/html/ediva/current/"+user+ "/"+ "/family.txt --inheritance " + inhT + " &" 
     system(annCommand)          
     return annCommand
+    
   end
   
    
