@@ -503,11 +503,11 @@ class Corelib
         affected3 = 0
       end
 
-      #File.open(Rails.root.join(user,familyFile), 'w') do |file|
-      #  file.write(sample1 + "\t" + affected1.to_s + "\n")
-      #  file.write(sample2 + "\t" + affected2.to_s + "\n")
-      #  file.write(sample3 + "\t" + affected3.to_s + "\n")
-      #end
+      File.open(Rails.root.join(user,familyFile), 'w') do |file|
+        file.write(sample1 + "\t" + affected1.to_s + "\n")
+        file.write(sample2 + "\t" + affected2.to_s + "\n")
+        file.write(sample3 + "\t" + affected3.to_s + "\n")
+      end
       
       ## merge sample annotated files for ranking tool
       if (selectedFile1 =~ /CD(.*)/)
@@ -525,17 +525,17 @@ class Corelib
       end
 
       ##call ranking tool from oliver 
-      ##valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user)
+      valMsg = rankUserAnnotatedFile(mergedAnnotationFile,user)
       
       sleep 15
       #while(true)
         ## call family analysis tool from oliver
        # if FileTest.exists?(Rails.root + "/"+ uset+"/"+project+"/"+rankedFile)
-      ##valMsg = runFamilyAnalysisTool(rankedFile,user,familyFile,inheritenceType)
+      valMsg = runFamilyAnalysisTool(rankedFile,user,familyFile,inheritenceType)
         #  break
         #end
       #end
-      valMsg = "analysis2"    
+      valMsg = "analysis"    
     else    
       valMsg = "Your file selection is not appropriate ! Please carefully choose again !!"
     end
