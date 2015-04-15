@@ -544,7 +544,7 @@ class Corelib
   end
 
 
-  def self.Corelib.familyActionsSeparate_2(oo)
+  def self.familyActionsSeparate_2(oo)
     return oo
   end
 
