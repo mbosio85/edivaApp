@@ -58,7 +58,7 @@ class Corelib
       end
       
       ## delete the target file(s) if exists
-      delcmmd = "ts -N 3 rm userspace/" + user + "/" + jobscript
+      delcmmd = "rm userspace/" + user + "/" + jobscript
       system(delcmmd)
       
       ## call ediva-tools annotation program to calculate rank of the variants
@@ -72,9 +72,9 @@ class Corelib
       
 
       ## chmod
-      system ("ts -N 3 chmod 775 userspace/" + user + "/" + jobscript)
+      system ("chmod 775 userspace/" + user + "/" + jobscript)
       ## start the job
-      system("ts -N 3 userspace/"+ user +"/" + jobscript + " &")
+      system("userspace/"+ user +"/" + jobscript + " &")
 
       ## set return message
       valMsg = "annotated"
@@ -98,7 +98,7 @@ class Corelib
       end
 
       ## delete the target file(s) if exists
-      delcmmd = "ts -N 3 rm userspace/" + user + "/" + jobscript
+      delcmmd = "rm userspace/" + user + "/" + jobscript
       system(delcmmd)
 
       ## if vcf file was provided then annotate it first
@@ -139,9 +139,9 @@ class Corelib
 
       
       ## chmod
-      system ("ts -N 3 chmod 775 userspace/" + user + "/" + jobscript)
+      system ("chmod 775 userspace/" + user + "/" + jobscript)
       ## start the job
-      system("ts -N 3 userspace/"+ user +"/" + jobscript + " &")
+      system("userspace/"+ user +"/" + jobscript + " &")
       ## set return message
       valMsg = "ranked"
 
@@ -168,9 +168,9 @@ class Corelib
     end
     
     ## delete the target file(s) if exists
-    delcmmd = "ts -N 3 rm userspace/" + user + "/" + familyFile
+    delcmmd = "rm userspace/" + user + "/" + familyFile
     system(delcmmd)
-    delcmmd = "ts -N 3 rm userspace/" + user + "/" + jobscript
+    delcmmd = "rm userspace/" + user + "/" + jobscript
     system(delcmmd)
     
     
@@ -292,9 +292,9 @@ class Corelib
         end
           
         ## chmod
-        system ("ts -N 3 chmod 775 userspace/" + user +"/" + jobscript)
+        system ("chmod 775 userspace/" + user +"/" + jobscript)
         ## start the job
-        system("ts -N 3 userspace/"+ user +"/" + jobscript + " &")
+        system("userspace/"+ user +"/" + jobscript + " &")
         ## set return message       
         valMsg = "jobsubmitted"
       end
@@ -418,9 +418,9 @@ class Corelib
        end        
        
        ## chmod
-       system ("ts -N 3 chmod 775 userspace/" + user +"/" + jobscript)
+       system ("chmod 775 userspace/" + user +"/" + jobscript)
        ## start the job
-       system("ts -N 3 userspace/"+ user +"/" + jobscript + " &")
+       system("userspace/"+ user +"/" + jobscript + " &")
        ## set return message       
        valMsg = "jobsubmitted"
     end     
