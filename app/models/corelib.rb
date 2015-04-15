@@ -503,11 +503,11 @@ class Corelib
         affected3 = 0
       end
 
-      File.open(Rails.root.join(user,familyFile), 'w') do |file|
-        file.write(sample1 + "\t" + affected1.to_s + "\n")
-        file.write(sample2 + "\t" + affected2.to_s + "\n")
-        file.write(sample3 + "\t" + affected3.to_s + "\n")
-      end
+      #File.open(Rails.root.join(user,familyFile), 'w') do |file|
+      #  file.write(sample1 + "\t" + affected1.to_s + "\n")
+      #  file.write(sample2 + "\t" + affected2.to_s + "\n")
+      #  file.write(sample3 + "\t" + affected3.to_s + "\n")
+      #end
       
       ## merge sample annotated files for ranking tool
       if (selectedFile1 =~ /CD(.*)/)
