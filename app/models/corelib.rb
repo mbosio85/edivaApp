@@ -558,8 +558,8 @@ class Corelib
     bgzip ="/home/rrahman/soft/tabix-0.2.6/bgzip"
     tabix ="/home/rrahman/soft/tabix-0.2.6/tabix"
     command = "/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+" "+sn+ params[:selectedFile1]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix +" -p vcf -f "+sn+params[:selectedFile1]+".gz\n"
-    command = command+"/home/rrahman/soft/ts-0.7.5/ts -N 1"+bgzip+" "+params[:selectedFile2]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix +" -p vcf -f "+sn+params[:selectedFile2]+".gz\n"
-    command = command+" /home/rrahman/soft/ts-0.7.5/ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:selectedFile1]+".gz" +sn+params[:selectedFile2]+".gz" + "> merged.vcf \n"
+    command = command+"/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+" "+params[:selectedFile2]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix +" -p vcf -f "+sn+params[:selectedFile2]+".gz\n"
+    command = command+" /home/rrahman/soft/ts-0.7.5/ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:selectedFile1]+".gz " +sn+params[:selectedFile2]+".gz " + "> merged.vcf \n"
     system(command)
     #To do list
     # Install bgzip tabix and vcftools on the machine /home/rrahman/soft -check
