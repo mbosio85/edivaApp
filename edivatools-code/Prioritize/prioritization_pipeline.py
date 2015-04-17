@@ -200,7 +200,7 @@ script_content = ("""
 #$ -o %s
 
 source /etc/profile
-export _JAVA_OPTIONS=\"-Djava.io.tmpdir=$TMPDIR $_JAVA_OPTIONS\"
+#export _JAVA_OPTIONS=\"-Djava.io.tmpdir=$TMPDIR $_JAVA_OPTIONS\"
 
 OUTF=%s
 GATK=%s
