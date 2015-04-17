@@ -544,21 +544,27 @@ class Corelib
   end
 
 
-  def self.familyActionsSeparate_2(oo)
+  def self.familyActionsSeparate_2(params,user)
     #Algorthm idea
     # paramteres will be params and user
     # first test with local files
     
-    # command =  java -jar $GATK -T CombineVariants -R $REF  -o XXX_combined.variants.vcf --unsafe LENIENT_VCF_PROCESSING
+    # 
     # or with vcftools-merge but it needs vcf processed by bgzip and tabix to run
     # launch VCF merging
     # then call the Merged function with params,user and it should be done ! problem is to merge VCF
     # then for each sample, delete the vcf.gz files as well and return the correct word
-    
+    sn= "/var/www/html/ediva/current/"+ user+ "/"+
+    command = "ts -N 1 bgzip "+sn+ params[:sample1]+" ; ts -N 1 tabix -p vcf -f "+sn+params[:sample1]+".gz\n"
+    command = command+"ts -N 1 bgzip "+sn+params[:sample2]+" ; ts -N 1 tabix -p vcf -f "+sn+params[:sample2]+".gz\n"
+    command = command+" ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:sample1]+".gz" +sn+params[:sample2]+".gz" + "> merged.vcf \n"
+    system(command)
     #To do list
-    # Install bgzip tabix and vcftools on the machine /home/rrahman/soft
-    # Test the process once without web
-    # Test the process with the web
+    # Install bgzip tabix and vcftools on the machine /home/rrahman/soft -check
+    # Test the process once without web - check
+    # Test the process with the web -check
+    
+    
     return oo
   end
 
