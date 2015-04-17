@@ -554,7 +554,7 @@ class Corelib
     # launch VCF merging
     # then call the Merged function with params,user and it should be done ! problem is to merge VCF
     # then for each sample, delete the vcf.gz files as well and return the correct word
-    sn= "/var/www/html/ediva/current/"+ user+ "/"
+    sn= "/var/www/html/ediva/current/userspace/"+ user+ "/"
     command = "/home/rrahman/soft/ts-0.7.5/ts -N 1 bgzip "+sn+ params[:selectedFile1]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 tabix -p vcf -f "+sn+params[:selectedFile1]+".gz\n"
     command = command+"/home/rrahman/soft/ts-0.7.5/ts -N 1 bgzip "+sn+params[:selectedFile2]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 tabix -p vcf -f "+sn+params[:selectedFile2]+".gz\n"
     command = command+" /home/rrahman/soft/ts-0.7.5/ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:selectedFile1]+".gz" +sn+params[:selectedFile2]+".gz" + "> merged.vcf \n"
