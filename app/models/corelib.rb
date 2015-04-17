@@ -564,7 +564,7 @@ class Corelib
     # Test the process once without web - check
     # Test the process with the web -check
     
-    oo="aa"
+    oo=command
     return oo
   end
 

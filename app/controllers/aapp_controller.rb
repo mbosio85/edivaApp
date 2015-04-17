@@ -109,7 +109,7 @@ class AappController < ApplicationController
       return
     else
       redirect_to :analysis
-      flash[:notice] = "this portion is not active yet! use the merged vcf section please" # printkeys #@msg
+      flash[:notice] = "this portion is not active yet! use the merged vcf section please"  + @msg
       flash[:color]= "invalid"
       return        
     end
