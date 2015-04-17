@@ -554,18 +554,18 @@ class Corelib
     # launch VCF merging
     # then call the Merged function with params,user and it should be done ! problem is to merge VCF
     # then for each sample, delete the vcf.gz files as well and return the correct word
-    sn= "/var/www/html/ediva/current/"+ user+ "/"+
-    command = "ts -N 1 bgzip "+sn+ params[:sample1]+" ; ts -N 1 tabix -p vcf -f "+sn+params[:sample1]+".gz\n"
-    command = command+"ts -N 1 bgzip "+sn+params[:sample2]+" ; ts -N 1 tabix -p vcf -f "+sn+params[:sample2]+".gz\n"
-    command = command+" ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:sample1]+".gz" +sn+params[:sample2]+".gz" + "> merged.vcf \n"
-    system(command)
+    #sn= "/var/www/html/ediva/current/"+ user+ "/"+
+    #command = "ts -N 1 bgzip "+sn+ params[:sample1]+" ; ts -N 1 tabix -p vcf -f "+sn+params[:sample1]+".gz\n"
+    #command = command+"ts -N 1 bgzip "+sn+params[:sample2]+" ; ts -N 1 tabix -p vcf -f "+sn+params[:sample2]+".gz\n"
+    #command = command+" ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:sample1]+".gz" +sn+params[:sample2]+".gz" + "> merged.vcf \n"
+    #system(command)
     #To do list
     # Install bgzip tabix and vcftools on the machine /home/rrahman/soft -check
     # Test the process once without web - check
     # Test the process with the web -check
     
-    
-    return "aa"
+    oo="aa"
+    return oo
   end
 
   
