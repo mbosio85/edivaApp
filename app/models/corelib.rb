@@ -565,7 +565,7 @@ class Corelib
     # Test the process with the web -check
     
     
-    return oo
+    return "aa"
   end
 
   
