@@ -557,8 +557,8 @@ class Corelib
     sn= "/var/www/html/ediva/current/userspace/"+ user+ "/"
     bgzip ="/home/rrahman/soft/tabix-0.2.6/bgzip -f "
     tabix ="/home/rrahman/soft/tabix-0.2.6/tabix -f "
-    command =("/home/rrahman/soft/ts-0.7.5/ts PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/ \n")
-    command = comman+ "/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+" "+sn+ params[:selectedFile1]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix +" -p vcf -f "+sn+params[:selectedFile1]+".gz\n"
+    command = "/home/rrahman/soft/ts-0.7.5/ts PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/ \n"
+    command = command+ "/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+" "+sn+ params[:selectedFile1]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix +" -p vcf -f "+sn+params[:selectedFile1]+".gz\n"
     command = command+"/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+" "+sn+params[:selectedFile2]+" ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix +" -p vcf -f "+sn+params[:selectedFile2]+".gz\n"
     command = command+" /home/rrahman/soft/ts-0.7.5/ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:selectedFile1]+".gz " +sn+params[:selectedFile2]+".gz " + "> merged.vcf \n"
     system(command)
