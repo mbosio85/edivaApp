@@ -564,7 +564,6 @@ class Corelib
     command = command+" /home/rrahman/soft/ts-0.7.5/ts -N 1 perl /home/rrahman/vcftools_0.1.12b/perl/vcf-merge "+sn+params[:selectedFile1]+".gz "+sn+params[:selectedFile2]+".gz " +sn+params[:selectedFile3]+".gz\n"
     command = command+ "export TS_ONFINISH='/home/rrahman/soft/ts-0.7.5/copy_output.sh'\n"#;  chmod 777 $TS_ONFINISH \n"
     command = command+ "ts cp .temp_result "+sn+"merged.vcf \n"
-    command = command+ "ts unset TS_ONFINISH"
     system(command)
     #To do list
     # Install bgzip tabix and vcftools on the machine /home/rrahman/soft -check
