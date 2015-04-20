@@ -46,7 +46,7 @@ class AappController < ApplicationController
   def familyanalysissamples
     @actions = ['Preview','Download','Delete', 'Empty workspace']
     @files = Array.new
-    Dir.new("userspace/" + session[:user] + "/").sort.each do |file|
+    Dir.foreach("userspace/" + session[:user] + "/") do |file|
         next if file =~ /^\./
           @files.push(file)
     end
@@ -74,7 +74,7 @@ class AappController < ApplicationController
 
     @files = Array.new
     
-    Dir.foreach("userspace/" + session[:user] + "/") do |file|
+    Dir.new("userspace/" + session[:user] + "/").sort.each do |file|
       next if file =~ /^\./
           @files.push(file)
     end      
