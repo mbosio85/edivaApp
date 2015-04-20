@@ -72,7 +72,7 @@
 			</tr>
 			<% else -%>
 				<ul>
-				<% Dir.foreach("userspace/" + session[:user] + "/").sort do |file|-%>
+				<% Dir.foreach("userspace/" + session[:user] + "/") do |file|-%>
 					<% next if file =~ /^\./ -%>
 				<tr>
 				<td colspan:"5">
