@@ -238,18 +238,18 @@ class Corelib
             user + "/" + filename + ".sorted.annotated.ranked.analysed."+ params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
             user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
             "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +"  > userspace/"+ user +"/.job.log 2>&1"
-	  else
+	        else
             #commands = "python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" +
             #user + "/" + filename + ".sorted.annotated.ranked.analysed --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered --family userspace/"+
             #user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"   
             commands = "ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + filename + ".sorted.annotated.ranked --outfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed." + 
-	    params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered." + params[:inheritenceType] + " --family userspace/"+ user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+	           params[:inheritenceType] +" --filteredoutfile userspace/" + user + "/" + filename + ".sorted.annotated.ranked.analysed.filtered." + params[:inheritenceType] + " --family userspace/"+ user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
    
-	  end
+	         end
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
-          end
+         end
         
         elsif( filename =~ /annotated$/)
 
@@ -350,10 +350,7 @@ class Corelib
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(commands + "\n")
         end         
-        ## write line to job file
-        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
-          file.write(commands + "\n")
-        end         
+               
     
         ## family script
         if (params[:geneexclusionlist] == "1")
@@ -429,7 +426,7 @@ class Corelib
        end        
        
        ## chmod
-       system ("chmod 775 userspace/" + user +"/" + jobscript)
+       system("chmod 775 userspace/" + user +"/" + jobscript)
        ## start the job
        system("userspace/"+ user +"/" + jobscript + " &")
        ## set return message       
