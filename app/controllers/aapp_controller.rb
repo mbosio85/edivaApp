@@ -177,7 +177,7 @@ class AappController < ApplicationController
       return
     end  
     
-    if (params[:fileToAnnotate] == nil)
+    if (params[:vcf] != nil)
       @msg = Corelib.handleUserFileAndAction(params[:vcf],session[:user],"annotation")      
     else
       @msg = Corelib.annotateVCF(params[:fileToAnnotate],session[:user])
