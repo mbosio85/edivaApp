@@ -203,7 +203,7 @@ class AappController < ApplicationController
       return
     end  
     
-    if (params[:fileToRank] == nil)
+    if (params[:ann] != nil)
       @msg = Corelib.handleUserFileAndAction(params[:ann],session[:user],"rank")      
     else
       @msg = Corelib.rankUserAnnotatedFile(params[:fileToRank],session[:user])
