@@ -62,7 +62,8 @@ class Corelib
       system(delcmmd)
       
       ## call ediva-tools annotation program to calculate rank of the variants
-      annCommand = "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
+      annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+      annCommand = annCommand + "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
       " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
 
       ## write line to job file
@@ -72,7 +73,7 @@ class Corelib
       
 
       ## chmod
-      system ("chmod 775 userspace/" + user + "/" + jobscript)
+      system("chmod 775 userspace/" + user + "/" + jobscript)
       ## start the job
       system("userspace/"+ user +"/" + jobscript + " &")
 
@@ -104,7 +105,8 @@ class Corelib
       ## if vcf file was provided then annotate it first
       if (userFile =~ /vcf$/)
         ## call ediva-tools annotation program to calculate rank of the variants
-        annCommand = " ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
+        annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+        annCommand = annCommand +  " ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
         " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
 
         ## write line to job file
@@ -118,7 +120,8 @@ class Corelib
         userFile = userFile + ".sorted.annotated"
 
         ## call ediva-tools rank program to calculate rank of the variants
-        rankCommand = "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
+        rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+        rankCommand = rankCommand+"ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
         " --outfile userspace/"+ user + "/" + userFile + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         
         ## write line to job file
@@ -128,7 +131,8 @@ class Corelib
         
       else
         ## call ediva-tools rank program to calculate rank of the variants
-        rankCommand = "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
+        rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+        rankCommand = rankCommand + "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
         " --outfile userspace/"+ user + "/" + userFile + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         
         ## write line to job file
@@ -139,7 +143,7 @@ class Corelib
 
       
       ## chmod
-      system ("chmod 775 userspace/" + user + "/" + jobscript)
+      system("chmod 775 userspace/" + user + "/" + jobscript)
       ## start the job
       system("userspace/"+ user +"/" + jobscript + " &")
       ## set return message
@@ -173,6 +177,10 @@ class Corelib
     delcmmd = "rm userspace/" + user + "/" + jobscript
     system(delcmmd)
     
+    commands = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/"
+        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+            file.write(commands + "\n")
+     end
     
     ## upload user file or select the file from userspace
     if (params[:vcfMerged])
@@ -196,21 +204,24 @@ class Corelib
           end
         end  
         
+        
+        
         if (filename =~ /vcf$/)
           ## call ediva-tools annotation program to calculate rank of the variants
+          
           commands = "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ filename + 
           " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
-          end
+        end
         
           ## update filename as per annotation tool
           ## remove the .vcf extension from file name
           filename = filename[0..-5]
         
           ## rank line
-          commands = "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename + ".sorted.annotated" +  
+          commands = commands +"ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename + ".sorted.annotated" +  
           " --outfile userspace/"+ user + "/" + filename + ".sorted.annotated.ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
@@ -292,7 +303,7 @@ class Corelib
         end
           
         ## chmod
-        system ("chmod 775 userspace/" + user +"/" + jobscript)
+        system("chmod 775 userspace/" + user +"/" + jobscript)
         ## start the job
         system("userspace/"+ user +"/" + jobscript + " &")
         ## set return message       
