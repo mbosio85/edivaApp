@@ -129,12 +129,10 @@
 		</div>
 	</div>
 	<div class="span6">		
-		<div class="workspaceactions">
+		<div>
 		   	<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
-						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedAction", "Empty workspace" %> 
-						<%= submit_tag "Empty workspace",{:onclick => "return confirm('Are you sure you want to delete all files')",:class => 'btn   btn-link btn-xs'  } %>
-						<% end -%>
+						<%= submit_tag "Empty workspace",{:onclick => "return confirm('Are you sure you want to delete all files')",:class => 'btn    btn-large'  } %>
 					<% end -%>  
 		</div>
 	</div>
