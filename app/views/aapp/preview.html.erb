@@ -17,12 +17,12 @@
 	        		<% else -%>
         			<tr>
         			<td>
-	        			<%= line %><br/>	        	
+	        			<%= line.split(",").join('</td><td>') %><br/>	        	
     				    <% limit = limit + 1 -%>
     				<% end -%>
         			</td>
         			</tr>
-        			<% if (limit == 50) -%>
+        			<% if (limit == 100) -%>
         				<% break -%>
         			<% end -%>	
 	    		<% end -%>
