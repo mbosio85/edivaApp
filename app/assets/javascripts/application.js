@@ -17,7 +17,11 @@
 //= require_tree .
 //= require jquery.ui.all
 //= require jquery.modal
-
+//= require jquery.csvToTable
+//= require tablefilter
+//= require jquery-1.4.2.min
+//= require tf-1
+//= require jquery.tablesorter.min
 
 $(function(){
   $('#indexCarousel').carousel();
