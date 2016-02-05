@@ -34,12 +34,12 @@
 				<% while (line = infile.gets) -%>
         			<tr>
         			<td class="smallCell">
-	        			<% if(line =~ /^#/) -%>
+	        			<% if(line =~ /^#/ || limit ==0 )-%>
 	        			<%= line.split(',').join('</td class="smallCell"><td>').html_safe %>
 	        									
 	        			<% else -%>
 	        			
-	        			<%= line.split(',').join('</td class="smallCell"> <td>').html_safe %>
+	        			<%= line.split(',').join('</td> <td>').html_safe %>
 	        			
 	        			
 	        			<% end -%>	        	
