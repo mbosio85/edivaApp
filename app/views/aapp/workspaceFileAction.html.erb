@@ -27,7 +27,7 @@
 		</div>
 
 		<div class = "search_res">
-		<table if ='viewme' class="table table-hover">
+		<table id ='viewme' class="table table-hover">
 			<tbody>	
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
