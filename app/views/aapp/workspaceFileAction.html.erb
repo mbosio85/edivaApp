@@ -43,12 +43,12 @@
 	        			<tr>
 	        			<%= '<td>'.html_safe%>	
 	        			<%= line.split(',').join('</td> <td>').html_safe %>
-	        			
+	        			</td>
+        				</tr>
 	        			
 	        			<% end -%>	        	
     				    <% limit = limit + 1 -%>
-        			</td>
-        			</tr>
+        			
         			<% if (limit == 100) -%>
         				<% break -%>
         			<% end -%>	
