@@ -33,12 +33,12 @@
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
         			<tr>
-        			<td class="smallCell">
+        			<th class="smallCell">
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
-	        			<%= line.split(',').join('</td> <td  class="smallCell">').html_safe %>
-	        									
+	        			<%= line.split(',').join('</th> <th>  class="smallCell">  ').html_safe %>
+	        			<%= '</th>'.html_safe%>						
 	        			<% else -%>
-	        			
+	        			<%= '<td>'.html_safe%>	
 	        			<%= line.split(',').join('</td> <td>').html_safe %>
 	        			
 	        			
@@ -53,7 +53,12 @@
 			<% end -%>
 			</tbody>
 		</table>
-
+				<script>  var tf = new TableFilter('viewme',  
+				    {case_sensitive: true 	,
+				 	base_path: '../../vendor/assets/',
+				 	alternate_rows: true});	
+				 	tf.init();	
+				</script>
 		</div>	
 		<% end -%>	
 	
