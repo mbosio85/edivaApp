@@ -35,10 +35,10 @@
         			
         			<th class="smallCell">
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
-	        			<thead>
+	        			<thead><tr>
 	        			<%= line.split(',').join('</th> <th  class="smallCell">  ').html_safe %>
 	        			<%= '</th> '.html_safe%>	
-	        			</thead>					
+	        			</tr></thead>					
 	        			<% else -%>
 	        			<tr>
 	        			<%= '<td>'.html_safe%>	
