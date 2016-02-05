@@ -35,7 +35,7 @@
         			<tr>
         			<td class="smallCell">
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
-	        			<%= line.split(',').join('</td class="smallCell"><td>').html_safe %>
+	        			<%= line.split(',').join('</td> <td  class="smallCell">').html_safe %>
 	        									
 	        			<% else -%>
 	        			
