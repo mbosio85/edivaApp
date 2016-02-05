@@ -32,23 +32,20 @@
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
-        			
+        			<tr>
         			<th class="smallCell">
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
-	        			<thead><tr>
 	        			<%= line.split(',').join('</th> <th  class="smallCell">  ').html_safe %>
-	        			<%= '</th> '.html_safe%>	
-	        			</tr></thead>					
+	        			<%= '</th> '.html_safe%>						
 	        			<% else -%>
-	        			<tr>
 	        			<%= '<td>'.html_safe%>	
 	        			<%= line.split(',').join('</td> <td>').html_safe %>
-	        			</td>
-        				</tr>
+	        			
 	        			
 	        			<% end -%>	        	
     				    <% limit = limit + 1 -%>
-        			
+        			</td>
+        			</tr>
         			<% if (limit == 100) -%>
         				<% break -%>
         			<% end -%>	
