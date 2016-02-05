@@ -27,7 +27,7 @@
 		</div>
 
 		<div class = "search_res">
-		<table class="table table-hover">
+		<table if ='viewme' class="table table-hover">
 			<tbody>	
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
@@ -53,6 +53,10 @@
 			<% end -%>
 			</tbody>
 		</table>
+				<script>  var tf = new TableFilter('viewme',  {case_sensitive: true 	
+				 	base_path: '../../vendor/assets/});	
+				 	tf.init();	
+				</script>";
 		</div>	
 		<% end -%>	
 	
