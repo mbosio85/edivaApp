@@ -70,6 +70,7 @@ body{
 .search_res table{
 		font-size: smaller;
 		width:inherit;
+		white-space:nowrap;
 }
 .search_res table tr{
         background-color: rgba(0, 0, 0, .2);
