@@ -35,11 +35,11 @@
         			<tr>
         			<td>
 	        			<% if(line =~ /^#/) -%>
-	        			<%= line %>
+	        			<%= line.split(',').join('</td><td>').html_safe %>
 	        									
 	        			<% else -%>
 	        			
-	        			<%= line.split(',').join('</td><td>') %>
+	        			<%= line.split(',').join('</td> <td>').html_safe %>
 	        			
 	        			
 	        			<% end -%>	        	
