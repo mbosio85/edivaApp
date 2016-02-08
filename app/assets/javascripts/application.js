@@ -19,7 +19,7 @@
 //= require jquery.modal
 //= require tablefilter
 //= require tf-1
-//= require_tree ./style
+
 
 $(function(){
   $('#indexCarousel').carousel();
