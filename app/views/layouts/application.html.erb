@@ -12,23 +12,7 @@
    <script src="https://www.google.com/jsapi"></script>
 
 	
-	<script>
-	$(function() {
-		$.get('test.csv', function(data) {
-			$('#CSVSource').html('<pre>' + data + '</pre>');
-		});
-		$('#CSVTable').CSVToTable('table.csv', { loadingImage: 'images/loading.gif', startLine: 0 });
-		//$.get('table.tsv', function(data) {
-		//	$('#TSVSource').html('<pre>' + data + '</pre>');
-		//});
-		//$('#TSVTable').CSVToTable('table.tsv', { loadingText: 'Loading TSV Data...', loadingImage: 'images/loading.gif', startLine: 0, separator: "\t" });
-		//$('#CSVTable2').CSVToTable('table.csv', { loadingImage: 'images/loading.gif', startLine: 1}).bind("loadComplete",function() { 
-		//	$('#CSVTable2').find('TABLE').tablesorter();
-		//});;
-	});
-
-	</script>
-
+	
 </head>
 <body>
  	<div class="navbar navbar-inverse navbar-fixed-top">
