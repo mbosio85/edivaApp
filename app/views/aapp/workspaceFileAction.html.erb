@@ -32,9 +32,9 @@
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
 				<% while (line = infile.gets) -%>
-        			<tr>
-        			<th class="smallCell">
+        			<tr>        			
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
+	        			<th class="smallCell">
 	        			<%= line.split(',').join('</th> <th  class="smallCell">  ').html_safe %>
 	        			<%= '</th> '.html_safe%>						
 	        			<% else -%>
