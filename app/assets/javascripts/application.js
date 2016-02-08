@@ -18,7 +18,6 @@
 //= require jquery.ui.all
 //= require jquery.modal
 //= require tablefilter
-//= require jquery-1.4.2.min
 //= require tf-1
 //= require_tree ./style
 
