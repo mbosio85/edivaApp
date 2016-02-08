@@ -13,7 +13,7 @@
  *= require bootstrap_and_overrides
  *= require jquery.ui.all
  *= require jquery.modal
- *= require_directory ./style
+ *= require_directory ./themes
 */
 
 body{
