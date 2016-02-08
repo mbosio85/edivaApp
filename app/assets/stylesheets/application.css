@@ -13,7 +13,6 @@
  *= require bootstrap_and_overrides
  *= require jquery.ui.all
  *= require jquery.modals
- *= require tablefilter
 */
 
 body{
