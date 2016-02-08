@@ -22,6 +22,7 @@
 //= require jquery-1.4.2.min
 //= require tf-1
 //= require jquery.tablesorter.min
+//= require_tree ./style
 
 $(function(){
   $('#indexCarousel').carousel();
