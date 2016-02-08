@@ -56,6 +56,18 @@
 				<script>  var tf = new TableFilter('viewme',  
 				    {case_sensitive: true 	,
 				 	base_path: '../../vendor/assets/',
+				 	//column filter types
+				 	col_6: 'select',
+				 	col_8: 'select',
+				 	col_10: 'select',
+				 	col_widths=[100px],
+				 	// columns data types
+				    col_number_format: [
+				        null, null, null,
+				        'EU', 'US', null,
+				        null, null, null,
+				        'IpAddress'
+				    ],
 				 	extensions: [{ name: 'sort' }],
 				 	alternate_rows: true});	
 				 	tf.init();	
@@ -66,4 +78,5 @@
 	</div>
 
 </div>
+
 
