@@ -72,12 +72,11 @@ body{
 .search_res table{
 		table-layout:fixed;
 		font-size: smaller;
-		width:inherit;
+		width:100%;
 		overflow-x: scroll;
 	    word-wrap:break-word;
     	border-collapse:collapse;
 }
-
 
 .smallCell
 {
