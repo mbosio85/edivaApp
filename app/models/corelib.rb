@@ -63,8 +63,11 @@ class Corelib
       
       ## call ediva-tools annotation program to calculate rank of the variants
       annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
-      annCommand = annCommand + "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
+      annCommand = annCommand + "ts -N 1 python edivatools-code/Annotate/annotate.py --input userspace/" + user + "/"+ userFile + 
       " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+
+      ##annCommand = annCommand + "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
+
 
       ## write line to job file
       File.open(Rails.root.join("userspace",user,jobscript), 'w') do |file|
