@@ -379,7 +379,7 @@ class Corelib
 
         ## rank line
         commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
-        " --outfile userspace/"+ user + "/" + mergedAnnotationFile + ".ranked  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
+        " --outfile userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(commands + "\n")
@@ -387,13 +387,13 @@ class Corelib
 
         ## family script
         if (params[:geneexclusionlist] == "1")
-          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
+          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile.chomp('.csv')  + ".ranked.csv --outfile userspace/" +
+          user + "/" + mergedAnnotationFile.chomp('.csv')  + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile.chomp('.csv')  + ".ranked.analysed.filtered."+params[:inheritenceType]+".csv --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt "+
           "--csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
         else
-          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile + ".ranked --outfile userspace/" +
-          user + "/" + mergedAnnotationFile + ".ranked.analysed."+params[:inheritenceType]+" --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile + ".ranked.analysed.filtered."+params[:inheritenceType]+" --family userspace/"+
+          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" + mergedAnnotationFile.chomp('.csv')  + ".ranked.csv --outfile userspace/" +
+          user + "/" + mergedAnnotationFile.chomp('.csv')  + ".ranked.analysed."+params[:inheritenceType]+".csv --filteredoutfile userspace/" + user + "/" + mergedAnnotationFile.chomp('.csv')  + ".ranked.analysed.filtered."+params[:inheritenceType]+".csv --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType]  + " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + 
           csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"  
         end
