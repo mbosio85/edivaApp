@@ -121,7 +121,7 @@ class Corelib
         ## remove the .vcf extension from file name
         ## userFile = userFile[0..-5]
         ## userFile = userFile + ".sorted.annotated.csv"
-        userFile = userFile.chomp('.vcf') + 'sorted.annotated.csv'
+        userFile = userFile.chomp('.vcf') + '.sorted.annotated.csv'
         ## call ediva-tools rank program to calculate rank of the variants
         rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
         rankCommand = rankCommand+"ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
@@ -224,7 +224,7 @@ class Corelib
           ## update filename as per annotation tool
           ## remove the .vcf extension from file name
           ##filename = filename[0..-5]
-          filename = filename.chomp('.vcf') + 'sorted.annotated.csv'
+          filename = filename.chomp('.vcf') + '.sorted.annotated.csv'
           ## rank line
           commands = "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename  +  
           " --outfile userspace/"+ user + "/" + filename.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+
