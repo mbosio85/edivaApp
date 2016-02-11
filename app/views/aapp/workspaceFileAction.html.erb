@@ -27,7 +27,7 @@
 		</div>
 
 		<div class = "search_res">
-		<table id ='viewme' width="100%" class="search_res">
+		<table id ='viewme' width="100%" >
 			<tbody>	
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
