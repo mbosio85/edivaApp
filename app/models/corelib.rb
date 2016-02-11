@@ -430,7 +430,7 @@ class Corelib
           commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" +
            mergedAnnotationFile + " --outfile userspace/" +
           user + "/" + mergedAnnotationFile.chomp('.csv') + ".analysed."+params[:inheritenceType]+".csv --filteredoutfile userspace/" + user +
-           "/" + mergedAnnotationFile + ".analysed.filtered."+params[:inheritenceType]+".csv --family userspace/"+
+           "/" + mergedAnnotationFile.chomp('.csv')  + ".analysed.filtered."+params[:inheritenceType]+".csv --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " +
           " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
         else
