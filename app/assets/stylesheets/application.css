@@ -72,9 +72,8 @@ body{
 .search_res table{
 		table-layout:fixed;
 		font-size: smaller;
-		width:100%;
-		overflow-x: auto;
-	    word-wrap:break-word;
+		width:100% !important;
+		overflow-x: scroll !important;
 }
 
 .smallCell
