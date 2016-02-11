@@ -71,7 +71,7 @@ body{
 }
 .search_res table{
 		font-size: smaller;
-		width:inherit;
+		width:100%;
 		overflow-x: scroll;
 }
 
