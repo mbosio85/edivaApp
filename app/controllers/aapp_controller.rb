@@ -36,7 +36,7 @@ class AappController < ApplicationController
     
      Dir.foreach("userspace/" + session[:user] + "/") do |file|
        next if file =~ /^\./
-        if (file =~ /vcf$/ or file =~ /annotated$/) 
+        if (file =~ /vcf$/ or file =~ /annotated$/ or file =~/csv$/) 
            @files.push(file)
         end
      end
