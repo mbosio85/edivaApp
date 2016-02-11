@@ -125,7 +125,7 @@ class Corelib
         ## call ediva-tools rank program to calculate rank of the variants
         rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
         rankCommand = rankCommand+"ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
-        " --outfile userspace/"+ user + "/" + userFile.chomp('csv') +
+        " --outfile userspace/"+ user + "/" + userFile.chomp('.csv') +
          ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         
         ## write line to job file
@@ -137,7 +137,7 @@ class Corelib
         ## call ediva-tools rank program to calculate rank of the variants
         rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
         rankCommand = rankCommand + "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
-        " --outfile userspace/"+ user + "/" + userFile.chomp('csv') +
+        " --outfile userspace/"+ user + "/" + userFile.chomp('.csv') +
          ".ranked.csv   --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
         
         ## write line to job file
