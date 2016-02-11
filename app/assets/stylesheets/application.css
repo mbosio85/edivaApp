@@ -71,12 +71,12 @@ body{
 }
 .search_res table{
 		table-layout:fixed;
-		width:inherit;
+		width:inherit !important;
 		overflow-x: scroll;
 }
 .mytable table{
 		font-size: smaller;
-		width:1000px;
+		width:1000px !important;
 		overflow-x: scroll;
 }
 
