@@ -70,9 +70,9 @@ body{
         margin: auto;
 }
 .search_res table{
-		table-layout:fixed;
 		font-size: smaller;
 		width:100% !important;
+		overflow:hidden;
 		overflow-x: scroll !important;
 }
 
