@@ -74,6 +74,8 @@ body{
 		font-size: smaller;
 		width:inherit;
 		overflow-x: scroll;
+	    word-wrap:break-word;
+    	border-collapse:collapse;
 }
 
 
