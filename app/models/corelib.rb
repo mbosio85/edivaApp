@@ -357,7 +357,7 @@ class Corelib
         ## remove the .vcf extension from file name
         ## mergedAnnotationFile = mergedAnnotationFile[0..-5]
         ##mergedAnnotationFile = mergedAnnotationFile + ".sorted.annotated"
-        mergedAnnotationFile = mergedAnnotationFile.chomp('vcf')+'.sorted.annotated.csv'
+        mergedAnnotationFile = mergedAnnotationFile.chomp('.vcf')+'.sorted.annotated.csv'
         ## rank line
         commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
         " --outfile userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
