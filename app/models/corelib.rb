@@ -64,7 +64,7 @@ class Corelib
       ## call ediva-tools annotation program to calculate rank of the variants
       annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
       annCommand = annCommand + "ts -N 1 python edivatools-code/Annotate/annotate.py --input userspace/" + user + "/"+ userFile + 
-      " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+      " -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
 
       ##annCommand = annCommand + "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
 
@@ -110,7 +110,7 @@ class Corelib
         ## call ediva-tools annotation program to calculate rank of the variants
         annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
         annCommand = annCommand +  " ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
-        " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
+        " -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1"
 
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
@@ -213,7 +213,7 @@ class Corelib
           ## call ediva-tools annotation program to calculate rank of the variants
           
           commands = "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ filename + 
-          " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
+          " -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
@@ -337,7 +337,7 @@ class Corelib
 
         ## call ediva-tools annotation program to calculate rank of the variants
         commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ mergedAnnotationFile + 
-        " -s complete -f --csv_file /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
+        " -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file +" > userspace/"+ user +"/.job.log 2>&1 \n"
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(commands + "\n")
