@@ -70,8 +70,13 @@ body{
         margin: auto;
 }
 .search_res table{
+		table-layout:fixed;
+		width:inherit;
+		overflow-x: scroll;
+}
+.mytable table{
 		font-size: smaller;
-		width:1000px;
+		width:inherit;
 		overflow-x: scroll;
 }
 
