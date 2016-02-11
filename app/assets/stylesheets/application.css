@@ -71,7 +71,8 @@ body{
 }
 .search_res table{
 		table-layout:fixed;
-		width:inherit !important;
+		font-size: smaller;
+		width:inherit;
 		overflow-x: scroll;
 }
 
