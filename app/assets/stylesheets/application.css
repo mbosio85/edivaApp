@@ -76,7 +76,7 @@ body{
 }
 .mytable table{
 		font-size: smaller;
-		width:inherit;
+		width:1000px;
 		overflow-x: scroll;
 }
 
