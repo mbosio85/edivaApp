@@ -74,11 +74,7 @@ body{
 		width:inherit !important;
 		overflow-x: scroll;
 }
-.mytable table{
-		font-size: smaller;
-		width:1000px !important;
-		overflow-x: scroll;
-}
+
 
 .smallCell
 {
