@@ -120,7 +120,7 @@
 <!--Upload  --> 
 <div class="row-fluid">
 	<div class="workspaceactions">
-	<div class="span8">	
+		<div class="span8">	
 		
 		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
 		   	<%= submit_tag 	"Upload VCF File(s) to Workspace.",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -128,7 +128,6 @@
        	   <% end %>
        	   
 		</div>
-	</div>
 		<div class="span4">		
 			
 		   	<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
@@ -137,7 +136,6 @@
 					<% end -%>  
 		</div>
 	</div>
-	
 	
 
 
