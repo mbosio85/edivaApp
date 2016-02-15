@@ -149,12 +149,12 @@ class User
         
             qry = "select * from Table_users where email = '"+ email +"';"
 
-            cc = User.new.self
-            usermysqlref = cc.query(qry)
-            cc.close
+            cc3 = User.new.self
+            usermysqlref2 = cc3.query(qry)
+            cc3.close
             
-            usermysqlref.each do |r1,r2|
-              uname = r1
+            usermysqlref2.each do |r1,r2|
+              dbpass = r1
               dummy = r2
               puts r1
             end
@@ -162,7 +162,7 @@ class User
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+ uname + " " +dbpass +" " + dbsalt 
+        return  " ooo "+  " " +dbpass +" " + dbsalt 
         system(mailCmd)
         return "validuser"
         
