@@ -131,6 +131,7 @@ class User
     usermysqlref = cc.query(qry)
     cc.close
     aa = usermysqlref.map{|v| v.to_s.inspect}
+    return aa
     usermysqlref.each do |r1,r2,r3|
       dbpass = r1
       dbsalt = r2
@@ -154,7 +155,7 @@ class User
         return "validuser"
         
     else
-      return aa#"invaliduser"
+      return "invaliduser"
     end            
   end
   
