@@ -88,11 +88,11 @@ class UsersController < ApplicationController
   end
 
 def reset_pwd
-  valmsg = params[:email]#User.reset_password(params[:email])
+  valmsg = User.reset_password(params[:email])
   if (valmsg != 'invaliduser') 
     
     redirect_to :index
-    flash[:notice] = "Mail sent with a new password"+valmsg
+    flash[:notice] = "Mail sent with a new password"
     flash[:color] = "valid"
   else
       redirect_to :index

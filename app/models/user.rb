@@ -130,7 +130,7 @@ class User
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
-    
+    return 'validuser'
     usermysqlref.each do |r1,r2,r3|
       dbpass = r1
       dbsalt = r2
