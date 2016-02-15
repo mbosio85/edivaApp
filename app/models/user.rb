@@ -150,9 +150,9 @@ class User
         usermysqlref = cc.query(qry)
         cc.close
         usermysqlref.each do |r|
-          uname =r
+          username =r.strip()
         end
-                  
+        return "aaa"          
         
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname#+' ediva new password:'+pass+"\n"
         return " "+ mailCmd
