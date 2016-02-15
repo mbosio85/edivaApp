@@ -154,7 +154,7 @@ class User
             cc3.close
             
             usermysqlref2.each do |r1,r2|
-              uname = r1
+              yuuu = r1
               dummy = r2
               puts r1
             end
@@ -162,7 +162,7 @@ class User
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+  " " +uname +" " + dbsalt 
+        return  " ooo "+  " " + yuuu + " " + dbsalt 
         system(mailCmd)
         return "validuser"
         
