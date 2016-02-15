@@ -136,11 +136,12 @@ class User
       dbsalt = r2
       uname  = r3
     end
-    return 'validuser'
+    
     if (dbsalt != '')
       ## lets add salt to password to match in the database
         newpass = [*('a'..'z'),*('0'..'9')].shuffle[0,10].join
         (pass,salt) = encrypt_password(new_password)
+        return 'validuser'
         qry = "UPDATE Table_users SET password='"+pass+"' salt='"+salt+"' WHERE email='"+email+"';"
 
         cc = User.new.self
