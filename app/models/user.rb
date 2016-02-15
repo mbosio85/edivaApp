@@ -130,13 +130,13 @@ class User
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
-    return 'validuser'
+    
     usermysqlref.each do |r1,r2,r3|
       dbpass = r1
       dbsalt = r2
       uname  = r3
     end
-    
+    return 'validuser'
     if (dbsalt != '')
       ## lets add salt to password to match in the database
         newpass = [*('a'..'z'),*('0'..'9')].shuffle[0,10].join
