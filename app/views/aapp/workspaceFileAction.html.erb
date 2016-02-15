@@ -32,9 +32,7 @@
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
 				<% separator = ',' -%>
-				<% if( @fileToShow =~ /vcf$/  )-%>
-	        	<% separator = ','.html_safe -%>		
-    			<% end -%>
+
 				<% while (line = infile.gets) -%>
         			<tr>        			
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
