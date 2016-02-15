@@ -119,8 +119,9 @@
 
 <!--Upload  --> 
 <div class="row-fluid">
+	<div class="workspaceactions">
 	<div class="span8">	
-		<div class="workspaceactions">
+		
 		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
 		   	<%= submit_tag 	"Upload VCF File(s) to Workspace.",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
 			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>      			
@@ -129,7 +130,7 @@
 		</div>
 	</div>
 		<div class="span4">		
-			<div class="workspaceactions">
+			
 		   	<%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
 						<%= hidden_field_tag "selectedAction", "Empty workspace" %> 
 						<%= submit_tag "Empty workspace",{:onclick => "return confirm('Are you sure you want to delete all files')",:class => 'btn btn-primary   btn-large'  } %>
