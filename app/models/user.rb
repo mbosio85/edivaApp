@@ -125,7 +125,7 @@ class User
     dbpass = ""
     dbsalt = ""
 
-    qry = "select password,salt,username,email from Table_users where email = '"+ email +"';"
+    qry = "select password,salt,username from Table_users where email = '"+ email +"';"
 
     cc = User.new.self
     usermysqlref = cc.query(qry)
@@ -147,13 +147,13 @@ class User
         cc2.query(qry)
         cc2.close
         
-        qry = "SELECT username from Table_users where email = '"+ email +"';"      
-        cc3 = User.new.self
-        usermysqlref = cc3.query(qry)
-        cc3.close
-        usermysqlref.each do |r|
-          username =r.strip()
-        end
+        #qry = "SELECT username from Table_users where email = '"+ email +"';"      
+        #cc3 = User.new.self
+        #usermysqlref = cc3.query(qry)
+        #cc3.close
+        #usermysqlref.each do |r|
+        #  username =r.strip()
+        #end
         
         return "SELECT username from Table_users where email = '"          
         
