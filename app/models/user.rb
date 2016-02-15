@@ -141,7 +141,7 @@ class User
     usermysqlref.each_hash do |row|
       dbpass = row['password']
       dbsalt = row['salt']
-      unamezz  = row['username']
+      unamezz  = row['username'].strip()
     end
     
     if (dbsalt != '')
