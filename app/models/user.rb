@@ -46,7 +46,12 @@ class User
 
         ## create webserver physical workspace
         Dir.mkdir(Rails.root.join("userspace", username)) unless File.exists?(username)
-    
+        
+        ## Create  csv mailing file
+        open(Rails.root.join("userspace", username)+'/.csv_file.csv', 'w') { |f|
+          f.puts username+','+email
+        }
+        
         ## return message
         return "success"      
       end
