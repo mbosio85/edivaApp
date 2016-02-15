@@ -142,8 +142,7 @@ class User
         newpass = [*('a'..'z'),*('0'..'9')].shuffle[0,10].join
         (pass,salt) = encrypt_password(newpass)
         
-        qry = "UPDATE Table_users SET password='"+pass+"' salt='"+salt+"' WHERE email='"+email+"';"
-        return qry
+        qry = "UPDATE Table_users SET password='"+pass+"', salt='"+salt+"' WHERE email='"+email+"';"
         cc2 = User.new.self
         cc2.query(qry)
         cc2.close
