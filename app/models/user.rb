@@ -145,14 +145,15 @@ class User
         cc2 = User.new.self
         cc2.query(qry)
         cc2.close
-        qry = "select username from Table_users where email = '"+ email +"';"      
+        
+        qry = "SELECT username from Table_users where email = '"+ email +"';"      
         cc3 = User.new.self
         usermysqlref = cc3.query(qry)
         cc3.close
         usermysqlref.each do |r|
           username =r.strip()
         end
-        return qry          
+        return "SELECT username from Table_users where email = '"+ email +"';"            
         
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname#+' ediva new password:'+pass+"\n"
         return " "+ mailCmd
