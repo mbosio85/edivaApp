@@ -156,7 +156,7 @@ class User
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+ dbpass 
+        return  " ooo "+ unamezz 
         system(mailCmd)
         return "validuser"
         
