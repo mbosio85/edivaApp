@@ -140,7 +140,7 @@ class User
     open('myfile.out', 'w') { |f|
           f.puts "Hello, world."
           usermysqlref.each do |var|
-            f.puts var
+            f.puts var["username"]
             f.puts "\n"
           end
       }
