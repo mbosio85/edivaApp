@@ -141,7 +141,7 @@ class User
     usermysqlref.each_hash do |row|
       dbpass = row['password']
       dbsalt = row['salt']
-      #uname  = row['username']
+      uname  = row['username']
     end
     
     if (dbsalt != '')
@@ -156,7 +156,7 @@ class User
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+' ediva new password:'+pass+"\n"
-        return " "+ puts
+        return " ooo"
         system(mailCmd)
         return "validuser"
         
