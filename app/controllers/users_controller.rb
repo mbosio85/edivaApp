@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   end
 
 def reset_pwd
-  valmsg = ""#User.reset_password(params[:email])
+  valmsg = params[:email]#User.reset_password(params[:email])
   if (valmsg != 'invaliduser') 
     
     redirect_to :index
