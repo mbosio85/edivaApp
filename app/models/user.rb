@@ -124,7 +124,7 @@ class User
     ## step 1 verify the old password is correct
     dbpass = ""
     dbsalt = ""
-
+    uname = ""
     qry = "select password,salt from Table_users where email = '"+ email +"';"
 
     cc = User.new.self
@@ -154,15 +154,14 @@ class User
             cc3.close
             
             usermysqlref2.each do |r1,r2|
-              yuuu = r1
+              uname = r1
               dummy = r2
-              puts r1
             end
         
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+  " " + yuuu + " " + dbsalt 
+        return  " ooo "+  " " + uname + " " + dbsalt 
         system(mailCmd)
         return "validuser"
         
