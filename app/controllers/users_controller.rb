@@ -73,8 +73,8 @@ class UsersController < ApplicationController
     if (valmsg == 'validuser')
       session[:user] = params[:login_username]
       redirect_to :controller => 'aapp', :action => 'analysis'
-      flash[:notice] = "Login correct !!"
-      flash[:color]= "valid"
+      #flash[:notice] = "Login correct !!"
+      #flash[:color]= "valid"
     else
       redirect_to :index
       flash[:notice] = "Username & password mismatch ! Please try again !!"
