@@ -143,11 +143,11 @@ class User
         (pass,salt) = encrypt_password(newpass)
         
         qry = "UPDATE Table_users SET password='"+pass+"' salt='"+salt+"' WHERE email='"+email+"';"
-
+        return qry
         cc2 = User.new.self
         cc2.query(qry)
         cc2.close
-        return 'validuser'
+        
         mailCmd = 'ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/'+uname+' ediva new password:'+pass+"\n"
         system(mailCmd)
         return "validuser"
