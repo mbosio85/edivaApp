@@ -125,16 +125,17 @@ class User
     dbpass = ""
     dbsalt = ""
 
-    qry = "select * from Table_users where email = '"+ email +"';"
+    qry = "select username,password,salt from Table_users where email = '"+ email +"';"
 
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
     
-    #usermysqlref.each do |r1,r2|
-    #  dbpass = r1
-    #  dbsalt = r2
-#    end
+   # usermysqlref.each do |r1,r2|
+   #   dbpass = r1
+   #   dbsalt = r2
+    
+   # end
     
     open('myfile.out', 'w') { |f|
           f.puts "Hello, world."
