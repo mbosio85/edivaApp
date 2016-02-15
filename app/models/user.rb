@@ -119,5 +119,82 @@ class User
       return "invaliduser"
     end            
   end
+
+  def self.reset_password(email)
+    ## step 1 verify the old password is correct
+    dbpass = ""
+    dbsalt = ""
+
+    qry = "select password,salt,username from Table_users where email = '"+ email +"';"
+
+    cc = User.new.self
+    usermysqlref = cc.query(qry)
+    cc.close
+    
+    usermysqlref.each do |r1,r2,r3|
+      dbpass = r1
+      dbsalt = r2
+      uname  = r3
+    end
+    
+    if (dbsalt != '')
+      ## lets add salt to password to match in the database
+        newpass = [*('a'..'z'),*('0'..'9')].shuffle[0,10].join
+        (pass,salt) = encrypt_password(new_password)
+        qry = "UPDATE Table_users SET password='"+pass+"' salt='"+salt+"' WHERE email='"+email+"';"
+
+        cc = User.new.self
+        cc.query(qry)
+        cc.close
+        mailCmd = 'ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/'+uname+' ediva new password:'+pass+"\n"
+        system(mailCmd)
+        return "validuser"
+        
+    else
+      return "invaliduser"
+    end            
+  end
+  
+  
+    def self.change_password(login_username,login_password,new_password)
+    ## step 1 verify the old password is correct
+        dbpass = ""
+    dbsalt = ""
+
+    qry = "select password,salt from Table_users where username = '"+ login_username +"';"
+
+    cc = User.new.self
+    usermysqlref = cc.query(qry)
+    cc.close
+    
+    usermysqlref.each do |r1,r2|
+      dbpass = r1
+      dbsalt = r2
+    end
+    
+    if (dbsalt != '')
+      ## lets add salt to password to match in the database
+      passnewtomatch = BCrypt::Engine.hash_secret(login_password,dbsalt)    
+      if (passnewtomatch == dbpass)
+        ## step 2 change the password with the new one
+        ## lets add salt to password and create a new pass
+        (pass,salt) = encrypt_password(new_password)
+        qry = "UPDATE Table_users SET password='"+pass+"' salt='"+salt+"' WHERE username='"+login_username+"';"
+        
+        cc = User.new.self
+        cc.query(qry)
+        cc.close
+        return"validuser"
+      else
+        return "invaliduser"
+      end
+    else
+      return "invaliduser"
+    end    
+  
+    
+  end
+    
+
   
 end

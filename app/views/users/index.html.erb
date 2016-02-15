@@ -138,6 +138,35 @@
 
   	</table>	
   	<% end %>
+  	
+  	
+  	<%= form_tag(:controller => 'users', :action => 'reset_pwd') do %>
+  	<table align="center"  width="75%" text-align="center">
+  		<tr>
+  			<th>
+  			  <h3>Forgot your password ? </h3>		
+  			</th>
+  		</tr>
+  		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+		<tr>
+			<th>
+		    <%= text_field_tag :email,nil,:placeholder => "email", :class => "signupPanel" %>
+		    </th>
+		</tr>
+		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+		<tr>
+			<th>	   
+      		<%= submit_tag "Reset password" , :class => 'btn btn-medium  btn-custom' %>
+  			</th>
+  		</tr>
+  		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+
+  	</table>	
+  	<% end %>
+  	
+  	
+  	
+  	
 	</div>
 	</div>
 
