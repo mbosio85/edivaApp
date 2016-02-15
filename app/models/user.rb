@@ -152,7 +152,7 @@ class User
         usermysqlref.each do |r|
           username =r.strip()
         end
-        return usermysqlref          
+        return qry          
         
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname#+' ediva new password:'+pass+"\n"
         return " "+ mailCmd
