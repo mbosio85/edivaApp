@@ -165,7 +165,7 @@ class User
         
         
               
-        mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname+'/.csv_file.csv  ediva new password:'+pass+"\n"
+        mailCmd = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname+'/.csv_file.csv  ediva new password:'+pass+"\n"
         system(mailCmd)
         return "validuser"
         
