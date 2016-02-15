@@ -130,14 +130,18 @@ class User
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
-    array_length= usermysqlref.length   #or $param.size
-    puts "legth of $param is : #{array_length}"
+    
+    #usermysqlref.each do |r1,r2,r3|
+    #  dbpass = r1
+    #  dbsalt = r2
+    #  uname  = r3
+    #end
     
     
-    usermysqlref.each do |r1,r2,r3|
-      dbpass = r1
-      dbsalt = r2
-      uname  = r3
+    usermysqlref.each_hash do |row|
+      dbpass = row['password']
+      dbsalt = row['salt']
+      uname  = row['username']
     end
     
     if (dbsalt != '')
