@@ -130,6 +130,9 @@ class User
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
+    array_length= usermysqlref.length   #or $param.size
+    puts "legth of $param is : #{array_length}"
+    
     
     usermysqlref.each do |r1,r2,r3|
       dbpass = r1
@@ -149,7 +152,7 @@ class User
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+' ediva new password:'+pass+"\n"
-        return " "+ mailCmd
+        return " "+ puts
         system(mailCmd)
         return "validuser"
         
