@@ -154,7 +154,7 @@ class User
         return "validuser"
         
     else
-      return "invaliduser"
+      return aa#"invaliduser"
     end            
   end
   
