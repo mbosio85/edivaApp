@@ -283,11 +283,7 @@ class AappController < ApplicationController
 
     @fileToShow = params[:selectedFile]
     @actionToRecognize = params[:selectedAction]
-    if ( params[:selectedFile] =~'.vcf$')
-      @separator = '\t'
-     else
-       @separator=','
-    end
+
     @msg = nil
 
     if(params[:selectedAction] == 'Download')
