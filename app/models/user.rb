@@ -125,17 +125,16 @@ class User
     dbpass = ""
     dbsalt = ""
 
-    qry = "select username,password,salt from Table_users where email = '"+ email +"';"
+    qry = "select * from Table_users where email = '"+ email +"';"
 
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
     
-    #usermysqlref.each do |r1,r2,r3|
+    #usermysqlref.each do |r1,r2|
     #  dbpass = r1
     #  dbsalt = r2
-    #  uname  = r3
-    #end
+#    end
     
     open('myfile.out', 'w') { |f|
           f.puts "Hello, world."
@@ -144,11 +143,7 @@ class User
             f.puts "\n"
           end
       }
-    usermysqlref.each_hash do |row|
-      dbpass = row['password']
-      dbsalt = row['salt']
-      unamezz  = row['username'].strip()
-    end
+
     
     if (dbsalt != '')
       ## lets add salt to password to match in the database
