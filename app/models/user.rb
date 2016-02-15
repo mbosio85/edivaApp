@@ -146,8 +146,11 @@ class User
         cc2 = User.new.self
         cc2.query(qry)
         cc2.close
-        
-        mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+dbpass#+' ediva new password:'+pass+"\n"
+        if uname== ''
+          uname='mattia'
+        end
+        end
+        mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname#+' ediva new password:'+pass+"\n"
         return " "+ mailCmd
         system(mailCmd)
         return "validuser"
