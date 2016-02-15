@@ -31,19 +31,15 @@
 			<tbody>	
 			<%File.open("userspace/" + session[:user] + '/' + @fileToShow, "r") do |infile| -%>
 				<% limit = 0 -%>
-				<% seprator ='\t' -%>
-				<% if(@fileToShow =~/.csv/) -%>
-				<% seprator =',' -%>
-				<% end -%>
 				<% while (line = infile.gets) -%>
         			<tr>        			
 	        			<% if(line =~ /^#/ || limit ==0 )-%>
 	        			<th class="smallCell">
-	        			<%= line.split(separator).join('</th> <th  class="smallCell">  ').html_safe %>
+	        			<%= line.split(',').join('</th> <th  class="smallCell">  ').html_safe %>
 	        			<%= '</th> '.html_safe%>						
 	        			<% else -%>
 	        			<%= '<td>'.html_safe%>	
-	        			<%= line.split(separator).join('</td> <td>').html_safe %>
+	        			<%= line.split(',').join('</td> <td>').html_safe %>
 	        			</td>
 	        			
 	        			<% end -%>	        	
