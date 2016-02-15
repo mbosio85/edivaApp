@@ -137,7 +137,9 @@ class User
     #  uname  = r3
     #end
     
-    
+    open('myfile.out', 'w') { |f|
+          f.puts "Hello, world."
+      }
     usermysqlref.each_hash do |row|
       dbpass = row['password']
       dbsalt = row['salt']
@@ -156,7 +158,7 @@ class User
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+ unamezz 
+        return  " ooo "+ dbpass 
         system(mailCmd)
         return "validuser"
         
