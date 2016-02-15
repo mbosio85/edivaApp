@@ -130,8 +130,7 @@ class User
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
-    aa = usermysqlref.map{|v| v.to_s.inspect}
-    return aa
+    
     usermysqlref.each do |r1,r2,r3|
       dbpass = r1
       dbsalt = r2
@@ -149,7 +148,7 @@ class User
         cc2.close
         
               
-        mailCmd = aa#"ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"+uname#+' ediva new password:'+pass+"\n"
+        mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+' ediva new password:'+pass+"\n"
         return " "+ mailCmd
         system(mailCmd)
         return "validuser"
