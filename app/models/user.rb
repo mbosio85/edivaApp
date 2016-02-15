@@ -125,7 +125,7 @@ class User
     dbpass = ""
     dbsalt = ""
 
-    qry = "select password,salt,username from Table_users where email = '"+ email +"';"
+    qry = "select username,password,salt from Table_users where email = '"+ email +"';"
 
     cc = User.new.self
     usermysqlref = cc.query(qry)
@@ -141,7 +141,7 @@ class User
     usermysqlref.each_hash do |row|
       dbpass = row['password']
       dbsalt = row['salt']
-      uname  = row['username']
+      unamezz  = row['username']
     end
     
     if (dbsalt != '')
@@ -155,8 +155,8 @@ class User
         cc2.close
         
               
-        mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+' ediva new password:'+pass+"\n"
-        return  " ooo "+ uname 
+        mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
+        return  " ooo "+ dbpass 
         system(mailCmd)
         return "validuser"
         
