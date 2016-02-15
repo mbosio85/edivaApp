@@ -92,7 +92,7 @@ def reset_pwd
   if (valmsg != 'invaliduser') 
     
     redirect_to :index
-    flash[:notice] = "Mail sent with a new password"
+    flash[:notice] = "Mail sent with a new password"+valmsg
     flash[:color] = "valid"
   else
       redirect_to :index
