@@ -125,26 +125,17 @@ class User
     dbpass = ""
     dbsalt = ""
 
-    qry = "select username,password,salt from Table_users where email = '"+ email +"';"
+    qry = "select password,salt from Table_users where email = '"+ email +"';"
 
     cc = User.new.self
     usermysqlref = cc.query(qry)
     cc.close
     
-   # usermysqlref.each do |r1,r2|
-   #   dbpass = r1
-   #   dbsalt = r2
+    usermysqlref.each do |r1,r2|
+      dbpass = r1
+      dbsalt = r2
+    end
     
-   # end
-    
-    open('myfile.out', 'w') { |f|
-          f.puts "Hello, world."
-          usermysqlref.each do |result|
-           f.puts result["name"]
-            f.puts "\n"
-          end
-      }
-
     
     if (dbsalt != '')
       ## lets add salt to password to match in the database
@@ -156,9 +147,21 @@ class User
         cc2.query(qry)
         cc2.close
         
+            qry = "select username,password from Table_users where email = '"+ email +"';"
+
+            cc = User.new.self
+            usermysqlref = cc.query(qry)
+            cc.close
+            
+            usermysqlref.each do |r1,r2|
+              uname = r1
+              dummy = r2
+            end
+        
+        
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+ dbpass 
+        return  " ooo "+ uname + " " +dbpass +" " + dbsalt 
         system(mailCmd)
         return "validuser"
         
