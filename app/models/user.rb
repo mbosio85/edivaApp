@@ -139,6 +139,10 @@ class User
     
     open('myfile.out', 'w') { |f|
           f.puts "Hello, world."
+          usermysqlref.each do |var|
+            f.puts var
+            f.puts "\n"
+          end
       }
     usermysqlref.each_hash do |row|
       dbpass = row['password']
