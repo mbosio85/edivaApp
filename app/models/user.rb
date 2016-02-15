@@ -147,7 +147,7 @@ class User
         cc2.query(qry)
         cc2.close
         
-            qry = "select username,password from Table_users where email = '"+ email +"';"
+            qry = "select * from Table_users where email = '"+ email +"';"
 
             cc = User.new.self
             usermysqlref = cc.query(qry)
@@ -156,12 +156,13 @@ class User
             usermysqlref.each do |r1,r2|
               uname = r1
               dummy = r2
+              puts r1
             end
         
         
               
         mailCmd = "ts -N 1 python /home/rrahman/soft/python-mailer/pymailer.py -s /home/rrahman/soft/python-mailer/newpass.html userspace/"#+unamezz+' ediva new password:'+pass+"\n"
-        return  " ooo "+ " " +dbpass +" " + dbsalt 
+        return  " ooo "+ uname + " " +dbpass +" " + dbsalt 
         system(mailCmd)
         return "validuser"
         
