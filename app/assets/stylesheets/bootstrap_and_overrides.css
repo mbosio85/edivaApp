@@ -28,3 +28,10 @@
   padding: 0;
   border-radius:0px !important;
 }
+
+.btn-custom2 {
+  height: 30px;
+  width:45% !important;
+  color:#99FF99;
+  border-radius:0px !important;
+}
