@@ -139,8 +139,8 @@ class User
     
     open('myfile.out', 'w') { |f|
           f.puts "Hello, world."
-          usermysqlref.each do |result|
-            f.puts result["name"]
+          usermysqlref.each do |key, value|
+            f.puts key + ' : ' + value
             f.puts "\n"
           end
       }
