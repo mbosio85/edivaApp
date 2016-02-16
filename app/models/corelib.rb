@@ -618,7 +618,7 @@ class Corelib
     
   end
   
-  def extract_sample_names(userFile,user)
+  def self.extract_sample_names(userFile,user)
     File.open('yourfile.txt', 'w') { |file| file.write(userFile) }
     ary = Array.new ;
     File.open(['userspace',user,userFile].join('/'), "r") do |file_handle|
