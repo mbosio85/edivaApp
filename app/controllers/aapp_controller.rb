@@ -56,9 +56,10 @@ class AappController < ApplicationController
 
   def familyanalysis
     @actions = ['Preview','Download','Delete', 'Empty workspace']
-    samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])
-    params[:samplecount] = samplez.length()
-    
+    @samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])
+    params[:samplecount] = @samplez.length()
+    flash[:notice] = samplez
+    return
     
     if (params[:samplecount].to_i < 2)
       redirect_to :familyanalysissamples
