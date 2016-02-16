@@ -624,19 +624,14 @@ class Corelib
       file_handle.each_line do |line|
       # do stuff here : read line and all places before DP are samples
       fields = line.split(',');
-      dp_idx = fields.each_index.select{|i| b[i] == 'DP'};    
-      dp_idx.each { |x| ary.push( b[x-1]) };
+      dp_idx = fields.each_index.select{|i| fields[i] == 'DP'};    
+      dp_idx.each { |x| ary.push( fields[x-1]) };
       # now here I have an array with  sample names
   
       break
       end
     end
-    File.open('aaa.txt','w') do |fh|
-      fh.puts('sss')
-      fh.puts(ary.join(','))
-      
-    end
-    
+   
     return ary
   end
   
