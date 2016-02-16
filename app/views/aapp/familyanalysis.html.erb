@@ -61,7 +61,7 @@
 						Merged Annoatated and Ranked file: </td>
 					<td class="tablecol4">	
 						<%= params[:selectedFile]%>
-						<% hidden_field "selectedFileMerged", params[:selectedFile] %> </td>
+						<%= hidden_field "selectedFileMerged", params[:selectedFile] %> </td>
 						</tr>
 				<!--	<tr>		
 						<td class="tablecol4">
@@ -120,7 +120,7 @@
 						 <tr>
 							<td class="tablecol4">
 								 <%= @samplez[sampleid -1] %>
-								<% hidden_field "sample#{sampleid}", @samplez[sampleid -1] %></br>
+								<%= hidden_field "sample#{sampleid}", @samplez[sampleid -1] %></br>
 							</td>
 							<td class="tablecol4">
 								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
