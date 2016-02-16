@@ -64,7 +64,7 @@
 						           		
        				<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
 					<%= hidden_field_tag 'ann', nil %>
-					 <%= select_tag "fileToRank", options_for_select(@files), {:style => "min-width: 200px;"} %>
+					<%= select_tag "fileToRank", options_for_select(@files), {:style => "min-width: 200px;"} %>
 					 <br/>
 	      		</td><td></td>
       		</tr>

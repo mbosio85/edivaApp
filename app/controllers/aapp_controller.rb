@@ -195,7 +195,7 @@ class AappController < ApplicationController
   end
 
   def actionRank
-
+    params[:ann] = nil
     if(params[:ann] == nil and params[:fileToRank] == nil)
       redirect_to :rank
       flash[:notice] = "you need to upload a file or select a file from your workspace"
