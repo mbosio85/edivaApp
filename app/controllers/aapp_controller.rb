@@ -56,11 +56,7 @@ class AappController < ApplicationController
 
   def familyanalysis
     @actions = ['Preview','Download','Delete', 'Empty workspace']
-    @samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])
-     redirect_to :familyanalysissamples
-      flash[:notice] = "Number of samples must be 2 or more"+params[:selectedFile]
-      flash[:color]= "invalid"
-      return        
+    @samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])     
     params[:samplecount] = @samplez.length()
 
     
