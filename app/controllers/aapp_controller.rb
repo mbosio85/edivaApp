@@ -56,9 +56,10 @@ class AappController < ApplicationController
 
   def familyanalysis
     @actions = ['Preview','Download','Delete', 'Empty workspace']
-    @samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])
-        flash[:notice] = samplez
+            flash[:notice] = samplez
     return
+    @samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])
+
     params[:samplecount] = @samplez.length()
 
     
