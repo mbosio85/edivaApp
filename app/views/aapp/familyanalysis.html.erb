@@ -196,7 +196,8 @@
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
 						<tr background-color:"#000000" >
 							<td class="tablecol4">
-								<%= text_field_tag "sample#{sampleid}", @samplez[sampleid -1], :placeholder => "sample #{sampleid}" %>
+								<%= @samplez[sampleid -1]%>
+								<%= hidden_field "sample#{sampleid}", @samplez[sampleid -1]%>
 							</td>
 							<td class="tablecol4">	
 								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
