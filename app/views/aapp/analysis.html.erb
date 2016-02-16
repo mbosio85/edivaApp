@@ -33,8 +33,8 @@
 		</thead>	
 		<tbody>
 			<tr>
-			<td align="right" color="blue">
-				<h3>Step 1: Upload VCF file </h3>
+			<td>
+				<h3 color="#6699FF">Step 1: Upload VCF file </h3>
 		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
 		   	<%= submit_tag 	"Upload",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
 			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>      			
