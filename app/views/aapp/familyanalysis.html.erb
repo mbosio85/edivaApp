@@ -62,14 +62,14 @@
 					<td class="tablecol4">	
 						<%= select_tag "selectedFileMerged", options_for_select(@files) %> </td>
 						</tr>
-					<tr>		
+				<!--	<tr>		
 						<td class="tablecol4">
 						Upload MultiSample/Merged VCF : 
 						</td>
-						<td class="tablecol4">
-						<%= file_field_tag 'vcfMerged' %>
-						</td>						
-					</tr>
+						<td class="tablecol4">  -->
+						<% file_field_tag 'vcfMerged' %>
+					<!--	</td>						
+					</tr> -->
 					<% else -%>	
 					<tr>
 						<td class="tablecol4">
@@ -118,7 +118,8 @@
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
 						 <tr>
 							<td class="tablecol4">
-								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %></br>
+								 <%= @samplez[sampleid -1] %>
+								<% hidden_field "sample#{sampleid}", @samplez[sampleid -1] %></br>
 							</td>
 							<td class="tablecol4">
 								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
