@@ -242,7 +242,7 @@ body{
 .tablecol
         {
             width: 33%;
-            text-align: center;
+            text-align: center !important;
         }
  .tablecol2
         {
