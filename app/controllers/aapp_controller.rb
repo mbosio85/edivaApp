@@ -67,7 +67,7 @@ class AappController < ApplicationController
       return        
     end
     
-    @analysisformtype = ["0"] 
+    @analysisformtype = params[:mergedvcf]
     @numberofsamples = params[:samplecount]    
 
     if (@numberofsamples.to_i !=3 )
