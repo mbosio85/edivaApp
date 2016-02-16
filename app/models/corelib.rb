@@ -618,5 +618,24 @@ class Corelib
     
   end
   
+  def extract_sample_names(userFile,user)
+    ary = Array.new ;
+    File.open(Rails.root.join('userspace',user,userFile.original_filename), "r") do |file_handle|
+      file_handle.each_line do |line|
+      # do stuff here : read line and all places before DP are samples
+      fields = line.split(',');
+      dp_idx = fields.each_index.select{|i| b[i] == 'DP'};
+      
+      dp_idx.each { |x| ary.push( b[x-1]) };
+      # now here I have an array with  sample names
+  
+      break
+      end
+    end
+    return ary
+  end
+  
+  
+  
    
 end
