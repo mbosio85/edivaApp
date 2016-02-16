@@ -51,18 +51,17 @@
            	</tr>
            	<tr><td></td> 
            		<!--Here two columns one for select from database and one from the local environment   -->
-			<!-- <td class="tablecol2">  
+		 <td class="tablecol2">  
 	           		<br/>
 	           		<h4>Select from your PC &nbsp;&nbsp;&nbsp;</h4>
 	           		<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
 					<%= file_field_tag 'ann',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 					<br/>
-	        </td> -->
+	        </td> 
 				<td class="tablecol">
 					<br/>
 					<h4>Select a vcf file to rank from workspace</h4>
 						           		
-       				<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
 					<%= select_tag "fileToRank", options_for_select(@files), {:style => "min-width: 200px;"} %>
 					 <br/>
 	      		</td><td></td>
