@@ -67,7 +67,7 @@ class AappController < ApplicationController
       return        
     end
     
-    @analysisformtype = "1" 
+    @analysisformtype = "0" 
     @numberofsamples = params[:samplecount]    
 
     if (@numberofsamples.to_i !=3 )
