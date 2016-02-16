@@ -185,7 +185,7 @@
 						</th>
 			   			<% if @files.length > 0 -%>
 						<th class="tablecol4">
-							Select File (Workspace)
+							Selected File 
 						</th>
 						<% end -%>
 					</tr>	
@@ -196,7 +196,7 @@
 						<% for sampleid in 1 .. @numberofsamples.to_i -%>
 						<tr background-color:"#000000" >
 							<td class="tablecol4">
-								<%= text_field_tag "sample#{sampleid}", nil, :placeholder => "sample #{sampleid}" %>
+								<%= text_field_tag "sample#{sampleid}", @samplez[sampleid -1], :placeholder => "sample #{sampleid}" %>
 							</td>
 							<td class="tablecol4">	
 								<%= check_box_tag("affected#{sampleid}") %><%= label_tag("affected#{sampleid}", "") %>
