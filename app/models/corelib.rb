@@ -312,7 +312,7 @@ class Corelib
           
         else
   
-          valMsg = "Unknown file type provided in the analysis !"+mergedAnnotationFile
+          valMsg = "Unknown file type provided in the analysis !"+filename
           return valMsg
 
         end
