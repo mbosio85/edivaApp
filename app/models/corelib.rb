@@ -237,9 +237,7 @@ class Corelib
        system("userspace/"+ user + "/" + jobscript + " &")
        ## set return message       
        valMsg = "jobsubmitted"
-    end     
-
-
+    
     return valMsg
 
   end
