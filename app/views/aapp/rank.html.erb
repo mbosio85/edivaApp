@@ -24,10 +24,25 @@
 		<div class="Search">
 		   <table align="center" text-align:"center" table-layout: fixed>
 		   	<tbody>
+		    <tr>
+		   	<th colspan="2" text-align:center>
+		   		<h2>Annotate VCF file</h2><br/>
+		   		<p>Here you can annotate the variants contained in a VCF file using the eDiVa integrated database against several high-quality resources.</p>
+		   		<p>The eDiVa engine will provide relevant information for each variant: </p>
+		   		<br/>
+
+		   			<p>Estimation of dangerousness of the variable with multiple scores </p>
+		   			<p>Level of conservation of the variant during evolution</p>
+		   			<p>How common is the variant in the worldwide population (1000 Genomes project and EVS database) and segmented by regions</p>
+
+		   		<br/>
+		   		</th>
+           	</tr>
+           	<tr>
 		   	<tr>
 		   	<th colspan="2" text-align:center>
-		   		<h2>Rank annotated VCF file</h2><br/>
-		   		<p>Here you can rank the annotated variants produced from annotation in a VCF file using  eDiVa rank-product prioritization algorithm.</p>
+		   		
+		   		<p>Moreover, the annotated variants from annotation are ranked using  eDiVa rank-product prioritization algorithm.</p>
 		   		<p>The eDiVa algorithm combines information from variant frequency, the conservation and the multiple risk-scores to sort all variants: </p>
 		   		<p>The output ranks with lower values the most relevant variants found by the eDiVa algorithm.</p>
 		   		<br/>
@@ -36,14 +51,14 @@
            	</tr>
            	<tr>
            		<!--Here two columns one for select from database and one from the local environment   -->
-	           	<td class="tablecol2">  
+			<!-- <td class="tablecol2">  
 	           		<br/>
 	           		<h4>Select from your PC &nbsp;&nbsp;&nbsp;</h4>
 	           		<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
 					<%= file_field_tag 'ann',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 					<br/>
-	           	</td>
-				<td class="tablecol2">
+	        </td> -->
+				<td class="tablecol">
 					<br/>
 					<h4>Select a vcf file to rank from workspace</h4>
 					 <%= select_tag "fileToRank", options_for_select(@files), {:style => "min-width: 200px;"} %>
