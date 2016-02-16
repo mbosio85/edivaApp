@@ -620,7 +620,7 @@ class Corelib
   
   def extract_sample_names(userFile,user)
     ary = Array.new ;
-    File.open(Rails.root.join('userspace',user,userFile.original_filename), "r") do |file_handle|
+    File.open(['userspace',user,userFile].join('/'), "r") do |file_handle|
       file_handle.each_line do |line|
       # do stuff here : read line and all places before DP are samples
       fields = line.split(',');
