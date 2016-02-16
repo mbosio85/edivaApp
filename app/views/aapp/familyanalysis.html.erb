@@ -20,20 +20,18 @@
 	<% if @analysisformtype != "1" -%>
 	
 		<div class="Search">
-			<h2>
+			<h3>
 				<% if (@numberofsamples.to_i == 3) -%>
-				Trio/Family analysis OO
+				Trio/Family analysis 
 				<% else -%>
 				Famlily analysis
 				<% end -%>
-			</h2>	
-			<h4>
-				Steps to be performed: VCF Annotation -> Variants Ranking -> Trio/Family Analysis
-			</h4>	
+			</h3>	
 			<br/>
 			<dd>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list of candidate variants for monogenic mendelian diseases.</dd>
-			<dd>It will proceed to Annotate the variants form the VCF file(s), Rank them with a product-rank custom algorithm to integrate multiple information sources and finally it will filter.
-				the variants in agreement with the chosen inheritance pattern</dd>
+			<dd>It will proceed to filter the variants in agreement with the chosen inheritance pattern</dd>
+			<dd>It allows you to choose among two filtering processes. eDiVA v2 is a much more strict version of the v1,
+				allowing to only highlight very high quality variants in the filtered output.</dd>
 			<br/>
 			<dd>eDiVa allows to choose five inheritance patterns:</dd>
 			<ul>
@@ -44,8 +42,7 @@
 				<li>Compound [only for trios]</li>
 			</ul>
 			<br/>
-			<b style="color:red"> The sample IDs must be the same as in the VCF file and in the exact same order. </b>
-			<br/>
+
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
 
 				<table class="table table-striped">
@@ -130,13 +127,19 @@
 						<% end -%>
 
 				<br/>
-				
-
+				<tr>
+					<td class="tablecol4">
+						<%= submit_tag "eDiVA v1 Analysis",  :class => 'btn btn-primary btn-large' %>
+					</td>
+					<td class="tablecol4">
+						<%= submit_tag "eDiVA v2 Analysis",  :class => 'btn btn-primary btn-large' %>
+					</td>
+					
 				</tbody>				
 				</table>	
 				<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
 				<br/>
-				<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
+				
 
        	   <% end %> 
 		</div>

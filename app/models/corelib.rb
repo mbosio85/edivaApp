@@ -163,6 +163,13 @@ class Corelib
 
     valMsg = nil
     
+    ## check params[:commit]
+    if params[:commit]=="eDiVA v1 Analysis"
+      familySNP = 'familySNP.py'
+    else
+      familySNP = 'familySNP_2.0.py'
+    end
+    
     mergedAnnotationFile = nil
     familyFile = 'family.txt'
     jobscript = ".jobtosubmit.sh"
@@ -210,7 +217,7 @@ class Corelib
        if(mergedAnnotationFile =~ /ranked$/ or mergedAnnotationFile =~/ranked.csv$/)
          
         ## family script
-          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/familySNP.py --infile userspace/" + user + "/" +
+          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/"+familySNP+" --infile userspace/" + user + "/" +
            mergedAnnotationFile + " --outfile userspace/" +
           user + "/" + mergedAnnotationFile.chomp('.csv') + ".analysed."+params[:inheritenceType]+ ".csv --filteredoutfile userspace/" + user +
            "/" + mergedAnnotationFile.chomp('.csv')  + ".analysed.filtered."+params[:inheritenceType]+ ".csv --family userspace/"+
