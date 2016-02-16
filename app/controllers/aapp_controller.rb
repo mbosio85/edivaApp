@@ -48,7 +48,9 @@ class AappController < ApplicationController
     @files = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
         next if file =~ /^\./
+        if file =~ /ranked.csv$/
           @files.push(file)
+        end
     end
   end
 
