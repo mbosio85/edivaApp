@@ -47,7 +47,7 @@
 						<br/>
 						<% hidden_field_tag "samplecount", 3 %>
 						<% hidden_field_tag "mergedvcf", 1 %>						
-						<%= select_tag "fileToRank", options_for_select(@files), {:style => "min-width: 200px;"} %>
+						<%= select_tag "selectedFile", options_for_select(@files), {:style => "min-width: 200px;"} %>
 						<br/>
 					</td>
 					
