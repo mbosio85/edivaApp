@@ -45,7 +45,7 @@
 										<td class="tablecol2">
 						<h4>ss</h4>
 						<br/>
-						<%= file_field_tag 'vcf' %>
+						<%= select_tag "fileToRank", options_for_select(@files), {:style => "min-width: 200px;"} %>
 						<br/>
 					</td>
 					
