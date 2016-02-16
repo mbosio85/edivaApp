@@ -55,7 +55,7 @@
 	           		<br/>
 	           		<h4>Select from your PC &nbsp;&nbsp;&nbsp;</h4>
 	           		<%= form_tag({:controller => 'aapp',:action => 'actionRank'}, :multipart => true) do %>
-					<%= file_field_tag 'ann',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
+					<% file_field_tag 'ann',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>
 					<br/>
 	        </td> 
 				<td class="tablecol">
