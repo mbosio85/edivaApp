@@ -82,7 +82,9 @@ class AappController < ApplicationController
     
     Dir.new("userspace/" + session[:user] + "/").sort.each do |file|
       next if file =~ /^\./
+      if file =~ /ranked.csv$/
           @files.push(file)
+        end
     end      
     
   end
