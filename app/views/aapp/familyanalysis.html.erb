@@ -58,9 +58,10 @@
 		   			<% if @files.length > 0 -%>
 		   			<tr>
 		   			<td class="tablecol4">
-						Select Merged Annoatated and Ranked file from Project : </td>
+						Merged Annoatated and Ranked file: </td>
 					<td class="tablecol4">	
-						<%= select_tag "selectedFileMerged", options_for_select(@files) %> </td>
+						<%= params[:selectedFile]%>
+						<% hidden_field "selectedFileMerged", params[:selectedFile] %> </td>
 						</tr>
 				<!--	<tr>		
 						<td class="tablecol4">
