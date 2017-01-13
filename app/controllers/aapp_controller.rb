@@ -153,6 +153,7 @@ class AappController < ApplicationController
         end
       end
     end  
+    
     if(params[:vcf] == nil and params[:whitelist] == '1')
       redirect_to :familyanalysissamples
       flash[:notice] = "you need select a file from your workspace wit HPO terms idf you tick the box."
