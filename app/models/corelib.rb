@@ -227,7 +227,7 @@ class Corelib
           end
           if (params[:whitelist] == "1") 
             if (params[:vcf] != nil)
-                commands = commands + " --white_list " + params[:vcf] + "  "
+                commands = commands + " --white_list userspace/" + user + "/" +params[:vcf] + "  "
              end
           end          
           commands = commands +  " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n" 
