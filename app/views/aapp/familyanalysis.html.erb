@@ -30,7 +30,7 @@
 			<br/>
 			<dd>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list of candidate variants for monogenic mendelian diseases.</dd>
 			<dd>It will proceed to filter the variants in agreement with the chosen inheritance pattern</dd>
-			<dd>It allows you to choose among two filtering processes. eDiVA v2 is a much more strict version of the v1,
+			<dd>It allows you to choose among two filtering processes. eDiVA Strict is a much more strict version of the Standard implementation,
 				allowing to only highlight very high quality variants in the filtered output.</dd>
 			<br/>
 			<dd>eDiVa allows to choose five inheritance patterns:</dd>
@@ -49,7 +49,6 @@
 					<th colspan="2" class="tablecol2">Global parameters</th>
 					<br/>
 				<thead>
-	
 				</thead>					
 				<tbody>
 		   			<% if @files.length > 0 -%>
@@ -129,12 +128,23 @@
 				<br/>
 				<tr>
 					<td class="tablecol4">
-						<%= submit_tag "eDiVA v1 Analysis",  :class => 'btn btn-primary btn-large' %>
-					</td>
-					<td class="tablecol4">
-						<%= submit_tag "eDiVA v2 Analysis",  :class => 'btn btn-primary btn-large' %>
+						<%= check_box_tag :whitelist, "1",true %> Mark related genes to HPO list in File --> 
 					</td>
 					
+					<td  class="tablecol4">
+						<%= file_field_tag 'hpo' %>
+						
+					</td>
+					
+				</tr>
+				<tr>
+					<td class="tablecol4">
+						<%= submit_tag "eDiVA Standard Analysis",  :class => 'btn btn-primary btn-large' %>
+					</td>
+					<td class="tablecol4">
+						<%= submit_tag "eDiVA Strict Analysis",  :class => 'btn btn-primary btn-large' %>
+					</td>
+				</tr>
 				</tbody>				
 				</table>	
 				<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
