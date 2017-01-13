@@ -225,6 +225,11 @@ class Corelib
           if (params[:geneexclusionlist] == "1")
           commands = commands + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " 
           end
+          if (params[:whitelist] == "1") 
+            if (params[:vcf] != nil)
+                commands = commands + " --white_list " + params[:vcf] + "  "
+             end
+          end          
           commands = commands +  " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n" 
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
