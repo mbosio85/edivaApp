@@ -219,8 +219,8 @@ class Corelib
         ## family script
           commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/"+familySNP+" --infile userspace/" + user + "/" +
            mergedAnnotationFile + " --outfile userspace/" +
-          user + "/" + mergedAnnotationFile.chomp('.csv') + ".analysed."+params[:inheritenceType]+ ".csv --filteredoutfile userspace/" + user +
-           "/" + mergedAnnotationFile.chomp('.csv')  + ".analysed.filtered."+params[:inheritenceType]+ ".csv --family userspace/"+
+          user + "/" + mergedAnnotationFile.chomp('sorted.annotated.ranked.csv') +params[:inheritenceType]+ ".csv --filteredoutfile userspace/" + user +
+           "/" + mergedAnnotationFile.chomp('sorted.annotated.ranked.csv')  + ".filtered."+params[:inheritenceType]+ ".csv --family userspace/"+
           user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] 
           if (params[:geneexclusionlist] == "1")
           commands = commands + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " 
