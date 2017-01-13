@@ -52,7 +52,7 @@ class AappController < ApplicationController
         if file =~ /ranked.csv$/
           @files.push(file)
         end
-        if file =~ /.txt$/  || file =~ /.hpo$/ 
+        if file =~ /.txt$/   
           @hpos.push(file)
         end    
      end
@@ -138,7 +138,7 @@ class AappController < ApplicationController
         if file =~ /ranked.csv$/
           @files.push(file)
         end
-        if file =~ /.txt$/  || file =~ /.hpo$/ 
+        if file =~ /.txt$/  
           @hpos.push(file)
         end    
      end
