@@ -132,7 +132,7 @@
 					</td>
 					
 					<td  class="tablecol4">
-						<%= file_field_tag 'hpo' %>
+						<%= select_tag "vcf", options_for_select(@files), {:style => "min-width: 200px;"} %>
 						
 					</td>
 					
