@@ -46,12 +46,16 @@ class AappController < ApplicationController
   def familyanalysissamples
     @actions = ['Preview','Download','Delete', 'Empty workspace']
     @files = Array.new
+    @hpos  = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
         next if file =~ /^\./
         if file =~ /ranked.csv$/
           @files.push(file)
         end
-    end
+        if file =~ /.txt$/  || file =~ /.hpo$/ 
+          @hpos.push(file)
+        end    
+     end
   end
 
   def familyanalysis
