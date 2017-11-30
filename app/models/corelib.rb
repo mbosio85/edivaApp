@@ -124,9 +124,9 @@ class Corelib
         userFile = userFile.chomp('.vcf') + '.sorted.annotated.csv'
         ## call ediva-tools rank program to calculate rank of the variants
         rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
-        rankCommand = rankCommand+ "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
-        " --outfile userspace/"+ user + "/" + userFile.chomp('.csv') +
-         ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1"
+        rankCommand = rankCommand+ "ts -N 1 Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
+        "userspace/" + user + "/"+ userFile +" userspace/"+ user + "/" + userFile.chomp('.csv') +
+         ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1"
         
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
@@ -136,9 +136,12 @@ class Corelib
       else
         ## call ediva-tools rank program to calculate rank of the variants
         rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
-        rankCommand = rankCommand + "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
-        " --outfile userspace/"+ user + "/" + userFile.chomp('.csv') +
-         ".ranked.csv   --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1"
+        rankCommand = rankCommand+ "ts -N 1 Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
+        "userspace/" + user + "/"+ userFile +" userspace/"+ user + "/" + userFile.chomp('.csv') +
+         ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1"
+         #rankCommand + "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ userFile + 
+         #" --outfile userspace/"+ user + "/" + userFile.chomp('.csv') +
+         # ".ranked.csv   --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1"
         
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
@@ -465,9 +468,13 @@ def self.deleted_lines_from_family_processig_for_backup_future_if_needed()
           ##filename = filename[0..-5]
           filename = filename.chomp('.vcf') + '.sorted.annotated.csv'
           ## rank line
-          commands = "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename  +  
-          " --outfile userspace/"+ user + "/" + filename.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+
-           user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n"
+          commands ="ts -N 1 Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
+          "userspace/" + user + "/"+ filename + " userspace/"+ user + "/" + filename.chomp('.csv') +
+          ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1 \n"
+          
+          # "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename  +  
+          #" --outfile userspace/"+ user + "/" + filename.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+
+          # user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n"
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
@@ -502,8 +509,12 @@ def self.deleted_lines_from_family_processig_for_backup_future_if_needed()
         elsif( filename =~ /annotated.csv$/ or filename =~ /annotated$/ )
 
           ## rank line
-          commands = "ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename +   
-          " --outfile userspace/"+ user + "/" + filename.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1\n"
+          commands = "ts -N 1 Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
+         "userspace/" + user + "/"+ filename + " userspace/"+ user + "/" + filename.chomp('.csv') +
+         ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1\n"
+          
+          #python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ filename +   
+          #" --outfile userspace/"+ user + "/" + filename.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1\n"
           ## write line to job file
           File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
@@ -582,8 +593,12 @@ def self.deleted_lines_from_family_processig_for_backup_future_if_needed()
         ##mergedAnnotationFile = mergedAnnotationFile + ".sorted.annotated"
         mergedAnnotationFile = mergedAnnotationFile.chomp('.vcf')+'.sorted.annotated.csv'
         ## rank line
-        commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
-        " --outfile userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n"
+        commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python  Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
+        "userspace/" + user + "/"+ mergedAnnotationFile + " userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') +
+         ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1 \n"
+        
+        #edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
+        #" --outfile userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n"
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(commands + "\n")
@@ -615,8 +630,12 @@ def self.deleted_lines_from_family_processig_for_backup_future_if_needed()
        elsif (mergedAnnotationFile =~ /annotated$/ or mergedAnnotationFile =~ /annotated.csv$/)
 
         ## rank line
-        commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
-        " --outfile userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n"
+        commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1  Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
+        "userspace/" + user + "/"+ mergedAnnotationFile + " userspace/"+ user + "/" +  mergedAnnotationFile.chomp('.csv')  +
+         ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1"
+        
+        #python edivatools-code/Prioritize/rankSNP.py --infile userspace/" + user + "/"+ mergedAnnotationFile +   
+        #" --outfile userspace/"+ user + "/" + mergedAnnotationFile.chomp('.csv') + ".ranked.csv  --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n"
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(commands + "\n")
