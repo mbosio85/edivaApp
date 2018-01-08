@@ -64,7 +64,12 @@ class UsersController < ApplicationController
       redirect_to :index
       flash[:notice] = "Successfully new user has been created ! Please login to get started with eDiVa !!"
       flash[:color]= "valid"
+      return
     else
+      redirect_to :index
+      flash[:notice] = "Some unexpected error occurred, plase try again."
+      flash[:color]= "invalid"
+      return
     end    
   end
 
