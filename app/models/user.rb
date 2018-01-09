@@ -45,7 +45,8 @@ class User
         pass = nil
 
         ## create webserver physical workspace
-        Dir.mkdir(Rails.root.join("userspace", username)) unless File.exists?(username)
+        Dir.mkdir(Rails.root.join("userspace", username)) 
+        #unless File.exists?(username)
         
         ## Create  csv mailing file
         File.open(Rails.root.join("userspace", username, ".csv_file.csv"), 'w') do  |f|
