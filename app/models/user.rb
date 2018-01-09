@@ -48,8 +48,11 @@ class User
         Dir.mkdir(Rails.root.join("userspace", username)) unless File.exists?(username)
         
         ## Create  csv mailing file
-        open(Rails.root.join("userspace", username)+'/.csv_file.csv', 'w') { |f| f.puts username+','+email }
-        
+        File.open(Rails.root.join("userspace", username, ".csv_file.csv"), 'w') do  |f|
+         f.puts username+","+ email
+        end
+
+
         ## return message
         return "success"      
       end
