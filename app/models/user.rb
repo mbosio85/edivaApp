@@ -31,7 +31,7 @@ class User
       refUser = ccU.query(qryUser)
 
       if refUser.num_rows != 0
-        return "usr"
+        return "user"
       else
         ## lets add salt to password and create a new pass
         (pass,salt) = encrypt_password(pass)
@@ -48,9 +48,7 @@ class User
         Dir.mkdir(Rails.root.join("userspace", username)) unless File.exists?(username)
         
         ## Create  csv mailing file
-        open(Rails.root.join("userspace", username)+'/.csv_file.csv', 'w') { |f|
-          f.puts username+','+email
-        }
+        open(Rails.root.join("userspace", username)+'/.csv_file.csv', 'w') { |f| f.puts username+','+email }
         
         ## return message
         return "success"      
