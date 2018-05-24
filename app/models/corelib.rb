@@ -9,12 +9,25 @@ class Corelib
       valMsg = nil
       ## file name to do rest of the things after saving
       fl = userFile.original_filename
-      ## save uploaded file 
-      File.open(Rails.root.join('userspace',user,userFile.original_filename), 'w') do |file|
-        file.write(userFile.read)
+      fl2 = fl.gsub!(/[^0-9A-Za-z.\-]/, '_')|| fl
+      if (fl2.end_with?("vcf") || fl2.end_with?("txt")     )
+          ## save uploaded file 
+  #       File.open(Rails.root.join('userspace',user,userFile.original_filename), 'w') do |file|
+          File.open(Rails.root.join('userspace',user,fl2), 'w') do |file|
+          file.write(userFile.read)
+          end
+          ## set return message      
+          valMsg = "uploaded"
+      elsif (fl2.end_with?("gz") || fl2.end_with?("bgz") )
+          File.open(Rails.root.join('userspace',user,fl2), 'wb') do |file|
+          file.write(userFile.tempfile.read)
+         end
+         unzip = "/home/rrahman/soft/ts-0.7.5/ts -N 1 gzip -d userspace/" + user + '/' + fl 
+         system(unzip)
+        valMsg = "uploaded gz" 
+      else
+          valMsg = 'Error not a VCF or TXT'
       end
-      ## set return message      
-      valMsg = "uploaded"
       return valMsg
       
   end
@@ -62,12 +75,13 @@ class Corelib
       system(delcmmd)
       
       ## call ediva-tools annotation program to calculate rank of the variants
-      annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
-      annCommand = annCommand + "ts -N 1 python edivatools-code/Annotate/annotate.py --input userspace/" + user + "/"+ userFile + 
-      " -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1"
+      annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n"
+      ##annCommand = annCommand + "ts -N 1 python edivatools-code/Annotate/annotate.py --input userspace/" + user + "/"+ userFile + 
+      ##" -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1"
 
-      ##annCommand = annCommand + "ts -N 1 perl edivatools-code/Annotate/annotate.pl --input userspace/" + user + "/"+ userFile + 
-
+      tmpdir  = (0...50).map { ('a'..'z').to_a[rand(32)] }.join
+      annCommand = annCommand +  "mkdir -p /tmp/" + tmpdir + " \n"
+      annCommand = annCommand + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/annotate_template.sh  " + tmpdir + " "  + user + "  userspace/" + user + "/" + userFile 
 
       ## write line to job file
       File.open(Rails.root.join("userspace",user,jobscript), 'w') do |file|
@@ -108,34 +122,42 @@ class Corelib
       ## if vcf file was provided then annotate it first
       if (userFile =~ /vcf$/)
         ## call ediva-tools annotation program to calculate rank of the variants
-        annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+        annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n "
         annCommand = annCommand +  " ts -N 1 python edivatools-code/Annotate/annotate.py --input userspace/" + user + "/"+ userFile + 
         " -s complete -f --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1"
+       
 
+       ###
+       ### <--- ADD here template execution for annotation. Remember that the rank part is no longer written to the jobtosubmit
+       ###
+       annCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n"
+       tmpdir  = (0...50).map { ('a'..'z').to_a[rand(32)] }.join
+       annCommand = annCommand +  "mkdir -p /tmp/" + tmpdir + " \n"
+       annCommand = annCommand + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/annotate_template.sh  " + tmpdir + " "  + user + "  userspace/" + user + "/" + userFile
+       ###
+       ### <<<<<<<<<<<<<
+       ###                              
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
           file.write(annCommand + "\n")
         end
         
-        ## update filename
-        ## remove the .vcf extension from file name
-        ## userFile = userFile[0..-5]
-        ## userFile = userFile + ".sorted.annotated.csv"
+        ## update filename    
         userFile = userFile.chomp('.vcf') + '.sorted.annotated.csv'
         ## call ediva-tools rank program to calculate rank of the variants
-        rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+        rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n"
         rankCommand = rankCommand+ "ts -N 1 Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
         "userspace/" + user + "/"+ userFile +" userspace/"+ user + "/" + userFile.chomp('.csv') +
          ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1"
         
         ## write line to job file
-        File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
-          file.write(rankCommand + "\n")
-        end        
+        #File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
+        #  file.write(rankCommand + "\n")
+        #end        
         
       else
         ## call ediva-tools rank program to calculate rank of the variants
-        rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+        rankCommand = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n "
         rankCommand = rankCommand+ "ts -N 1 Rscript edivatools-code/Prioritize/wrapper_call.R edivatools-code/Prioritize/ediva_score.rds " +
         "userspace/" + user + "/"+ userFile +" userspace/"+ user + "/" + userFile.chomp('.csv') +
          ".ranked.csv    > userspace/"+ user + "/.job.log 2>&1"
@@ -170,7 +192,7 @@ class Corelib
     if params[:commit]=="eDiVA v1 Analysis"
       familySNP = 'familySNP.py'
     else
-      familySNP = 'familySNP_2.0.py'
+      familySNP = 'familySNP.py'
     end
     
     mergedAnnotationFile = nil
@@ -192,7 +214,7 @@ class Corelib
     delcmmd = "rm userspace/" + user + "/" + jobscript
     system(delcmmd)
     
-    commands = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/"
+    commands = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n"
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
             file.write(commands + "\n")
      end
@@ -218,22 +240,43 @@ class Corelib
        end  
 
        if(mergedAnnotationFile =~ /ranked$/ or mergedAnnotationFile =~/ranked.csv$/)
-         
-        ## family script
-          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/"+familySNP+" --infile userspace/" + user + "/" +
-           mergedAnnotationFile + " --outfile userspace/" +
-          user + "/" + mergedAnnotationFile.chomp('sorted.annotated.ranked.csv') +params[:inheritenceType]+ ".csv --filteredoutfile userspace/" + user +
-           "/" + mergedAnnotationFile.chomp('sorted.annotated.ranked.csv')  + "filtered."+params[:inheritenceType]+ ".csv --family userspace/"+
-          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] 
-          if (params[:geneexclusionlist] == "1")
-          commands = commands + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " 
-          end
-          if (params[:whitelist] == "1") 
-            if (params[:vcf] != nil)
-                commands = commands + " --white_list userspace/" + user + "/" +params[:vcf] + "  "
+#        =begin   
+#        ## family script
+#          commands = "/home/rrahman/soft/ts-0.7.5/ts -N 1 python edivatools-code/Prioritize/"+familySNP+" --infile userspace/" + user + "/" +
+#           mergedAnnotationFile + " --outfile userspace/" +
+#          user + "/" + mergedAnnotationFile.chomp('sorted.annotated.ranked.csv') +params[:inheritenceType]+ ".csv --filteredoutfile userspace/" + user +
+#           "/" + mergedAnnotationFile.chomp('sorted.annotated.ranked.csv')  + "filtered."+params[:inheritenceType]+ ".csv --family userspace/"+
+#          user + "/" + familyFile + " --inheritance " + params[:inheritenceType] + " --familytype " + params[:familyType] 
+#          if (params[:geneexclusionlist] == "1")
+#          commands = commands + " --geneexclusion edivatools-code/Resource/gene_exclusion_list.txt " 
+#          end
+#          if (params[:whitelist] == "1") 
+#          if (params[:vcf] != nil)
+#               commands = commands + " --white_list userspace/" + user + "/" +params[:vcf] + "  "
+#            end
+#         end          
+#          commands = commands +  " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n" 
+#         =end 
+##          if (params[:inheritenceType] == "all")
+             tmpdir  = (0...50).map { ('a'..'z').to_a[rand(32)] }.join 
+             commands = "mkdir -p /tmp/" + tmpdir + " \n"
+
+             if (params[:vcf] != nil)
+                 commands = commands +  "cp userspace/" + user + "/" + params[:vcf] + " /tmp/" + tmpdir + "/.hpo.txt \n"
+             else
+                 commands = commands + "touch /tmp/" + tmpdir + "/.hpo.txt \n "  
              end
-          end          
-          commands = commands +  " --csvfile /var/www/html/ediva/current/userspace/"+ user + "/" + csv_file + " > userspace/"+ user + "/.job.log 2>&1 \n" 
+
+             commands = commands + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/prioritize_template.sh " + " " + tmpdir + " " + user + " " + params[:inheritenceType]   + " " + params[:familyType] +
+                        "  userspace/" + user + "/" +  mergedAnnotationFile 
+             if (params[:geneexclusionlist] == "1")
+                 commands = commands + "  edivatools-code/Resource/gene_exclusion_list.txt "
+             end
+
+##          end
+
+        
+        
         ## write line to job file
         File.open(Rails.root.join("userspace",user,jobscript), 'a') do |file|
          file.write(commands + "\n")
@@ -384,7 +427,7 @@ class Corelib
     sn= "/var/www/html/ediva/current/userspace/"+ user+ "/"
     bgzip ="/home/rrahman/soft/tabix-0.2.6/bgzip -f "
     tabix ="/home/rrahman/soft/tabix-0.2.6/tabix -f "
-    command = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n"
+    command = "PATH=$PATH:/home/rrahman/soft/tabix-0.2.6/:/home/rrahman/soft/ts-0.7.5/ \n export TS_ONFINISH=/var/www/html/ediva/current/ts_outmail \n"
     command = command+ "/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+ " "+sn+ params[:selectedFile1]+ " ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix + " -p vcf -f "+sn+params[:selectedFile1]+ ".gz\n"
     command = command+ "/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+ " "+sn+params[:selectedFile2]+ " ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix + " -p vcf -f "+sn+params[:selectedFile2]+ ".gz\n"
     command = command+ "/home/rrahman/soft/ts-0.7.5/ts -N 1 "+bgzip+ " "+sn+params[:selectedFile3]+ " ; /home/rrahman/soft/ts-0.7.5/ts -N 1 "+tabix + " -p vcf -f "+sn+params[:selectedFile3]+ ".gz\n"
@@ -416,8 +459,17 @@ class Corelib
       file_handle.each_line do |line|
       # do stuff here : read line and all places before DP are samples
       fields = line.split(',');
-      dp_idx = fields.each_index.select{|i| fields[i] == 'DP'};    
-      dp_idx.each { |x| ary.push( fields[x-1]) };
+#      dp_idx = fields.each_index.select{|i| fields[i] =~ /^DP/};    
+      dp_idx = fields.each_index.select{|i| fields[i] =~ /^#/};
+#      dp_idx.each { |x| ary.push( fields[x-1]) };
+    
+      start  = dp_idx.last.to_i + 1;
+      endval = fields.length-2;
+      ary  =  (start..endval).step(6).map{|x| fields[x]};
+#      dp_idx.each { |x| ary.push( fields[x]) };
+
+
+
       # now here I have an array with  sample names
   
       break

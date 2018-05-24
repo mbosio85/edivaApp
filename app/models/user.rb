@@ -34,8 +34,9 @@ class User
         return "user"
       else
         ## lets add salt to password and create a new pass
+        pass_cleartext=pass
         (pass,salt) = encrypt_password(pass)
-      
+       
         qry = "insert into Table_users values('"+ username+"','"+ email +"','"+ pass+"','"+ salt+"')"
         
         cc = User.new.self
@@ -49,12 +50,27 @@ class User
         #unless File.exists?(username)
         
         ## Create  csv mailing file
+        #open(Rails.root.join("userspace", username)+'/.csv_file.csv', 'w') { |f|
+        #  f.puts username+','+email
+        #}
+         
         File.open(Rails.root.join("userspace", username, ".csv_file.csv"), 'w') do  |f|
          f.puts username+","+ email
-        end
-
-
+        end 
         ## return message
+       mailstr = ' echo -e "From:edivateam \nSubject:Registration \n\n  Text: Welcome ' + username + " Your eDiVA password is :" + pass_cleartext + '" |  /usr/sbin/sendmail -v ' + email
+#        File.open(Rails.root.join("userspace", username, ".mail_file.csv"), 'w') do  |f|
+#         f.puts mailstr
+#        end
+        pass_cleartext=nil
+
+
+        #chmod
+#        system("chmod 775 userspace/" + username  + ".mail_file.csv")
+        #launch it
+#        system("userspace/"+ username + "/.mail_file.csv &") 
+        system(mailstr)     
+    
         return "success"      
       end
       

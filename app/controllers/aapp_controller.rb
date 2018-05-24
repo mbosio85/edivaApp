@@ -76,10 +76,10 @@ class AappController < ApplicationController
 
     if (@numberofsamples.to_i !=3 )
       @famTypes = ['family']      
-      @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked']
+      @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','all']
     else
       @famTypes = ['trio','family']
-      @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound']      
+      @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound','all']      
     end
 
     @files = Array.new
@@ -156,7 +156,7 @@ class AappController < ApplicationController
     
     if(params[:vcf] == nil and params[:whitelist] == '1')
       redirect_to :familyanalysissamples
-      flash[:notice] = "you need select a file from your workspace wit HPO terms idf you tick the box."
+      flash[:notice] = "you need select a file from your workspace with HPO terms if you tick the HPO box."
       flash[:color]= "invalid"                    
       return
     end  
@@ -193,9 +193,13 @@ class AappController < ApplicationController
       flash[:notice] = "Your file has been uploaded."
       flash[:color]= "valid"        
       return
+    elsif @msg == "uploaded gz"
+      redirect_to :analysis
+      flash[:notice] = "Your file has been uploaded and it is queued for decompression. Check in a while by refreshing the page"
+      flash[:color]= "valid"
     else
       redirect_to :analysis
-      flash[:notice] = "Something went wrong"
+      flash[:notice] = "Something went wrong. Be sure to upload an uncompressed vcf file, or gzipped VCF, or a .txt file with HPO terms one per line."
       flash[:color]= "invalid"
       return              
     end
@@ -307,7 +311,7 @@ class AappController < ApplicationController
 
   def workspaceFileAction
     
-    @actions = ['Preview','Download','Delete', 'Empty workspace']
+    @actions = ['Preview','Download','Delete', 'Empty workspace','testdata']
     @files = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
       next if file =~ /^\./
@@ -329,7 +333,14 @@ class AappController < ApplicationController
       system(rmCommand)
       @msg = "delete"
     end
-    
+   
+    if(params[:selectedAction] == 'testdata')
+      tstCommand = "cp  testdata/* " + "userspace/" + session[:user]+ "/" 
+      system(tstCommand)
+      @msg = "test"
+    end
+
+ 
     if(params[:selectedAction] =~ /Empty/)
       rmCommand = "rm " + "userspace/" + session[:user]+ "/*.*"
       system(rmCommand)
@@ -350,6 +361,17 @@ class AappController < ApplicationController
       return
     end
 
+    if @msg == "test"
+      redirect_to :analysis
+      flash[:notice] = "testdata Added"
+      flash[:color]= "valid"
+      return
+    end
+
+    
+   
+ 
+   
   end
 
   

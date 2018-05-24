@@ -10,7 +10,7 @@
 		</br>
 		
 		<p>		
-			After logging into eDiVa app, you can upload and manage your files in your home page. On the right hand side of your home page,
+			After logging into eDiVa, you can upload and manage your files in your home page. On the right hand side of your home page,
 			you can see the forms for uplaoding your files and below that you can perform basic tasks (e.g viewing, deleting and downloading)
 			on your uploaded files in your workspace. The main portion of your home page shows the files you currently have in your workspace.
 			 
@@ -19,7 +19,7 @@
 		<p>
 			Also, immediately below the file management section on the right hand side of your home page, you can see the analyses that you can do using
 			eDiVa app. You can annotate your genomic variants and calculate the eDiVA-Score for all of them using the <b>Annotate Variants</b> section. 
-			Finally, Step 3 Analyze lets you perofrm multiple inheritence testing in small families and trios to detect susceptible genes. 
+			Finally, Step 3 Analyze lets you perform multiple inheritence testing in small families and trios to detect susceptible genes. 
 			This analysis step works on  a single merged VCF file (multi-sample VCF file, click 
 			<%= link_to :here, "http://www.1000genomes.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-41", target: "_blank", class: "nav_links_body"%> 
 			for information on VCF file format) containing genotypes of differnet samples per variant line. All analyses work 
@@ -46,16 +46,19 @@
 		</br>
 		
 		<p>		
-			Running analyses in eDiVa is very easy & simple. To run the annotation task, you can directly upload a VCF file or you can also select a VCF file
-			from your workspace as well. Emails are sent your email address as soon as the task is completed. 
+                    Running analyses in eDiVa can be done in few steps: Upload, Annotate, and Prioritize. To run the
+                    annotation task, you can directly upload a VCF file or you can also select a VCF file from your
+                    workspace; There is an option to load example data of a publicly available trio. Emails are sent to your
+                    email address as soon as the task is completed.			 
 		</p>		
 		
 		<p>
-			For running Trio/Family analysis step, you can select the inheritance type and family type. 
-			You can also select appropriate files from your workspace as well to run this step. 
-			In this step it is required for you to mark the affected samples by selecting the checkbox next to the ID. 
-			Moreover, you can choose a file with HPO terms for the disease to flag variants in genes related to the HPO terms. 
-			You can also specify to use an exclusion list for genes already marked as false positives in previous studies. 
+                     For running Trio/Family prioritization step, you can select the inheritance type and family type. In this
+                     step it is required for you to mark the affected samples by selecting the checkbox next to the ID.
+                     Moreover, you can choose a file with HPO terms for the disease to flag variants in genes related to the
+                     HPO terms. You can also specify to use an exclusion list for genes already marked as false positives in
+                     previous studies.
+				
 		</p>
 		
 	</div>

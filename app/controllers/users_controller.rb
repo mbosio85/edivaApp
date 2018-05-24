@@ -66,11 +66,10 @@ class UsersController < ApplicationController
       flash[:color]= "valid"
       return
     else
-      redirect_to :index
-      flash[:notice] = "Some unexpected error occurred, plase try again."
+      flash[:notice] = "Some error happened,please try again "+@msg
       flash[:color]= "invalid"
-      return
     end    
+
   end
 
   def authenticateUser

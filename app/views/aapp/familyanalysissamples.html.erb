@@ -45,7 +45,7 @@
 					<td class="tablecol2">
 						<h4>Select the ranked file to process</h4>
 						<br/>
-						<%= select_tag "selectedFile", options_for_select(@files), {:style => "min-width: 200px;"} %>
+						<%= select_tag "selectedFile", options_for_select(@files), {:style => "min-width: 400px;"} %>
 						<% hidden_field_tag "samplecount", 3 %>
 						<% hidden_field_tag "mergedvcf", 1 %>						
 						<br/>

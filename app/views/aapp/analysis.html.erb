@@ -56,7 +56,16 @@
            		Five analaysis types can be performed depending on the expected inheritance pattern for the disease.
 			</td>
 			</tr>
-			<tr> <td>  <b> &nbsp; </b>	</td> <td>  <b> &nbsp; </b>	</td> <td>  <b> &nbsp; </b>	</td> </tr>
+			<tr> 
+                             <td class="tablecol">  
+                                 <%= form_tag(:controller => 'aapp',:action => 'workspaceFileAction') do %>
+                                    <%= hidden_field_tag "selectedFile", "none" %>
+                                    <%= hidden_field_tag "selectedAction", "testdata" %>
+                                    <%= submit_tag "Load test data", :class => 'btn  btn btn-primary btn-large'%>
+                                  <% end -%>
+                             </td> 
+                             <td>  <b> &nbsp; </b>	</td> 
+                             <td>  <b> &nbsp; </b>	</td> </tr>
 		</tbody>
 		</table>
 	</div>
@@ -96,7 +105,7 @@
 						<% if @files.length > 0 %>
 						<%= hidden_field_tag "selectedFile", file %> 
 						<%= hidden_field_tag "selectedAction", "Preview" %> 
-						<%= submit_tag "Preview", :class => 'btn  btn-link btn-xs'%>
+						<!-- <%= submit_tag "Preview", :class => 'btn  btn-link btn-xs'%> -->
 						<% end -%>
 					<% end -%> 
 				</td>
@@ -138,7 +147,7 @@
 			<!--	<td>
 		   	<%= form_tag({:controller => 'aapp',:action => 'actionUploadFile'}, :multipart => true) do %>		   	
 		   	<%= submit_tag 	"Upload VCF  to Workspace.",  :class => 'btn btn-primary btn-large' %> &nbsp;&nbsp;&nbsp;&nbsp;
-			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 100.megabytes} %>      			
+			<%= file_field_tag 'vcf',:onchange =>"validateFiles(this);",:data => {:max_file_size => 200.megabytes} %>      			
        	   <% end %>
        </td> -->
 	
@@ -158,7 +167,7 @@
 </br></br>	
 <script>
 function validateFiles(inputFile) {
-  var maxExceededMessage = "File exceeds the maximum allowed size (100 MB)";
+  var maxExceededMessage = "File exceeds the maximum allowed size (200 MB)";
  
   var maxFileSize = $(inputFile).data('max-file-size');
   var sizeExceeded = false;
