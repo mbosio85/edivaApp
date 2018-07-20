@@ -166,7 +166,11 @@ class AappController < ApplicationController
 
     if @msg == "jobsubmitted"
       redirect_to :analysis
-      flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."
+      if (session[:user] == "guest")
+        flash[:notice] = "Your job has been submitted. Your results will be available shortly in your workspace and will be purged after 30 mins from creation. Please create an account to get email notificaiton of your jobs."
+      else
+        flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."    
+      end    
       flash[:color]= "valid"
       return        
     else
@@ -223,7 +227,11 @@ class AappController < ApplicationController
 
     if @msg == "annotated"
       redirect_to :analysis
-      flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."
+      if (session[:user] == "guest")
+        flash[:notice] = "Your job has been submitted. Your results will be available shortly in your workspace and will be purged after 30 mins from creation. Please create an account to get email notificaiton of your jobs."
+      else
+        flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."    
+      end
       flash[:color]= "valid"        
     else
       redirect_to :analysis
@@ -249,7 +257,11 @@ class AappController < ApplicationController
   
     if @msg == "ranked"
       redirect_to :analysis
-      flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."
+      if (session[:user] == "guest")
+        flash[:notice] = "Your job has been submitted. Your results will be available shortly in your workspace and will be purged after 30 mins from creation. Please create an account to get email notificaiton of your jobs."
+      else
+        flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."    
+      end
       flash[:color]= "valid"        
     else
       redirect_to :analysis
