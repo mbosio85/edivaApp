@@ -126,14 +126,27 @@
 						<% end -%>
 
 				<br/>
+				<!--
 				<tr>
 					<td class="tablecol4">
-						<%= check_box_tag :whitelist, "1",false  %> Mark related genes to HPO list in File --> 
+						<%= check_box_tag :whitelist, "1",false  %> Mark related genes to HPO list in File --\> 
 					</td>
 					
 					<td  class="tablecol4">
 						<%= select_tag "vcf", options_for_select(@hpos), {:style => "min-width: 200px;"} %>
 						
+					</td>
+				</tr>
+				-->
+				<tr>	
+					<td class="tablecol4">
+						<p>Copy paste HPO terms (one term in each line)</p>
+						<ul>
+							<li><%= link_to "Link to HPO term", "http://compbio.charite.de/hpoweb/showterm#", target: '_blank' %></li>
+						</ul>	
+					</td>
+					<td class="tablecol4">
+						<%= text_area_tag 'hpoTerms', nil, rows: 5, cols: 40 %>
 					</td>
 					
 				</tr>

@@ -143,8 +143,10 @@ class AappController < ApplicationController
         end    
      end
      
+    sampleNames = ""
     params.each do |key,value| 
       if (key =~ /sample/)
+        sampleNames = sampleNames + "." + value
         if (value == "")
           redirect_to :familyanalysissamples
           flash[:notice] = "sample id cant be empty !"
@@ -153,6 +155,17 @@ class AappController < ApplicationController
         end
       end
     end  
+    
+    ## write HPO terms
+    hpoTermsfilename = ".hop.terms" + sampleNames + "." + params[:inheritenceType] + "." + params[:familyType] + "." + "txt"
+    File.open("userspace/" + session[:user] + "/" + hpoTermsfilename, "w") do |file|
+      if params[:hpoTerms] != ""
+        terms = params[:hpoTerms].split("\r\n")
+       for term in terms
+         file.write(term + "\n")
+       end
+      end 
+    end 
     
     if(params[:vcf] == nil and params[:whitelist] == '1')
       redirect_to :familyanalysissamples
