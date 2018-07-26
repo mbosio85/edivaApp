@@ -199,7 +199,7 @@ class AappController < ApplicationController
     
     if (params[:vcf] == nil)
       redirect_to :analysis
-      flash[:notice] = "Please select a file to upload."
+      flash[:notice] = "Please select a VCF file to upload."
       flash[:color]= "invalid"
       return              
     end
@@ -216,7 +216,7 @@ class AappController < ApplicationController
       flash[:color]= "valid"
     else
       redirect_to :analysis
-      flash[:notice] = "Something went wrong. Be sure to upload an uncompressed vcf file, or gzipped VCF, or a .txt file with HPO terms one per line."
+      flash[:notice] = "Something went wrong. Be sure to upload an uncompressed VCF, gzipped VCF, or zipped VCF."
       flash[:color]= "invalid"
       return              
     end
@@ -271,7 +271,7 @@ class AappController < ApplicationController
     if @msg == "ranked"
       redirect_to :analysis
       if (session[:user] == "guest")
-        flash[:notice] = "Your job has been submitted. Your results will be available shortly in your workspace and will be purged after 30 mins from creation. Please create an account to get email notificaiton of your jobs."
+        flash[:notice] = "Your job has been submitted. Your results will be available shortly in your workspace and can be purged without warning. Please create an account to get email notificaiton of your jobs."
       else
         flash[:notice] = "Your job has been submitted. You will receive an email when your job is completed."    
       end
