@@ -34,18 +34,22 @@ class UsersController < ApplicationController
       redirect_to :index
       flash[:notice] = "Not a valid email format !"
       flash[:color]= "invalid"
+      return
     elsif (params[:password].length < 6)
       redirect_to :index
       flash[:notice] = "Password too short !"
       flash[:color]= "invalid"
+      return
     elsif (params[:password].length > 20)
       redirect_to :index
       flash[:notice] = "Password too long !"
       flash[:color]= "invalid"      
+      return
     elsif (params[:password] != params[:password_confirmation]) ## checking for password and password confirmation match
       redirect_to :index
       flash[:notice] = "Password and password confirmation mismatch ! Please re-enter it "
       flash[:color]= "invalid"
+      return
     else
       @msg = User.createSubmituser(params[:username],params[:email],params[:password])
     end
