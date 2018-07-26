@@ -13,7 +13,7 @@ class Corelib
       if (fl2.end_with?("vcf") || fl2.end_with?("txt")     )
           ## save uploaded file 
   #       File.open(Rails.root.join('userspace',user,userFile.original_filename), 'w') do |file|
-          File.open(Rails.root.join('userspace',user,fl2), 'w') do |file|
+          File.open(Rails.root.join('userspace',user,fl2), 'wb') do |file|
           file.write(userFile.read)
           end
           ## set return message      
@@ -29,7 +29,7 @@ class Corelib
           File.open(Rails.root.join('userspace',user,fl2), 'wb') do |file|
           file.write(userFile.tempfile.read)
          end
-         unzip = "/home/rrahman/soft/ts-0.7.5/ts -N 1 unzip -o  -d  userspace/" + user + "/  userspace/" + user + '/' + fl 
+         unzip = "/home/rrahman/soft/ts-0.7.5/ts -N 1 unzip -o  -d  userspace/" + user + '/  userspace/' + user + '/' + fl 
          system(unzip)
         valMsg = "uploaded gz" 
       else
