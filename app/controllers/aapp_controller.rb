@@ -64,9 +64,9 @@ class AappController < ApplicationController
     params[:samplecount] = @samplez.length()
 
     
-    if (params[:samplecount].to_i < 2)
+    if (params[:samplecount].to_i < 1)
       redirect_to :familyanalysissamples
-      flash[:notice] = "Number of samples must be 2 or more"
+      flash[:notice] = "Number of samples must be 1 or more"
       flash[:color]= "invalid"
       return        
     end
@@ -77,6 +77,9 @@ class AappController < ApplicationController
     if (@numberofsamples.to_i !=3 )
       @famTypes = ['family']      
       @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','all']
+      if (@numberofsamples.to_i ==1 )
+          @famTypes = ['Single Sample']
+      end
     else
       @famTypes = ['trio','family']
       @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound','all']      
@@ -168,12 +171,12 @@ class AappController < ApplicationController
       end 
     end 
     
-    if(params[:vcf] == nil and params[:whitelist] == '1')
-      redirect_to :familyanalysissamples
-      flash[:notice] = "you need select a file from your workspace with HPO terms if you tick the HPO box."
-      flash[:color]= "invalid"                    
-      return
-    end  
+   # if(params[:vcf] == nil )
+   #   redirect_to :familyanalysissamples
+   #   flash[:notice] = "you need select a file from your workspace."
+   #   flash[:color]= "invalid"                    
+   #   return
+   # end  
     
     
     @msg = Corelib.familyActionsMerged(params,session[:user],hpoTermsfilename)

@@ -202,6 +202,12 @@ class Corelib
       familySNP = 'familySNP.py'
     end
     
+    if params[:commit] != "trio"
+       famType = "family"
+    else
+       famType = "trio"
+    end
+    
     mergedAnnotationFile = nil
     familyFile = 'family.txt'
     jobscript = ".jobtosubmit.sh"
@@ -274,7 +280,7 @@ class Corelib
                  commands = commands + "touch /tmp/" + tmpdir + "/.hpo.txt \n "  
              end
 
-             commands = commands + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/prioritize_template.sh " + " " + tmpdir + " " + user + " " + params[:inheritenceType]   + " " + params[:familyType] +
+             commands = commands + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/prioritize_template.sh " + " " + tmpdir + " " + user + " " + params[:inheritenceType]   + " " + famType +
                         "  userspace/" + user + "/" +  mergedAnnotationFile 
              if (params[:geneexclusionlist] == "1")
                  commands = commands + "  edivatools-code/Resource/gene_exclusion_list.txt "
