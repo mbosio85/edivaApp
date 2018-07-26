@@ -9,7 +9,7 @@ export USERNAME=$2
 export INHERITANCE=$3
 export TRIO=$4
 export INFILE=$5
-#export HPO=$5
+export HPO='hpo.txt'
 #export EXCLUSIONLIST=$6
 
 export HOMEDIR=$(pwd)
@@ -24,7 +24,7 @@ echo $TMPFOLDER
 echo $USERNAME
 echo $INHERITANCE
 echo $TRIO
-#echo $HPO
+echo $HPO
 echo $EXCLUSIONLIST
 
 # standard imports
@@ -36,21 +36,23 @@ mkdir -p $TMPFOLDER/
 cp   $HOMEDIR/$INFILE     $TMPFOLDER/input.csv
 cp   $HOMEDIR/userspace/$USERNAME/family.txt  $TMPFOLDER/family.txt
 #cp   $HPO    $TMPFOLDER/hpo.txt
+touch $TMPFOLDER/$HPO
 
 cd $TMPFOLDER
 # run prioritization inheritances:
 
   # compound - only for trio 
     if [ "$INHERITANCE" == 'compound' ] || [ "$INHERITANCE" == 'all' ] && [ "$TRIO" == 'trio' ] ; then
-        python $HOMEDIR/edivatools-code/Prioritize/familySNP.py \
+        python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.compound.csv \
             --filteredoutfile filtered.compound.csv \
             --family family.txt \
             --inheritance compound \
             --familytype $TRIO \
+            --HPO_list $HPO \
             $EXCLUSIONLIST  \
-    #       >> .job.log 2>&1
+       >> .job.log 2>&1
 
          zip -ur prioritization_analysis.zip filtered.compound.csv unfiltered.compound.csv
 
@@ -63,13 +65,14 @@ cd $TMPFOLDER
     if [ "$INHERITANCE" == 'dominant_denovo' ] || [ "$INHERITANCE" == 'all' ] ; then
         echo $INHERITANCE
  
-        python $HOMEDIR/edivatools-code/Prioritize/familySNP.py \
+        python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.dominant_denovo.csv \
             --filteredoutfile filtered.dominant_denovo.csv \
             --family family.txt \
             --inheritance dominant_denovo \
             --familytype $TRIO \
+            --HPO_list $HPO \
             $EXCLUSIONLIST  \
             >> .job.log 2>&1
         
@@ -78,13 +81,14 @@ cd $TMPFOLDER
 
 # Dominant inherited
     if [ "$INHERITANCE" == 'dominant_inherited' ] || [ "$INHERITANCE" == 'all' ] ; then
-        python $HOMEDIR/edivatools-code/Prioritize/familySNP.py \
+        python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.dominant_inherited.csv \
             --filteredoutfile filtered.dominant_inherited.csv \
             --family family.txt \
             --inheritance dominant_inherited \
             --familytype $TRIO \
+            --HPO_list $HPO \
             $EXCLUSIONLIST  \
            >> .job.log 2>&1
         
@@ -93,13 +97,14 @@ cd $TMPFOLDER
     
  # Recessive
     if [ "$INHERITANCE" == 'recessive' ] || [ "$INHERITANCE" == 'all' ] ; then
-        python $HOMEDIR/edivatools-code/Prioritize/familySNP.py \
+        python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.recessive.csv \
             --filteredoutfile filtered.recessive.csv \
             --family family.txt \
             --inheritance recessive \
             --familytype $TRIO \
+	    --HPO_list $HPO \
             $EXCLUSIONLIST  \
             >> .job.log 2>&1
         
@@ -108,13 +113,14 @@ cd $TMPFOLDER
     
   # Xlinked
     if [ "$INHERITANCE" == 'Xlinked' ] || [ "$INHERITANCE" == 'all' ] ; then
-        python $HOMEDIR/edivatools-code/Prioritize/familySNP.py \
+        python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.Xlinked.csv \
             --filteredoutfile filtered.Xlinked.csv \
             --family family.txt \
             --inheritance Xlinked \
             --familytype $TRIO \
+            --HPO_list $HPO \
             $EXCLUSIONLIST  \
            >> .job.log 2>&1
         
