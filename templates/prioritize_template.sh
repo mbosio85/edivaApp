@@ -36,7 +36,7 @@ mkdir -p $TMPFOLDER/
 cp   $HOMEDIR/$INFILE     $TMPFOLDER/input.csv
 cp   $HOMEDIR/userspace/$USERNAME/family.txt  $TMPFOLDER/family.txt
 #cp   $HPO    $TMPFOLDER/hpo.txt
-mv .hpo_tmp.txt $TMPFOLDER/$HPO
+mv $HOMEDIR/userspace/$USERNAME/.hpo_tmp.txt $TMPFOLDER/$HPO
 touch $TMPFOLDER/$HPO
 
 cd $TMPFOLDER
