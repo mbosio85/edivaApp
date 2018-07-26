@@ -158,6 +158,7 @@ class AappController < ApplicationController
     
     ## write HPO terms
     hpoTermsfilename = ".hop.terms" + sampleNames + "." + params[:inheritenceType] + "." + params[:familyType] + "." + "txt"
+    hpoTermsfilename = ".hpo_tmp.txt"
     File.open("userspace/" + session[:user] + "/" + hpoTermsfilename, "w") do |file|
       if params[:hpoTerms] != ""
         terms = params[:hpoTerms].split("\r\n")
