@@ -184,7 +184,7 @@ class Corelib
   end    
   
 
-  def self.familyActionsMerged(params,user)
+  def self.familyActionsMerged(params,user,hpoTermFileName)
 
     valMsg = nil
     

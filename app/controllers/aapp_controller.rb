@@ -175,7 +175,7 @@ class AappController < ApplicationController
     end  
     
     
-    @msg = Corelib.familyActionsMerged(params,session[:user])
+    @msg = Corelib.familyActionsMerged(params,session[:user],hpoTermsfilename)
 
     if @msg == "jobsubmitted"
       redirect_to :analysis
