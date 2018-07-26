@@ -25,8 +25,15 @@ class Corelib
          unzip = "/home/rrahman/soft/ts-0.7.5/ts -N 1 gzip -d userspace/" + user + '/' + fl 
          system(unzip)
         valMsg = "uploaded gz" 
+      elsif (fl2.end_with?("zip") )
+          File.open(Rails.root.join('userspace',user,fl2), 'wb') do |file|
+          file.write(userFile.tempfile.read)
+         end
+         unzip = "/home/rrahman/soft/ts-0.7.5/ts -N 1 unzip -o userspace/" + user + '/' + fl 
+         system(unzip)
+        valMsg = "uploaded gz" 
       else
-          valMsg = 'Error not a VCF or TXT'
+          valMsg = 'Error not a VCF or TXT, nor Gzipped or Zipped file'
       end
       return valMsg
       
