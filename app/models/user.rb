@@ -2,7 +2,7 @@ class User
   
 
   def self
-    con = Mysql.connect('www.ediva.crg.eu', 'edivaUser', 'edivapublic', 'eDiVaUser')
+    con = Mysql.connect('127.0.0.1', 'edivaUser', 'edivapublic', 'eDiVaUser')
     return con
   end
   
