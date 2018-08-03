@@ -53,6 +53,11 @@ class UsersController < ApplicationController
       flash[:notice] = "Password and password confirmation mismatch ! Please re-enter it "
       flash[:color]= "invalid"
       return
+    elsif (params[:acceptLicense] != "1")
+      redirect_to :index
+      flash[:notice] = "You need to accept the ediav express terms to continue! "
+      flash[:color]= "invalid"
+      return
     else
       @msg = User.createSubmituser(params[:username],params[:email],params[:password])
     end
