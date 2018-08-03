@@ -5,7 +5,10 @@ class UsersController < ApplicationController
   def index
     
   end
-
+  
+  def acknowledgements
+    
+  end 
 
   ## create new user
   def create

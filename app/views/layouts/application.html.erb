@@ -51,15 +51,18 @@
               <li><%= link_to :"Getting started", :controller => "aapp", :action => "docs"%></li>
               <li><%= link_to :"About", :controller => "aapp", :action => "about"%></li>
               <li><%= link_to :"Contact", :controller => "aapp", :action => "contact"%></li>
+              <li align="right"><%= link_to "eDiVA Express Terms", "#modalTermsConditions", "data-toggle" => "modal" %></li>
+              <li align="right"><%= link_to "License", "#modalLicense", "data-toggle" => "modal" %></li>
+              <li><%= link_to :Acknowledgements, :controller => "users", :action => "acknowledgements"%></li>
               <li> <a>|</a> </li>
-              <li><a>Logged in as : <%= session[:user]%></a></li>
-              <li> <a>|</a> </li>
+              <li><a>Account: <%= session[:user]%></a></li>
               <li><%= link_to :Logout, :controller => "users", :action => "logout"%></li> 
-			<% end -%>	
+			<% else -%>	
    			  <li> <a>|</a> </li>
 			  <li align="right"><%= link_to "eDiVA Express Terms", "#modalTermsConditions", "data-toggle" => "modal" %></li>
-			  <li> <a>|</a> </li>
 			  <li align="right"><%= link_to "License", "#modalLicense", "data-toggle" => "modal" %></li>
+			  <li><%= link_to :Acknowledgements, :controller => "users", :action => "acknowledgements"%></li>
+			<% end -%> 
 			</ul>
           </div><!--/.nav-collapse -->		
         </div>
@@ -173,7 +176,7 @@
 	if you publish any results using this service.
 	</p>
 	<p> 
-	CRG would like to acknowledge and thank the entities and projects listed at <%= link_to "http://eDiVa.crg.es/Acknowledgements", "http://eDiVa.crg.es/Acknowledgements", :target => "_blank" %>
+	CRG would like to acknowledge and thank the entities and projects listed at <%= link_to "Acknowledgements", :controller => "users", :action => "acknowledgements" %>
 	</p>
 
   </div>

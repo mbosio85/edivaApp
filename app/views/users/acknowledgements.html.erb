@@ -1,0 +1,101 @@
+<div class="row-fluid">		
+	<div class="span12">
+		<h3>eDiVA Notice and Acknowledgements</h3>
+		<div>
+			<h4>Open Source Components.</h4>
+			<p>
+				eDIVA Software (included in the Docker image) includes the following third party open source software packages, which are distributed under their own corresponding 
+				license included with such open source software components.
+			</p>
+			<table border="1">
+				<tr>
+					<td></td>
+					<td>URL</td>
+					<td>License</td>
+				</tr>
+				<tr>
+					<td>BWA</td>
+					<td><%= link_to "https://sourceforge.net/projects/bio-bwa/", "https://sourceforge.net/projects/bio-bwa/", :target => "_blank"%></td>
+					<td>GPLv3 (some elements MIT)</td>
+				</tr>
+				<tr>
+					<td>Samtools v1.3</td>
+					<td><%= link_to "http://samtools.sourceforge.net/", "http://samtools.sourceforge.net/", :target => "_blank"%></td>
+					<td>MIT/expat</td>
+				</tr>
+				<tr>
+					<td>Bedtools 2.25</td>
+					<td><%= link_to "http://bedtools.readthedocs.org/en/latest/", "http://bedtools.readthedocs.org/en/latest/", :target => "_blank"%></td>
+					<td>GPLv2</td>
+				</tr>
+				<tr>
+					<td>GATK</td>
+					<td><%= link_to "https://www.broadinstitute.org/gatk/about/#licensing", "https://www.broadinstitute.org/gatk/about/#licensing", :target => "_blank"%></td>
+					<td>3-clause BSD</td>
+				</tr>
+				<tr>
+					<td>Picard 1.119</td>
+					<td><%= link_to "http://broadinstitute.github.io/picard/", "http://broadinstitute.github.io/picard/", :target => "_blank"%></td>
+					<td>MIT license</td>
+				</tr>
+			</table>	
+		</div>
+		
+		<div>
+			<h4>Acknowledgments</h4>
+			<p>
+				CRG would like to acknowledge and thank the following entities and projects in relation to the eDiVa Service
+			</p>
+			<p>
+				Universitat Pompeu Fabra, CONsensus DELeteriousness score of non-synonymous single nucleotide variants (SNVs) part of Functional ANnotations for Non 
+				Synonymous SNVs Database. <%= link_to "http://bbglab.irbbarcelona.org/fannsdb/help/condel.html", "http://bbglab.irbbarcelona.org/fannsdb/help/condel.html", :target => "_blank"%>.  
+				Improving the Assessment of the Outcome of Nonsynonymous 
+				SNVs with a Consensus Deleteriousness Score, Condel (2011). Abel González-Pérez and Nuria López-Bigas, 
+				American Journal of Human Genetics 10.1016/j.ajhg.2011.03.004. Including datasets at: 
+				<ul>
+					<li>SIFT: <%= link_to "PMID:19561590", "https://www.ncbi.nlm.nih.gov/pubmed?term=19561590", :target => "_blank"%></li>
+					<li>Polyphen2: <%= link_to "PMID:20354512", "https://www.ncbi.nlm.nih.gov/pubmed?term=20354512", :target => "_blank"%></li>
+					<li>MutationAssessor: <%= link_to "PMID:21727090", "https://www.ncbi.nlm.nih.gov/pubmed/21727090?dopt=Abstract", :target => "_blank"%> </li>
+					<li>FatHMM: <%= link_to "PMID:23033316", "https://www.ncbi.nlm.nih.gov/pubmed/23033316", :target => "_blank"%></li>
+					<li>Ensembl-variation: <%= link_to "PMID:20459805", "https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-11-293", :target => "_blank" %></li>
+				</ul>	
+			</p>
+			<p>
+				Broad Institute. Genome Aggregation Database (gnomAD) and the groups that provided exome and genome variant data to this resource. A full list of contributing 
+				groups can be found at <%= link_to "http://gnomad.broadinstitute.org/about", "http://gnomad.broadinstitute.org/about", :target => "_blank" %>. 
+			</p>	
+			<p>
+				Exome Variant Server, NHLBI GO Exome Sequencing Project (ESP), Seattle, WA (URL: 
+				<%= link_to "http://evs.gs.washington.edu/EVS/", "http://evs.gs.washington.edu/EVS/", :target => "_blank" %>) [2018.06 accessed].  
+			</p>
+			<p>
+				Human Genome Structural Variation Consortium, International Genome Sample Resource. 
+				<%= link_to "http://www.internationalgenome.org/IGSR_disclaimeran", "http://www.internationalgenome.org/IGSR_disclaimeran", :target => "_blank" %> and  
+				<%= link_to "http://www.internationalgenome.org/faq/how-do-i-cite-1000-genomes-project", "http://www.internationalgenome.org/faq/how-do-i-cite-1000-genomes-project", :target => "_blank" %>  
+			</p>
+			<p>
+				National Center for Biotechnology Information, Single Nucleotide Polymorphism Database – dbSNP, 
+				<%= link_to "https://www.ncbi.nlm.nih.gov/projects/SNP/", "https://www.ncbi.nlm.nih.gov/projects/SNP/", :target => "_blank" %>  
+			</p>
+			<p>
+				Discov-EHR collaboration of Geisinger Health System and Regeneron for providing exome variant data for comparison, 
+				<%= link_to "http://www.discovehrshare.com/", "http://www.discovehrshare.com/", :target => "_blank" %>
+			</p>
+			<p>
+				The J. Craig Venter Institute. Sequence data for eDiVa was obtained from website at <%= link_to "www.jcvi.org", "www.jcvi.org", :target => "_blank" %>. 
+			</p>
+			<p>
+				Polyphen-2. Adzhubei IA, Schmidt S, Peshkin L, Ramensky VE, Gerasimova A, Bork P, Kondrashov AS, Sunyaev SR. Nat Methods 7(4):248-249 (2010).
+			</p>
+			<p>
+				Phylop. Thermo Fisher Scientific Inc. <%= link_to "https://ionreporter.thermofisher.com/ionreporter/help/GUID-03D1F68A-E646-4B49-AD59-AF2F51874BD2.html",
+				"https://ionreporter.thermofisher.com/ionreporter/help/GUID-03D1F68A-E646-4B49-AD59-AF2F51874BD2.html", :target => "_blank" %> 
+			</p>
+			<p>
+				University of Washington, Hudson-Alpha Institute for Biotechnology and Berlin Institute of Health, Combined Annotation Dependent Depletion (CADD), 
+				<%= link_to "http://cadd.gs.washington.edu/download", "http://cadd.gs.washington.edu/download", :target => "_blank" %> 
+			</p>
+		</div>	
+	</div>
+
+</div>
