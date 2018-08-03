@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   ## create new user
   def create
     ## check signup parameter values
-    if (params[:username] == "" or params[:email]=="" or params[:password]=="" or params[:password_confirmation]=="")
+    if (params[:username] == "" or params[:email]=="" or params[:password]=="" or params[:password_confirmation]=="" or params[:organization] == "")
       redirect_to :index
       flash[:notice] = "Please fill all the requested fields"
       flash[:color]= "invalid"
