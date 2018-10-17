@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">eDiVa &nbsp; &nbsp;</a>
+          <a class="brand" href="index">eDiVa &nbsp; &nbsp;</a>
           <div class="nav-collapse collapse">
           	<ul class="nav">
             <% if session[:user] %>
@@ -49,19 +49,25 @@
                 </ul>
 			  </li>-->
               <li><%= link_to :"Getting started", :controller => "aapp", :action => "docs"%></li>
-              <li><%= link_to :"About", :controller => "aapp", :action => "about"%></li>
-              <li><%= link_to :"Contact", :controller => "aapp", :action => "contact"%></li>
-              <li align="right"><%= link_to "eDiVA Express Terms", "#modalTermsConditions", "data-toggle" => "modal" %></li>
-              <li align="right"><%= link_to "License", "#modalLicense", "data-toggle" => "modal" %></li>
-              <li><%= link_to :Acknowledgements, :controller => "users", :action => "acknowledgements"%></li>
-              <li> <a>|</a> </li>
               <li><a>Account: <%= session[:user]%></a></li>
               <li><%= link_to :Logout, :controller => "users", :action => "logout"%></li> 
+              <li> <a>|</a> </li>
+   			  <li><%= link_to :"About", :controller => "users", :action => "about"%></li>
+              <li><%= link_to :"EULA", :controller => "users", :action => "EULA"%></li>
+              <li><%= link_to :"Contact", :controller => "users", :action => "contact"%></li>
+              <!--
+              <li align="right"><%= link_to "eDiVA Express Terms", "#modalTermsConditions", "data-toggle" => "modal" %></li>
+              <li align="right"><%= link_to "License", "#modalLicense", "data-toggle" => "modal" %></li>
+              <li><%= link_to :Acknowledgements, :controller => "users", :action => "acknowledgements"%></li>-->
 			<% else -%>	
    			  <li> <a>|</a> </li>
+   			  <li><%= link_to :"About", :controller => "users", :action => "about"%></li>
+   			  <li><%= link_to :"EULA", :controller => "users", :action => "EULA"%></li>
+   			  <li><%= link_to :"Contact", :controller => "users", :action => "contact"%></li>
+			  <!--
 			  <li align="right"><%= link_to "eDiVA Express Terms", "#modalTermsConditions", "data-toggle" => "modal" %></li>
 			  <li align="right"><%= link_to "License", "#modalLicense", "data-toggle" => "modal" %></li>
-			  <li><%= link_to :Acknowledgements, :controller => "users", :action => "acknowledgements"%></li>
+			  <li><%= link_to :Acknowledgements, :controller => "users", :action => "acknowledgements"%></li>-->
 			<% end -%> 
 			</ul>
           </div><!--/.nav-collapse -->		

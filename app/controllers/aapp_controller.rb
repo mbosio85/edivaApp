@@ -12,9 +12,21 @@ class AappController < ApplicationController
 
     @actions = ['Preview','Download','Delete', 'Empty workspace']        
     @files = Array.new
+    @filesToAnnotate = Array.new
+    @filesToPrioritize = Array.new
+    @hpos  = Array.new
     Dir.foreach("userspace/" + session[:user] + "/") do |file|
         next if file =~ /^\./
           @files.push(file)
+          if (file =~ /vcf$/)
+            @filesToAnnotate.push(file)
+          end
+          if file =~ /ranked.csv$/
+            @filesToPrioritize.push(file)
+          end
+          if file =~ /.txt$/   
+            @hpos.push(file)
+          end
     end
   end
 
@@ -81,7 +93,7 @@ class AappController < ApplicationController
           @famTypes = ['Single Sample']
       end
     else
-      @famTypes = ['trio','family']
+      @famTypes = ['trio','family','None (single case)']
       @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound','all']      
     end
 

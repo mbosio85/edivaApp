@@ -6,10 +6,18 @@ class UsersController < ApplicationController
     
   end
   
-  def acknowledgements
+  def EULA
     
   end 
-
+  
+  def about
+    
+  end
+  
+  def contact
+    
+  end
+  
   ## create new user
   def create
     ## check signup parameter values

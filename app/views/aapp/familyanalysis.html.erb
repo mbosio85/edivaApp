@@ -15,40 +15,54 @@
 	
 <div class="row-fluid">
 
-	<div class="span8">
+	<div class="span12">
 
 	<% if @analysisformtype != "1" -%>
 	
 		<div class="Search">
 			<h3>
 				<% if (@numberofsamples.to_i == 3) -%>
-				Trio/Family analysis
+				Causal Variant Prioritization <!--Trio/Family analysis-->
                                 <% elsif (@numberofsamples.to_i == 1) -%> 
                                 Single sample analysis
 				<% else -%>
-				Famlily analysis
+				Causal Variant Prioritization <!--Famlily analysis-->
 				<% end -%>
 			</h3>	
 			<br/>
+			<p>
+				eDiVA's causal variant prioritization identifies candidate variants based on eDiVa's 
+				pathogenicity score, in-silico disease gene panels generated according to the provided 
+				HPO phenotype terms and the correct segregation according to the following inheritance models:
+			<!--
 			<dd>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list  </dd>
 			<dd>of candidate variants for monogenic mendelian diseases. It will proceed to filter the variants in </dd>
 			<dd>agreement with the chosen inheritance pattern among
                                </dd>
-			<br/>		
+			<br/>
+			-->		
 			<ul>
+				<li>Autosomal dominant de novo</li>
+				<li>Autosomal dominant inherited</li>
+				<li>Autosomal recessive homozygous</li>
+				<li>Autosomal compound heterozygous (only for trios)</li>
+				<li>X-linked</li>
+				<!--
 				<li>Dominant_denovo</li>
 				<li>Dominant_inherited</li>
 				<li>Recessive</li>
 				<li>Xlinked</li>
 				<li>Compound [only for trios]</li>
                                 <li>All [all available analyses are performed and only one set of results is produced]</li>
+                -->                
 			</ul>
+			Selecting the option "All" will generate results for all 5 inheritance modes presented in separate sheets of one Excel file.
 			<br/>
 
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
 
 				<table class="table table-striped">
-					<th colspan="2" class="tablecol2">Global parameters</th>
+					<th colspan="2" class="tablecol2">Analysis Options<!--Global parameters--></th>
 					<br/>
 				<thead>
 				</thead>					
@@ -56,7 +70,7 @@
 		   			<% if @files.length > 0 -%>
 		   			<tr>
 		   			<td class="tablecol4">
-						Merged Annoatated and Ranked file: </td>
+						Input File<!--Merged Annoatated and Ranked file-->: </td>
 					<td class="tablecol4">	
 						<%= params[:selectedFile]%>
 						<%= hidden_field_tag "selectedFileMerged", params[:selectedFile] %> </td>
@@ -81,12 +95,12 @@
 					<% end -%>	
 					<tr>
 						<td class="tablecol4">
-						Select Inheritence Type: </td>
+						Disease inheritance pattern: <!--Select Inheritence Type:--> </td>
 						<td class="tablecol4"><%= select_tag "inheritenceType", options_for_select(@inhTypes) %></td>
 					</tr>
 					<tr>
 						<td class="tablecol4">
-						Select Family Type: </td>
+						Segregation analysis in: <!--Select Family Type:--> </td>
 						<td class="tablecol4"><%= select_tag "familyType", options_for_select(@famTypes) %></td>
 					</tr>
 				</tbody>				
@@ -95,15 +109,16 @@
 				<br/>
 				
 				<table class="table table-striped">
-					<th colspan="2" class="tablecol2">Global parameters</th>
+					<!--<th colspan="2" class="tablecol2">Global parameters</th>
 					<br/>
+					--></br/>
 				<thead>
 	
 				</thead>					
 				<tbody>	
 					<tr>
 						<th colspan="2"  class="tablecol2">
-							Samples to analyze
+							Sample information <!--Samples to analyze-->
 							
 						</th>
 						
@@ -161,9 +176,17 @@
 						</td>
 				</tr>
 				<tr> -->
-					<td class="tablecol4">
-						<%= submit_tag "eDiVA Standard Analysis",  :class => 'btn btn-primary btn-large' %>
+					<td>
+						<%= check_box_tag :geneexclusionlist, "1",true %>Exclude blacklisted genes (List of frequent false positive genes obtained from DOI: 10.1002/humu.22035)
+					</td>	
+					<td>
 					</td>
+				</tr>
+				<tr>		
+					<td class="tablecol4">
+						<%= submit_tag "Submit",  :class => 'btn btn-primary btn-large' %> <!--eDiVA Standard Analysis>-->
+					</td>
+					<td></td>
 <!--					<td class="tablecol4">
 						<%= submit_tag "eDiVA Strict Analysis",  :class => 'btn btn-primary btn-large' %>
 					</td> -->
@@ -171,7 +194,7 @@
 				</tr>
 				</tbody>				
 				</table>	
-				<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
+
 				<br/>
 				
 				<p>This service/product is using the Human Phenotype Ontology (<em>version information</em>). Find out more at <a href="www.human-phenotype-ontology.org">www.human-phenotype-ontology.org</a>.</p>
@@ -185,12 +208,42 @@
 		<div class="Search">
 			<h2>
 				<% if (@numberofsamples.to_i == 3) -%>
-				Trio/Family analysis
+				Causal Variant Prioritization<!--Trio/Family analysis-->
 				<% else -%>
-				Famlily analysis
+				Causal Variant Prioritization<!--Famlily analysis-->
 				<% end -%>
 			</h2>	
-		
+			
+			<p>
+				eDiVA's causal variant prioritization identifies candidate variants based on eDiVa's 
+				pathogenicity score, in-silico disease gene panels generated according to the provided 
+				HPO phenotype terms and the correct segregation according to the following inheritance models:
+			<!--
+			<dd>The eDiVa multi-sample analysis will analyze samples from a family and will report the prioritized list  </dd>
+			<dd>of candidate variants for monogenic mendelian diseases. It will proceed to filter the variants in </dd>
+			<dd>agreement with the chosen inheritance pattern among
+                               </dd>
+			<br/>
+			-->		
+			<ul>
+				<li>Autosomal dominant de novo</li>
+				<li>Autosomal dominant inherited</li>
+				<li>Autosomal recessive homozygous</li>
+				<li>Autosomal compound heterozygous (only for trios)</li>
+				<li>X-linked</li>
+				<!--
+				<li>Dominant_denovo</li>
+				<li>Dominant_inherited</li>
+				<li>Recessive</li>
+				<li>Xlinked</li>
+				<li>Compound [only for trios]</li>
+                                <li>All [all available analyses are performed and only one set of results is produced]</li>
+                -->                
+			</ul>
+			Selecting the option "All" will generate results for all 5 inheritance modes presented in separate sheets of one Excel file.
+			<br/>
+			
+			<!--
 			<h4>
 				Steps to be performed: VCF Annotation -> Variants Ranking -> Trio/Family Analysis
 			</h4>	
@@ -208,7 +261,7 @@
 				<li>Compound [only for trios]</li>
 			</ul>
 			<br/>
-			
+			--></br/>
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilySeparate'},:multipart => true) do %>
 
 				<table class="table table-striped">
@@ -255,7 +308,7 @@
 
 						<tr>
 							<td class="tablecol4">
-								Select Inheritence Type:
+								Disease inheritance pattern:<!--Select Inheritence Type:-->
 							</td>
 							<td class="tablecol4">
 								 <%= select_tag "inheritenceType", options_for_select(@inhTypes) %>
@@ -265,7 +318,7 @@
 						</tr>
 						<tr>
 							<td class="tablecol4">
-								Select Family Type: 
+								Segregation analysis in:<!--Select Family Type:--> 
 							</td>
 							<td class="tablecol4">
 								 <%= select_tag "familyType", options_for_select(@famTypes) %>
@@ -275,7 +328,7 @@
 						</tr>						
 						<tr>
 							<td colspan="4">
-							<%= check_box_tag :geneexclusionlist, "1",true %> Exclude genes from the Gene Exclusion List <i>(Analysis of DNA sequence variants detected by high-throughput sequencing; DOI: 10.1002/humu.22035)</i></br></br>
+							<%= check_box_tag :geneexclusionlist, "1",true %> Exclude blacklisted genes (List of frequent false positive genes obtained from DOI: 10.1002/humu.22035)
 							<br/>
 							</td>
 						</tr>
@@ -284,7 +337,7 @@
 				
 				<br/>
 				
-				<%= submit_tag "Start Analysis",  :class => 'btn btn-primary btn-large' %>
+				<%= submit_tag "Submit",  :class => 'btn btn-primary btn-large' %>
        	   <% end %>
 		</div>	
 
