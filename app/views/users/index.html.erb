@@ -140,7 +140,8 @@
 		</tr>
 		<tr>
 			<th>
-				<%= check_box_tag :acceptLicense, "1", false  %> I have read the <%= link_to "eDiVA Express Terms", "#modalTermsConditions", "data-toggle" => "modal" %> and I agree to accept its terms and conditions.
+				<%= check_box_tag :acceptLicense, "1", false  %> I have read the <%= link_to "eDiVA Express Terms", controller: "users", action: "EULA"%> 
+				and I agree to accept its terms and conditions.
 			</th>
 		</tr>		
 		<tr> <th>  <b> &nbsp; </b>	</th> </tr>

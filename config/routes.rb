@@ -3,14 +3,15 @@ EdivaApp::Application.routes.draw do
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'users#index'
   match "index", :to => 'users#index'  #Actual home page of ediva
+  match "EULA", :to => 'users#EULA'
+  match "about", :to => 'users#about'
+  match "contact", :to => 'users#contact'
   match "home", :to => 'eapp#home'
   match "analysis", :to => 'aapp#analysis'
   match "annotate", :to => 'aapp#annotate'
   match "rank", :to => 'aapp#rank'
   match "familyanalysis", :to => 'aapp#familyanalysis'
   match "familyanalysissamples", :to => 'aapp#familyanalysissamples'
-  match "about", :to => 'aapp#about'
-  match "contact", :to => 'aapp#contact'
   match "docs", :to => 'aapp#docs'
   
   # The priority is based upon order of creation:

@@ -62,9 +62,11 @@
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
 
 				<table class="table table-striped">
-					<th colspan="2" class="tablecol2">Analysis Options<!--Global parameters--></th>
-					<br/>
+					
 				<thead>
+					<tr>
+						<th colspan="2" class="tablecol2">Analysis Options<!--Global parameters--></th>	
+					</tr>
 				</thead>					
 				<tbody>
 		   			<% if @files.length > 0 -%>
@@ -111,18 +113,16 @@
 				<table class="table table-striped">
 					<!--<th colspan="2" class="tablecol2">Global parameters</th>
 					<br/>
-					--></br/>
+					-->
 				<thead>
-	
-				</thead>					
-				<tbody>	
 					<tr>
 						<th colspan="2"  class="tablecol2">
 							Sample information <!--Samples to analyze-->
 							
 						</th>
-						
-					</tr>
+					</tr>	
+				</thead>					
+				<tbody>	
 					<tr>
 						<td class="tablecol4">Sample ID</td>						
 						
@@ -141,8 +141,18 @@
 							
 						</tr>	
 						<% end -%>
-
-				<br/>
+				</tbody>				
+				</table>
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th colspan="2"  class="tablecol2">
+								Disease Phenotypes	
+							</th>
+						</tr>
+					</thead>
+					<tbody>			
 				<!--
 				<tr>
 					<td class="tablecol4">
@@ -157,7 +167,8 @@
 				-->
 				<tr>	
 					<td class="tablecol4">
-						<p>Copy paste HPO terms (one term in each line)</p>
+						<p>Copy-paste HPO term identifiers describing the disease phenotypes (one HPO ID per line). 
+							To generate suitable HPO IDs please use the following website: </p>
 						<ul>
 							<li><%= link_to "Link to HPO term", "http://compbio.charite.de/hpoweb/showterm#", target: '_blank' %></li>
 						</ul>	
