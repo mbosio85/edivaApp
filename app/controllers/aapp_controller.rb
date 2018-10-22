@@ -87,7 +87,7 @@ class AappController < ApplicationController
     @numberofsamples = params[:samplecount]    
 
     if (@numberofsamples.to_i !=3 )
-      @famTypes = ['family']      
+      @famTypes = ['family','None (single case)','trio']      
       @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','all']
       if (@numberofsamples.to_i ==1 )
           @famTypes = ['Single Sample']
