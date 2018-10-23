@@ -202,7 +202,7 @@ class Corelib
       familySNP = 'familySNP.py'
     end
     
-    if params[:commit] != "trio"
+    if params[:familyType] != "trio"
        famType = "family"
     else
        famType = "trio"
