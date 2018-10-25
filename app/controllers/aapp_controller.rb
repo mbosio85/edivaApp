@@ -93,7 +93,7 @@ class AappController < ApplicationController
           @famTypes = ['Single Sample']
       end
     else
-      @famTypes = ['trio','family','None (single case)']
+      @famTypes = ['trio','family']
       @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','compound','all']      
     end
 
