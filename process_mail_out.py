@@ -89,11 +89,12 @@ From:"Ediva Team"<rrahman@ediva.es>
 '''%(email)
       wr.write(header)
       outStr = 'Your command %s \nEnded with Error code %s \nContact us if you do not find the error cause \n\n'%(command, returncode)
+      
       if 'annotate_template.sh' in command:
          fname = command.split(' ')[-1].split('/')[-1]
          outStr ="Hello %s \n\n"%uname
-         outStr+="Your Annotation job for  %s : ended with Error %s.\n"%(fname,returncode)
-         outStr+="Please contact us if you do not manage to solve the error.\n"
+         outStr+="Your Annotation job for  %s : ended with an error.\n"%(fname)
+         outStr+="Please check if the input file format is correct.\nIf the error remains please contact us.\n"
          outStr+="Cheers \neDiVA Team \n\n-- "
       elif  'priorit' in command:
          fname = command.split(' ')[-2].split('/')[-1]
@@ -102,8 +103,8 @@ From:"Ediva Team"<rrahman@ediva.es>
              if ff.endswith('ranked.csv'):
                 fname = ff.split('/')[-1]
          outStr ="Hello %s \n\n"%uname
-         outStr+="Your Prioritization job for  %s : ended with Error %s\n"%(fname,returncode)
-         outStr+="Please contact us if you do not manage to solve the error.\n"
+         outStr+="Your Prioritization job for  %s : ended with an error.\n"%(fname)
+         outStr+="Please check if the input file format is correct.\nIf the error remains please contact us.\n"
          outStr+="Cheers \neDiVA Team \n\n-- "
       
       
