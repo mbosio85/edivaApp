@@ -71,6 +71,13 @@ class AappController < ApplicationController
   end
 
   def familyanalysis
+    if(params[:selectedFile] == nil )
+      redirect_to :analysis
+      flash[:notice] = "you need to have a valid ranked file to prioritize first."
+      flash[:color]= "invalid"                    
+      return
+    end  
+    
     @actions = ['Preview','Download','Delete', 'Empty workspace']
     @samplez = Corelib.extract_sample_names(params[:selectedFile],session[:user])     
     params[:samplecount] = @samplez.length()
@@ -242,8 +249,8 @@ class AappController < ApplicationController
   def actionAnnotate
     
     if(params[:vcf] == nil and params[:fileToAnnotate] == nil)
-      redirect_to :annotate
-      flash[:notice] = "you need to upload a file or select a file from your workspace"
+      redirect_to :analysis
+      flash[:notice] = "you need to upload a valid VCF file or select a file from your workspace"
       flash[:color]= "invalid"                    
       return
     end  
