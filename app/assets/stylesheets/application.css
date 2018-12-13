@@ -48,7 +48,8 @@ body{
         background-color:#E8E8E8;
         border-radius: 2px;
         padding: 20px 0px 20px 0px;
-        text-align: center
+        text-align: center;
+        width: 66%;
 }
 .workspaceactions table td{
 		padding: 5px;
