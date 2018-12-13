@@ -57,6 +57,7 @@
         			<%= form_tag(:controller => 'aapp',:action => 'actionAnnotate') do %>
 	        			Select a vcf file to annotate from your workspace:
 						<%= select_tag "fileToAnnotate", options_for_select(@filesToAnnotate), {:style => "min-width: 200px;"} %>
+						</br>
 						<%= submit_tag 	"Annotate",  :class => 'btn btn-primary btn-large' %>
 					<% end -%>		
         		</p>
