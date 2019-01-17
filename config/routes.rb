@@ -14,6 +14,12 @@ EdivaApp::Application.routes.draw do
   match "familyanalysissamples", :to => 'aapp#familyanalysissamples'
   match "docs", :to => 'aapp#docs'
   
+  #exceptions pages
+  get "/404", :to => "errors#not_found"
+  get "/422", :to => "errors#unacceptable"
+  get "/500", :to => "errors#internal_error"
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
