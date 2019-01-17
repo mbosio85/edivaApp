@@ -1,12 +1,38 @@
 <div class="row-fluid">
 
 	<div class="span12">
+		<div class="Documentation">		
+		</div>
+	</div>
+			
+	<div class="span12">
+		<div class="Documentation">
+		
+			<h3>Account creation</h3>
+			<p>
+				<%= image_tag('accountCreation.png', :style => "border: 1px solid black") %>
+			</p>
+			<p>
+				To create a login, please specify a valid email address and choose a user name and password. The account will be active immediately after signup and can be used to 
+				login to eDiVA. Alternatively, a guest user is available for testing purposes. Data in the guest user workspace may be deleted without warning. The guest account 
+				is not intended for performing analysis on access-restricted data, as any other user can access the results.
+			</p>
+			<p>
+				<b>Guest account:</b>
+				</br>username: <b>guest</b>
+				</br>password: <b>ediva_test</b>
+			</p>
+				
+		</div>
+	</div>
+
+	<div class="span12">
 		<div class="Documentation">
 		
 			<h3>eDiVA’s analysis workspace: running a full disease variant analysis</h3>
-		
-				<%= image_tag('gs1.png', :border => { :width => 2, :color => 'black'}) %>
-	
+			<p>
+				<%= image_tag('gs1.png', :style => "border: 1px solid black") %>
+			</p>
 			<p>
 				eDiVA’s causal variant analysis consists of three steps, 1) uploading the variant file in VCF format, 2) functional annotation of the variants and 
 				ranking by eDiVA’s pathogenicity score, and 3) prioritization using segregation and clinical information (phenotypes). After logging into eDiVa, start 
@@ -18,7 +44,18 @@
 				of the Step 2: Annotate section and press the Submit button. The annotation step will require a few minutes to compute and an email is sent once the step 
 				is finished. You can also press the reload button of the browser after a few minutes and the annotated variant file should appear in the workspace section. 
 				Third, select the annotated variant file in the dropdown menu of the Step 3: Prioritization section and press the Submit button.
-
+			</p>
+			
+			<p>
+				<h4>Example case</h4> 
+				<p>
+					eDiVA comes with an example case for quickly testing the tool with a few clicks. On the homepage please click the button “Load test data” to populate your workspace with a multi-sample VCF file. 
+					Next, please follow the instructions for variant annotation (step 2) and variant prioritization (step 3) as described above.
+					In order to test the prioritization algorithm, we used a healthy trio (CEPH) and spiked in causal disease mutations from ClinVar for three inheritance types: recessive homozygous (Biotinidase deficiency), dominant de novo, (Pallister-Hall syndrome), and compound heterozygous (Familial hypokalemia-hypomagnesemia). In step 3 (prioritization) please use the following subset of the ClinVar reported HPO terms for the respective disease and inheritance types you wish to test:
+					</br> - Recessive homozygous: HP:0000407, HP:0000572, HP:0000648, HP:0001051, HP:0001250, HP:0001251, HP:0001252, HP:0001263, HP:0001987, HP:0002014, HP:0002240, HP:0002506, HP:0008872
+					</br> - Dominant de novo: HP:0000028, HP:0000110, HP:0001360, HP:0001511, HP:0004322, HP:0012165
+					</br> - Compound heterozygous: HP:0000128, HP:0000848, HP:0000934, HP:0001250, HP:0002027, HP:0002900, HP:0002917, HP:0003127, HP:0003324, HP:0003470, HP:0005567 
+					For each inheritance type you can run the prioritization analysis as explained before, specifying NA12878 as affected and NA12891 and NA 12892 as unaffected. Please include the relevant HPO terms in the text field (one HPO ID per line) to run the analysis.
 			</p>
 				
 		</div>
@@ -29,7 +66,7 @@
 		
 			<h3>Causal variant prioritization</h3>
 			<p>
-				<%= image_tag('gs3.png', :border => { :width => 2, :color => 'black' }) %>
+				<%= image_tag('gs3.png', :style => "border: 1px solid black")  %>
 			</p>
 			<p>
 				Pressing the Submit button of Step 3: Prioritization will load a new page for causal variant prioritization analysis. Here please select the inheritance type, or 
@@ -39,7 +76,7 @@
 				choose to exclude or to keep black-listed genes, which are known to frequently show up as false positive candidates. Press the submit button to start the analysis. This 
 				will bring the user back to eDiVA’s workspace page, were the result file of the prioritization will be found after a few minutes of computation. Again, an email is 
 				sent to the user once the computation has been finished.
-				
+			</p>				
 		</div>
 	</div>
 		
