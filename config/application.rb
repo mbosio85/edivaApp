@@ -58,5 +58,8 @@ module EdivaApp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    #attempt to have customized error pages
+    config.exceptions_app = self.routes
   end
 end
