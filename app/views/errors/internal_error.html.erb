@@ -1,0 +1,198 @@
+<head>
+	<link rel="shortcut icon" href="/assets/web_icon.ico” type="image/x-icon">	
+	<link rel="icon" href="/assets/web_icon.ico" type="image/x-icon">
+	
+</head>
+
+<body>
+	
+ <div class="row-fluid">
+ 	<% if flash[:color]== "valid" %>
+		<div class="alert alert-success">
+			<p><%= flash[:notice]%></p>
+		</div>
+	<% elsif flash[:color]== "invalid"%>
+		<div class="alert alert-error">
+			<p><%=flash[:notice]%></p>
+		</div>
+	<% else -%>
+	
+	<%end%>	
+        <div class="alert alert-error">
+             <p>Internal Error : probably due to timeout, please login and rerun your analysis.</p>
+       </div>
+ </div>	
+	
+<div class="row-fluid">		
+	<div class="span6">
+	 <!-- Carousel
+    ================================================== -->
+    
+    <div id="indexCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active" >
+           	<img src="/assets/slide-01.jpg" alt="" >
+           	<div class="container">
+            <div class="carousel-caption"  height="30%">
+              <h1>eDiVa</h1>
+              <h5>An application targeted towards genomic variant annotation, variant ranking using multiple features and family/trio analysis
+              	to uncover potential causal gene(s) from NGS experiments.</h5>
+            </div>
+            </div>
+        </div>
+        
+        <div class="item">
+          <img src="/assets/slide-02.jpg" alt="" >
+			<div class="container">
+            <div class="carousel-caption"  height="30%">
+              <h1>eDiVa Annotation</h1>
+              <h5>Annotate your genomic variants with comprehensive gene annotations and with extensive meta data about  allele frequencies, 
+              	conservation and damage-potential scores.</h5>
+            </div>
+            </div>
+        </div>
+        
+        
+      </div> <!-- carousel inner -->      
+      <a class="left carousel-control" href="#indexCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#indexCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.carousel -->
+	</div>
+
+	<div class="span6">
+	<div class="Search">
+
+	
+	<%= form_tag(:controller => 'users', :action => 'authenticateUser') do %>				
+	<table align="center"  width="75%">
+		<tr>
+  			<th>
+  			  <h2>Get started by logging in</h2>		
+  			</th>
+  		</tr>
+  		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+		<tr>
+			<th>
+				<%= text_field_tag :login_username , nil, :class => "signupPanel" ,:placeholder => "username" %>
+			</th>
+		</tr>
+		<tr>	
+			<th>
+				<%= password_field_tag :login_password, nil,:class => "signupPanel", :placeholder => "password" %>
+			</th>
+		</tr>
+		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+		<tr>
+			<th>
+				<%= submit_tag "Login", :class => 'btn btn-primary btn-large btn-login' %>
+			</th>			
+		</tr>
+  		
+
+	</table>	
+	<% end -%>	
+	
+	
+  	<%= form_tag(:controller => 'users', :action => 'create') do %>
+  	<table align="center"  width="75%" text-align="center">
+  		<tr>
+  			<th>
+  			  <h3>Or signing up</h3>		
+  			</th>
+  		</tr>
+  		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+  		<tr>
+  			<th>
+  				<i>All fields are mandatory</i>
+  			</th>
+  		</tr>
+  		<tr>
+ 			<th>
+ 		    <%= text_field_tag :username,nil,:placeholder => "username", :class => "signupPanel" %> 			 
+			</th>
+		</tr>
+		<tr>
+			<th>
+		    <%= text_field_tag :email,nil,:placeholder => "email", :class => "signupPanel" %>
+		    </th>
+		</tr>
+		<tr>
+			<th>
+		    <%= text_field_tag :organization,nil,:placeholder => "organization", :class => "signupPanel" %>
+		    </th>
+		</tr>
+		<tr>    
+		    <th>
+  			<%= password_field_tag :password, nil, :placeholder => "password" , :class => "signupPanel"%>
+  			</th>
+  		</tr>
+  		<tr>	
+  			<th>
+		    <%= password_field_tag :password_confirmation, nil, :placeholder => "password confirmation" , :class => "signupPanel"%>
+		    </th>
+		</tr>
+		<tr>
+			<th>
+				<%= check_box_tag :acceptLicense, "1", false  %> I have read the <%= link_to "eDiVA Express Terms", controller: "users", action: "EULA"%> 
+				and I agree to accept its terms and conditions.
+			</th>
+		</tr>		
+		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+		<tr>
+			<th>	   
+      		<%= submit_tag "SignUp!" , :class => 'btn btn-medium  btn-custom' %>
+  			</th>
+  		</tr>
+  		
+
+  	</table>	
+  	<% end %>
+  	
+  	
+  	<%= form_tag(:controller => 'users', :action => 'reset_pwd') do %>
+  	<table align="center"  width="75%" text-align="center">
+  		<tr>
+  			<th>
+  			  <a>Forgot your password ? </a>		
+  			</th>
+  		</tr>
+  		<tr> <th>  <b> &nbsp; </b>	</th> </tr>
+		<tr>
+			<th>
+		    <%= text_field_tag :email,nil,:placeholder => "email", :class => "signupPanel" %>
+		    </th>
+		</tr>
+		<tr>
+			<th>	   
+      		<%= submit_tag "Reset password" , :class => 'btn btn-small  btn-custom2' %>
+  			</th>
+  		</tr>
+  		
+
+  	</table>	
+  	<% end %>
+  	
+  	
+  	
+  	
+	</div>
+	</div>
+
+
+
+   <div class="footer">
+   		
+		<table align="center" width="100%">
+			<tr>
+				<td> <a href="http://www.crg.eu"><img src="/assets/crg_logo.png" alt=""  height="50" width="60"> </a>	</td>
+				<td> &nbsp; &nbsp; </td>
+				<td>An application of the <a href="http://www.crg.eu/en/programmes-groups/genomic-and-epigenomic-variation-disease">Ossowski Lab</a> </td>
+				
+				<!--<td> &nbsp; &nbsp; </td>	-->		
+			</tr>	
+		</table>
+    </div>
+
+
+</div>
+</body>
