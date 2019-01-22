@@ -68,6 +68,7 @@ cd $TMPFOLDER
         if [ "$TRIO" == 'Single_sample' ] ; then
 	   OUTCSV='unfiltered.dominant.csv'
 	   OUTCSVF='filtered.dominant.csv'
+	   TRIO='family'
 	else
 	   OUTCSV='unfiltered.dominant_denovo.csv'
 	   OUTCSVF='filtered.dominant_denovo.csv'
@@ -105,6 +106,9 @@ cd $TMPFOLDER
     
  # Recessive
     if [ "$INHERITANCE" == 'recessive' ] || [ "$INHERITANCE" == 'all' ] ; then
+        if [ "$TRIO" == 'Single_sample' ] ; then
+	    TRIO='family'
+	fi
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.recessive.csv \
