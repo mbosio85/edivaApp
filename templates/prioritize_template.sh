@@ -43,7 +43,7 @@ cd $TMPFOLDER
 # run prioritization inheritances:
 
   # compound - only for trio 
-    if [ "$INHERITANCE" == 'compound' ] || [ "$INHERITANCE" == 'all' ] && [ "$TRIO" == 'trio' ] ; then
+    if ( [ "$INHERITANCE" == 'compound' ] && [ "$TRIO" == 'trio' ] )  || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" == 'trio' ] ) ; then
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.compound.csv \
@@ -63,7 +63,7 @@ cd $TMPFOLDER
 
 
 # Dominant denovo
-    if [ "$INHERITANCE" == 'dominant_denovo' ] || [ "$INHERITANCE" == 'all' ] ; then
+    if  [ "$INHERITANCE" == 'dominant_denovo' ] || [ "$INHERITANCE" == 'all' ] || [ "$INHERITANCE" == 'dominant' ] ; then
         echo $INHERITANCE
  
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
@@ -81,7 +81,7 @@ cd $TMPFOLDER
     fi
 
 # Dominant inherited
-    if [ "$INHERITANCE" == 'dominant_inherited' ] || [ "$INHERITANCE" == 'all' ] ; then
+    if ( [ "$INHERITANCE" == 'dominant_inherited' ] && [ "$TRIO" != 'Single Sample' ] )  || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'Single Sample' ] ) ; then
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.dominant_inherited.csv \
@@ -113,7 +113,7 @@ cd $TMPFOLDER
     fi
     
   # Xlinked
-    if [ "$INHERITANCE" == 'Xlinked' ] || [ "$INHERITANCE" == 'all' ] ; then
+    if ( [ "$INHERITANCE" == 'Xlinked' ] && [ "$TRIO" != 'Single Sample' ] ) || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'Single Sample' ] ) ; then
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.Xlinked.csv \
