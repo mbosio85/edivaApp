@@ -68,28 +68,29 @@ cd $TMPFOLDER
         if [ "$TRIO" == 'Single_sample' ] ; then
 	   OUTCSV='unfiltered.dominant.csv'
 	   OUTCSVF='filtered.dominant.csv'
-	   TRIO='family'
+	   MYTRIO='family'
 	else
 	   OUTCSV='unfiltered.dominant_denovo.csv'
 	   OUTCSVF='filtered.dominant_denovo.csv'
+           MYTRIO=$TRIO
 	       
 	fi
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
-            --outfile unfiltered.dominant_denovo.csv \
-            --filteredoutfile filtered.dominant_denovo.csv \
+            --outfile $OUTCSV \
+            --filteredoutfile $OUTCSVF \
             --family family.txt \
             --inheritance dominant_denovo \
-            --familytype $TRIO \
+            --familytype $MYTRIO \
             --HPO_list $HPO \
             $EXCLUSIONLIST  \
             >> .job.log 2>&1
         
-        zip -ur prioritization_analysis.zip filtered.dominant_denovo.csv unfiltered.dominant_denovo.csv
+        zip -ur prioritization_analysis.zip $OUTCSV $OUTCSVF
     fi
 
 # Dominant inherited
-    if ( [ "$INHERITANCE" == 'dominant_inherited' ] && [ "$TRIO" != 'Single Sample' ] )  || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'Single Sample' ] ) ; then
+    if ( [ "$INHERITANCE" == 'dominant_inherited' ] && [ "$TRIO" != 'Single_sample' ] )  || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'Single_sample' ] ) ; then
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.dominant_inherited.csv \
@@ -99,7 +100,7 @@ cd $TMPFOLDER
             --familytype $TRIO \
             --HPO_list $HPO \
             $EXCLUSIONLIST  \
-           >> .job.log 2>&1
+            >> .job.log 2>&1
         
         zip -ur prioritization_analysis.zip filtered.dominant_inherited.csv unfiltered.dominant_inherited.csv
     fi
@@ -107,7 +108,9 @@ cd $TMPFOLDER
  # Recessive
     if [ "$INHERITANCE" == 'recessive' ] || [ "$INHERITANCE" == 'all' ] ; then
         if [ "$TRIO" == 'Single_sample' ] ; then
-	    TRIO='family'
+	    MYTRIO='family'
+        else
+            MYTRIO=$TRIO
 	fi
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
@@ -115,7 +118,7 @@ cd $TMPFOLDER
             --filteredoutfile filtered.recessive.csv \
             --family family.txt \
             --inheritance recessive \
-            --familytype $TRIO \
+            --familytype $MYTRIO \
 	    --HPO_list $HPO \
             $EXCLUSIONLIST  \
             >> .job.log 2>&1
@@ -124,7 +127,7 @@ cd $TMPFOLDER
     fi
     
   # Xlinked
-    if ( [ "$INHERITANCE" == 'Xlinked' ] && [ "$TRIO" != 'Single Sample' ] ) || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'Single Sample' ] ) ; then
+    if ( [ "$INHERITANCE" == 'Xlinked' ] && [ "$TRIO" != 'Single_sample' ] ) || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'Single_sample' ] ) ; then
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.Xlinked.csv \
