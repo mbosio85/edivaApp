@@ -65,7 +65,7 @@ cd $TMPFOLDER
 # Dominant denovo
     if  [ "$INHERITANCE" == 'dominant_denovo' ] || [ "$INHERITANCE" == 'all' ] || [ "$INHERITANCE" == 'dominant' ] ; then
         echo $INHERITANCE
-        if [ "$TRIO" == 'Single sample' ] ; then
+        if [ "$TRIO" == 'Single_sample' ] ; then
 	   OUTCSV='unfiltered.dominant.csv'
 	   OUTCSVF='filtered.dominant.csv'
 	else
