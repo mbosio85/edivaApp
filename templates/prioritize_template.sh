@@ -65,7 +65,14 @@ cd $TMPFOLDER
 # Dominant denovo
     if  [ "$INHERITANCE" == 'dominant_denovo' ] || [ "$INHERITANCE" == 'all' ] || [ "$INHERITANCE" == 'dominant' ] ; then
         echo $INHERITANCE
- 
+        if [ "$TRIO" == 'Single sample' ] ; then
+	   OUTCSV='unfiltered.dominant.csv'
+	   OUTCSVF='filtered.dominant.csv'
+	else
+	   OUTCSV='unfiltered.dominant_denovo.csv'
+	   OUTCSVF='filtered.dominant_denovo.csv'
+	       
+	fi
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.dominant_denovo.csv \
