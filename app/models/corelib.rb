@@ -203,10 +203,11 @@ class Corelib
     end
     
     if params[:familyType] != "trio"
+      famType = "family"
       if params[:familyType] != "family"
         famType = "Single_sample"
       end
-       famType = "family"
+       
     else
        famType = "trio"
     end
