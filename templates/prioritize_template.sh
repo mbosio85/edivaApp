@@ -43,8 +43,8 @@ touch $TMPFOLDER/$HPO
 cd $TMPFOLDER
 # run prioritization inheritances:
 
-  # compound - only for trio 
-    if ( [ "$INHERITANCE" == 'compound' ] && [ "$TRIO" == 'trio' ] )  || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" == 'trio' ] ) ; then
+  # compound - only for trio and single sample
+    if ( [ "$INHERITANCE" == 'compound' ] && [ "$TRIO" != 'family' ] )  || ( [ "$INHERITANCE" == 'all' ] && [ "$TRIO" != 'family' ] ) ; then
         python $HOMEDIR/edivatools-code/Prioritize/familySNP_gene_score.py \
             --infile input.csv \
             --outfile unfiltered.compound.csv \
@@ -59,7 +59,6 @@ cd $TMPFOLDER
          zip -ur prioritization_analysis.zip filtered.compound.csv unfiltered.compound.csv
 
     fi
-
 
 
 
