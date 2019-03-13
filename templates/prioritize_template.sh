@@ -51,7 +51,7 @@ cd $TMPFOLDER
             --filteredoutfile filtered.compound.csv \
             --family family.txt \
             --inheritance compound \
-            --familytype $TRIO \
+            --familytype trio \
             --HPO_list $HPO \
             $EXCLUSIONLIST  \
        >> .job.log 2>&1
@@ -152,6 +152,6 @@ cd $TMPFOLDER
    OUTNAME=${BASENAME%.sorted.annotated.ranked.csv*} 
    cp $TMPFOLDER/prioritization_analysis.zip $HOMEDIR/userspace/$USERNAME/$OUTNAME.$INHERITANCE.prioritization.zip
 # clean up tmpdir
-   rm -r $TMPFOLDER/
+#   rm -r $TMPFOLDER/
   
 
