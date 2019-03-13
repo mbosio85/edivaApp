@@ -191,7 +191,7 @@ class Corelib
   end    
   
 
-  def self.familyActionsMerged(params,user,hpoTermFileName)
+  def self.familyActionsMerged(params,user,hpoTermFileName, blacklist)
 
     valMsg = nil
     
@@ -283,12 +283,18 @@ class Corelib
              else
                  commands = commands + "touch /tmp/" + tmpdir + "/.hpo.txt \n "  
              end
-
-             commands = commands + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/prioritize_template.sh " + " " + tmpdir + " " + user + " " + params[:inheritenceType]   + " " + famType +
-                        "  userspace/" + user + "/" +  mergedAnnotationFile 
+             
+             #blacklist step:
+             commands = commands +  "cp userspace/" + user + "/" + blacklist + " /tmp/" + tmpdir + "/.blacklist.txt \n"
              if (params[:geneexclusionlist] == "1")
-                 commands = commands + "  edivatools-code/Resource/gene_exclusion_list.txt "
+               commands = commands + "cat  edivatools-code/Resource/gene_exclusion_list.txt >> /tmp/" + tmpdir + "/.blacklist.txt \n"
              end
+             
+             commands = commands + "/home/rrahman/soft/ts-0.7.5/ts -N 1 sh templates/prioritize_template.sh " + " " + tmpdir + " " + user + " " + params[:inheritenceType]   + " " + famType +
+                        "  userspace/" + user + "/" +  mergedAnnotationFile + " /tmp/" + tmpdir + "/.blacklist.txt \n"
+             ##if (params[:geneexclusionlist] == "1")
+             ##    commands = commands + "  edivatools-code/Resource/gene_exclusion_list.txt "
+             ##end
 
 ##          end
 
