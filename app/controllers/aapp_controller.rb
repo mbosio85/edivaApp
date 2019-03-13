@@ -191,6 +191,19 @@ class AappController < ApplicationController
       end 
     end 
     
+    
+    ## write custom blacklist genes
+    blacklist = ".blacklist_tmp.txt"
+    File.open("userspace/" + session[:user] + "/" + hpoTermsfilename, "w") do |file|
+      if params[:blacklist] != ""
+        terms = params[:blacklist].split("\r\n")
+       for term in terms
+         file.write(term + "\n")
+       end
+      end 
+    end 
+    
+    
    # if(params[:vcf] == nil )
    #   redirect_to :familyanalysissamples
    #   flash[:notice] = "you need select a file from your workspace."
@@ -199,7 +212,7 @@ class AappController < ApplicationController
    # end  
     
     
-    @msg = Corelib.familyActionsMerged(params,session[:user],hpoTermsfilename)
+    @msg = Corelib.familyActionsMerged(params,session[:user],hpoTermsfilename,blacklist)
 
     if @msg == "jobsubmitted"
       redirect_to :analysis
