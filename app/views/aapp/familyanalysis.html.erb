@@ -210,7 +210,7 @@
 				</tr>
 			        <tr>	
 					<td class="tablecol4">
-						<p>Copy-paste gene symbols (one per line) to remove from the output list as likely false positives. e.g. BRCA1</p>
+						<p>Copy-paste gene symbols, e.g. TTN (one per line, following HGNC naming conventions found at <a href="https://www.genenames.org/">https://www.genenames.org/</a> ). Genes will be removed from the output list as likely false positives.</p>
 					</td>
 					<td class="tablecol4">
 						<%= text_area_tag 'blacklist', nil, rows: 5, cols: 40 %>
