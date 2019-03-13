@@ -186,14 +186,26 @@
 				<td class="tablecol4">
 						
 						</td>
-				</tr>
-				<tr> -->
+				</tr> -->
+				<tr> 
 					<td>
 						<%= check_box_tag :geneexclusionlist, "1",true %>Exclude blacklisted genes (List of frequent false positive genes obtained from DOI: 10.1002/humu.22035)
 					</td>	
 					<td>
 					</td>
 				</tr>
+			        <tr>	
+					<td class="tablecol4">
+						<p>Copy-paste gene symbols (one per line) to remove from the output list as likely false positives. e.g. BRCA1</p>
+					</td>
+					<td class="tablecol4">
+						<%= text_area_tag 'blacklist', nil, rows: 5, cols: 40 %>
+					</td>
+					
+				</tr>
+						
+						
+						
 				<tr>		
 					<td class="tablecol4">
 						<%= submit_tag "Submit",  :class => 'btn btn-primary btn-large' %> <!--eDiVA Standard Analysis>-->
