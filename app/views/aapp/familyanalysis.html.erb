@@ -57,7 +57,12 @@
                                 <li>All [all available analyses are performed and only one set of results is produced]</li>
                 -->                
 			</ul>
-			Selecting the option "All" will generate results for all 5 inheritance modes presented in separate sheets of one Excel file.
+			Selecting the option "All" will generate results for all available inheritance modes presented in separate sheets of one Excel file.
+			
+			<% if (@numberofsamples.to_i == 1) -%>
+			<p style="color:red;">Compound for Single sample analysis is a simple filter on Dominant list, selecting those genes with at least two mutations in the same gene. Beware that these may not be true compound heterozygous mutations.</p>
+			<% end -%>
+			
 			<br/>
 
 			<%= form_tag({:controller => 'aapp',:action => 'actionFamilyMerged'},:multipart => true) do %>
