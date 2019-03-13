@@ -194,7 +194,7 @@ class AappController < ApplicationController
     
     ## write custom blacklist genes
     blacklist = ".blacklist_tmp.txt"
-    File.open("userspace/" + session[:user] + "/" + hpoTermsfilename, "w") do |file|
+    File.open("userspace/" + session[:user] + "/" + blacklist, "w") do |file|
       if params[:blacklist] != ""
         terms = params[:blacklist].split("\r\n")
        for term in terms
