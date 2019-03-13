@@ -18,6 +18,7 @@ export BASENAME=$(basename $INFILE)
 if [[ ! -z "$6" ]] ; then
 
    export EXCLUSIONLIST="--geneexclusion "$HOMEDIR/$6
+   export EXCLUSIONLIST="--geneexclusion "$6
 
 fi
 echo $TMPFOLDER
