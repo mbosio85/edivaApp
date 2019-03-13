@@ -98,7 +98,7 @@ class AappController < ApplicationController
       @inhTypes = ['dominant_denovo','dominant_inherited','recessive','Xlinked','all']
       if (@numberofsamples.to_i ==1 )
           @famTypes = ['Single Sample']
-          @inhTypes = ['dominant','recessive','all']
+          @inhTypes = ['dominant','recessive','compound','all']
       end
     else
       @famTypes = ['trio','family']
