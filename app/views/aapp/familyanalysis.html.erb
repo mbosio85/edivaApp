@@ -60,7 +60,7 @@
 			Selecting the option "All" will generate results for all available inheritance modes presented in separate sheets of one Excel file.
 			
 			<% if (@numberofsamples.to_i == 1) -%>
-			<p style="color:red;">Compound for Single sample analysis is a simple filter on Dominant list, selecting those genes with at least two mutations in the same gene. Beware that these may not be true compound heterozygous mutations.</p>
+			<p style="color:red;">Warning: The analysis of compound heterozygous variants using single samples cannot determine if the two heterozygous variants reside on different alleles or the same allele. Therefore, compound heterozygous segregation needs to be validated in parental DNA.</p>
 			<% end -%>
 			
 			<br/>
