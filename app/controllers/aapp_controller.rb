@@ -3,7 +3,7 @@ class AappController < ApplicationController
   before_filter :authenticate_user, :only => [:analysis]
 
   def analysis
-    
+     
     wspace = "userspace" + "/" + session[:user]
     
     if (!File.directory?(wspace))
